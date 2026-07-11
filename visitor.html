@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WOHOURS 訪客登記</title>
+  <link rel="stylesheet" href="css/visitor.css?v=99999999">
+  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260710-caps-fit">
+  <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
+</head>
+<body>
+  <main class="visitor-stage" aria-label="WOHOURS 訪客登記">
+    <section class="visitor-screen">
+      <div class="visitor-bg" aria-hidden="true"></div>
+      <aside class="photo-strip" aria-hidden="true"></aside>
+
+      <header class="visitor-topbar">
+        <a class="back-home" href="homepage-ui.html" aria-label="返回首頁">
+          <svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+          <span>返回首頁</span>
+        </a>
+        <div class="visitor-logo" aria-label="WOHOURS">
+          <img src="images/logo.png" alt="WOHOURS">
+        </div>
+        <div class="visitor-status">
+          <button class="visitor-bell" type="button" aria-label="通知">
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+            <i></i>
+          </button>
+          <div class="visitor-clock">
+            <strong id="visitorTime">09:30</strong>
+            <span id="visitorDate">06/05 (四)</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="visitor-content">
+        <form class="visitor-form" id="visitorForm" novalidate>
+          <p class="kicker">VISITOR REGISTRATION</p>
+          <div class="title-row">
+            <i></i>
+            <h1>訪客登記</h1>
+          </div>
+          <p class="form-subtitle">請填寫以下資訊以完成登記</p>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>訪客姓名 <b>*</b></span>
+              <div class="input-shell">
+                <input name="visitorName" type="text" placeholder="請輸入您的姓名" autocomplete="name" required>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>聯絡電話 <b>*</b></span>
+              <div class="input-shell">
+                <input name="visitorPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="請輸入手機號碼" autocomplete="tel" required>
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6.27 6.27l1.29-1.28a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92Z"/></svg>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>來訪公司 / 單位</span>
+              <div class="input-shell">
+                <input type="text" placeholder="請輸入公司或單位名稱">
+                <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"/></svg>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>來訪對象 <b>*</b></span>
+              <div class="input-shell">
+                <div class="custom-select" data-name="visitorTarget">
+                  <button type="button" class="select-trigger">
+                    <span>請選擇來訪對象</span>
+                    <i></i>
+                  </button>
+
+                  <ul class="select-menu">
+                    <li data-value="林佳穎">林佳穎</li>
+                    <li data-value="張志明">張志明</li>
+                    <li data-value="王小美">王小美</li>
+                    <li data-value="李承翰">李承翰</li>
+                  </ul>
+
+                  <input type="hidden" name="visitorTarget" required>
+                </div>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                <em></em>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>來訪事由 <b>*</b></span>
+              <div class="input-shell">
+                <div class="custom-select" data-name="visitReason">
+                  <button type="button" class="select-trigger">
+                    <span>請選擇來訪事由</span>
+                    <i></i>
+                  </button>
+
+                  <ul class="select-menu">
+                    <li data-value="會議洽談">會議洽談</li>
+                    <li data-value="設備維修">設備維修</li>
+                    <li data-value="文件遞送">文件遞送</li>
+                    <li data-value="其他">其他</li>
+                  </ul>
+
+                  <input type="hidden" name="visitReason" required>
+                </div>
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+                <em></em>
+              </div>
+            </label>
+
+            <fieldset class="field visitor-count">
+              <legend>來訪人數 <b>*</b></legend>
+              <div class="count-options" role="radiogroup" aria-label="來訪人數">
+                <button class="is-selected" type="button" aria-pressed="true" data-count="single">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                  單人
+                </button>
+                <button type="button" aria-pressed="false" data-count="2">2 人</button>
+                <button type="button" aria-pressed="false" data-count="3">3 人</button>
+                <button type="button" aria-pressed="false" data-count="many">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  多人
+                </button>
+              </div>
+              <p class="count-hint">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                多人時請選擇「多人」，再輸入詳細人數
+              </p>
+            </fieldset>
+
+            <label class="field field-wide">
+              <span>預計離開時間 <b>*</b></span>
+              <div class="input-shell">
+                <div class="custom-select" data-name="leaveTime">
+                  <button type="button" class="select-trigger">
+                    <span>請選擇預計離開時間</span>
+                    <i></i>
+                  </button>
+
+                  <ul class="select-menu">
+                    <li data-value="30 分鐘內">30 分鐘內</li>
+                    <li data-value="1 小時內">1 小時內</li>
+                    <li data-value="2 小時內">2 小時內</li>
+                    <li data-value="半日以上">半日以上</li>
+                  </ul>
+
+                  <input type="hidden" name="leaveTime" required>
+                </div>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <em></em>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button class="reset-button" type="reset">
+              <img class="reset-icon-img" src="images/重新填寫.png" alt="">
+              <span>重新填寫</span>
+            </button>
+            <button class="submit-button" type="submit">
+              確認登記
+              <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <aside class="notice-card" aria-label="來訪須知">
+          <h2>來訪須知</h2>
+          <i class="notice-line"></i>
+          <ul>
+            <li>
+              <img src="images/出示證件.png" alt="">
+              <span><strong>請出示證件</strong><small>到訪時請出示有效證件以利登記作業。</small></span>
+            </li>
+            <li>
+              <img src="images/全程配戴訪客證.png" alt="">
+              <span><strong>全程配戴訪客證</strong><small>訪客證請全程配戴，並於離開時交還櫃台。</small></span>
+            </li>
+            <li>
+              <img src="images/拍照.png" alt="">
+              <span><strong>場所內請勿拍照</strong><small>為維護安全，場所內請勿拍照或錄影。</small></span>
+            </li>
+            <li>
+              <img src="images/個資.png" alt="">
+              <span><strong>個資安全</strong><small>您的資料僅供來訪登記使用，將依規定妥善保管。</small></span>
+            </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="visitor-feedback" id="visitorFeedback" aria-hidden="true" hidden>
+        <div class="feedback-card" role="status" aria-live="polite">
+          <div class="feedback-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <p>VISITOR REGISTRATION</p>
+          <h2>登記完成</h2>
+          <span id="feedbackMessage">已完成訪客登記，請至櫃台領取訪客證。</span>
+          <button id="feedbackClose" type="button">完成</button>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/visitor.js?v=20240605"></script>
+  <script src="js/touch-keyboard.js?v=20260710-caps-fit"></script>
+  <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+</body>
+</html>

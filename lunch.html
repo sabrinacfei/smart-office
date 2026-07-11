@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WOHOURS 預約便當</title>
+  <link rel="stylesheet" href="css/lunch.css">
+  <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
+  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260710-caps-fit">
+</head>
+<body>
+  <main class="lunch-stage">
+    <section class="lunch-screen">
+      <div class="lunch-bg" aria-hidden="true"></div>
+
+      <header class="lunch-header">
+        <a class="lunch-logo" href="homepage-ui.html" aria-label="返回首頁">
+          <img src="images/logo.png" alt="WOHOURS">
+        </a>
+        <div class="header-title">
+          <strong>預約便當</strong>
+          <span>MEAL BOOKING</span>
+        </div>
+        <div class="lunch-status">
+          <button class="lunch-bell" type="button" aria-label="通知">
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+            <i></i>
+          </button>
+          <div class="lunch-clock">
+            <strong id="lunchTime">08:41</strong>
+            <span id="lunchDate">07/06（一）</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="lunch-content">
+        <div class="stepbar" aria-label="預約流程">
+          <span class="active" data-step="store">1 選擇店家</span>
+          <span data-step="meal">2 選擇餐點</span>
+          <span data-step="checkout">3 填寫備註</span>
+          <span data-step="done">4 訂單完成</span>
+        </div>
+
+        <section class="view active" id="storeView">
+          <a class="mini-back store-back-home" href="homepage-ui.html">‹ 返回首頁</a>
+          <div class="section-title">
+            <small>TODAY MENU</small>
+            <h1>請選擇今日便當店家</h1>
+            <p>選好店家後，再挑選品項與數量。</p>
+          </div>
+          <div class="vendor-grid" id="vendorGrid"></div>
+        </section>
+
+        <section class="view" id="mealView">
+          <button class="mini-back" id="backStore" type="button">‹ 返回店家</button>
+          <div class="meal-layout">
+            <section class="menu-panel">
+              <small id="storeTag">日式丼飯</small>
+              <h1 id="storeName">花火丼飯</h1>
+              <p id="storeDesc">現做日式丼飯，醬汁濃郁，適合午餐快速取餐。</p>
+              <div class="menu-list" id="menuList"></div>
+            </section>
+
+            <aside class="cart-panel">
+              <header>
+                <h2>我的訂單</h2>
+                <span id="cartCount">0 項</span>
+              </header>
+              <div class="cart-list" id="cartList"><p class="empty-cart">尚未選擇餐點</p></div>
+              <label class="cart-note">
+                <span>備註</span>
+                <textarea id="orderNote" placeholder="例如：飯少、不要辣、餐具需求"></textarea>
+              </label>
+              <div class="cart-total">
+                <span>小計</span>
+                <strong id="cartTotal">$0</strong>
+              </div>
+              <button class="primary-btn" id="submitOrder" type="button" disabled>確認送出訂單</button>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view payment-view success-view" id="reserveSuccessView">
+          <div class="success-icon">✓</div>
+          <h1>預約成功！</h1>
+          <p>您的便當已成功預約。</p>
+          <div class="summary-card-pay" id="reserveSummary"></div>
+          <button class="primary-btn wide" id="goPayment" type="button">前往付款</button>
+        </section>
+
+        <section class="view payment-view employee-kiosk-view" id="employeeView">
+          <button class="mini-back payment-back" id="backReserve" type="button">‹ 返回訂單</button>
+          <h1>請輸入工號以完成付款</h1>
+          <p>請使用下方數字鍵盤輸入員工編號</p>
+          <input class="employee-input" id="employeeId" placeholder="請輸入您的工號" inputmode="numeric" readonly>
+          <div class="number-pad" id="numberPad" aria-label="數字鍵盤">
+            <button type="button" data-key="1">1</button>
+            <button type="button" data-key="2">2</button>
+            <button type="button" data-key="3">3</button>
+            <button type="button" data-key="4">4</button>
+            <button type="button" data-key="5">5</button>
+            <button type="button" data-key="6">6</button>
+            <button type="button" data-key="7">7</button>
+            <button type="button" data-key="8">8</button>
+            <button type="button" data-key="9">9</button>
+            <button type="button" data-key="clear">清除</button>
+            <button type="button" data-key="0">0</button>
+            <button type="button" data-key="backspace">⌫</button>
+          </div>
+          <button class="primary-btn wide" id="finishEmployee" type="button">完成</button>
+        </section>
+
+        <section class="view payment-view face-verify-view" id="faceVerifyView">
+          <button class="mini-back payment-back" id="backFaceVerify" type="button">‹ 返回工號</button>
+          <h1>人臉識別確認</h1>
+          <p>請面向鏡頭完成員工身分確認</p>
+          <div class="face-demo-frame">
+            <div class="face-camera">
+              <video id="lunchFaceVideo" autoplay playsinline muted></video>
+              <span></span>
+              <i></i>
+              <b></b>
+            </div>
+            <small id="faceEmployeeLabel">工號確認中</small>
+          </div>
+          <button class="primary-btn wide" id="confirmFaceVerify" type="button">確認身分</button>
+        </section>
+
+        <section class="view payment-view method-view" id="methodView">
+          <button class="mini-back payment-back" id="backEmployee" type="button">‹ 返回工號</button>
+          <h1>選擇付款方式</h1>
+          <div class="method-grid">
+            <button class="method-card" type="button" data-method="card">
+              <img src="images/信用卡.png" alt="信用卡" onerror="this.style.display='none'">
+              <strong>信用卡付款</strong>
+              <small>信用卡 / Apple Pay / Google Pay</small>
+            </button>
+            <button class="method-card" type="button" data-method="online">
+              <img src="images/線上支付.png" alt="線上支付" onerror="this.style.display='none'">
+              <strong>線上支付</strong>
+              <small>街口 / LINE Pay</small>
+            </button>
+            <button class="method-card" type="button" data-method="salary">
+              <img src="images/從薪水扣.png" alt="從薪水扣除" onerror="this.style.display='none'">
+              <strong>從薪水扣除</strong>
+            </button>
+            <button class="method-card" type="button" data-method="welfare">
+              <img src="images/福委會點數扣除.png" alt="從福委會點數扣除" onerror="this.style.display='none'">
+              <strong>從福委會點數扣除</strong>
+            </button>
+          </div>
+        </section>
+
+        <section class="view payment-view list-view" id="cardView">
+          <button class="mini-back payment-back" data-goto="methodView" type="button">‹ 返回付款方式</button>
+          <h1>信用卡付款</h1>
+          <div class="pay-list">
+            <button type="button" data-pay="信用卡">
+              <img src="images/信用卡.png" alt="信用卡" onerror="this.style.display='none'">
+              <span><strong>信用卡</strong><small>VISA / MasterCard / JCB</small></span><i>›</i>
+            </button>
+            <button type="button" data-pay="銀行轉帳">
+              <img src="images/銀行.png" alt="銀行轉帳" onerror="this.style.display='none'">
+              <span><strong>銀行轉帳</strong></span><i>›</i>
+            </button>
+            <button type="button" data-pay="Apple Pay">
+              <img src="images/apple_pay.png" alt="Apple Pay" onerror="this.src='images/applepay拷貝.png';this.onerror=null;">
+              <span><strong>Apple Pay</strong></span><i>›</i>
+            </button>
+            <button type="button" data-pay="Google Pay">
+              <img src="images/google_pay.png" alt="Google Pay" onerror="this.src='images/googlepay 拷貝.jpg';this.onerror=null;">
+              <span><strong>Google Pay</strong></span><i>›</i>
+            </button>
+          </div>
+        </section>
+
+        <section class="view payment-view list-view" id="onlineView">
+          <button class="mini-back payment-back" data-goto="methodView" type="button">‹ 返回付款方式</button>
+          <h1>線上支付</h1>
+          <div class="pay-list compact">
+            <button type="button" data-qr="街口支付">
+              <img src="images/街口拷貝.png" alt="街口支付" onerror="this.src='images/街口.png';this.onerror=null;">
+              <span><strong>街口支付</strong></span><i>›</i>
+            </button>
+            <button type="button" data-qr="LINE Pay">
+              <img src="images/line_pay.png" alt="LINE Pay" onerror="this.src='images/linepay-logo-tw拷貝.png';this.onerror=null;">
+              <span><strong>LINE Pay</strong></span><i>›</i>
+            </button>
+          </div>
+        </section>
+
+        <section class="view payment-view qr-view" id="qrView">
+          <button class="mini-back payment-back" data-goto="onlineView" type="button">‹ 返回付款方式</button>
+          <h1 id="qrTitle">街口支付</h1>
+          <p>請掃描下方 QR Code 完成付款</p>
+          <img class="qr-image" src="images/QRCode拷貝.png" alt="QR Code" onerror="this.style.display='none';document.querySelector('.fake-qr').style.display='block';">
+          <div class="fake-qr" aria-label="QR Code"><span></span><span></span><span></span><span></span><b></b></div>
+          <strong class="qr-amount" id="qrAmount">訂單金額：$0</strong>
+          <small class="muted-text">請於 05:00 內完成付款，逾時將自動取消訂單</small>
+          <button class="primary-btn wide" id="completeQr" type="button">我已完成付款</button>
+        </section>
+
+        <section class="view payment-view confirm-view" id="salaryView">
+          <button class="mini-back payment-back" data-goto="methodView" type="button">‹ 返回付款方式</button>
+          <h1>從薪水扣除</h1>
+          <div class="confirm-box" id="salaryBox"></div>
+          <div class="reminder-box"><img class="reminder-icon" src="images/使用者附件 (2).png" alt="提醒" onerror="this.style.display='none'"><div><strong>提醒</strong><p>此筆金額將於您的薪資中扣除，請確認無誤。</p></div></div>
+          <button class="primary-btn wide" data-confirm-pay="從薪水扣除" type="button">確認扣款</button>
+        </section>
+
+        <section class="view payment-view confirm-view" id="welfareView">
+          <button class="mini-back payment-back" data-goto="methodView" type="button">‹ 返回付款方式</button>
+          <h1>從福委會點數扣除</h1>
+          <div class="confirm-box" id="welfareBox"></div>
+          <div class="reminder-box"><img class="reminder-icon" src="images/使用者附件 (2).png" alt="提醒" onerror="this.style.display='none'"><div><strong>提醒</strong><p>點數折抵後，恕不退還，請確認無誤。</p></div></div>
+          <button class="primary-btn wide" data-confirm-pay="從福委會點數扣除" type="button">確認折抵</button>
+        </section>
+
+        <section class="view payment-view success-view" id="paidSuccessView">
+          <div class="success-icon">✓</div>
+          <h1>付款成功！</h1>
+          <p>感謝您的付款，訂單已完成。</p>
+          <div class="summary-card-pay" id="paidSummary"></div>
+          <a class="primary-btn wide link-btn" href="homepage-ui.html">返回首頁</a>
+        </section>
+      </section>
+    </section>
+  </main>
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/mock-employee-data.js?v=20260709-memory"></script>
+  <script src="js/lunch.js"></script>
+  <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+  <script src="js/touch-keyboard.js?v=20260710-caps-fit"></script>
+</body>
+</html>

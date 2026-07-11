@@ -1,0 +1,4205 @@
+:root {
+  --ink: #211f1e;
+  --muted: #746e67;
+  --paper: #f3f1ec;
+  --panel: rgba(255,255,255,.78);
+  --line: rgba(92, 73, 55, .14);
+  --brown: #9b7350;
+  --brown-dark: #765136;
+  --sand: #eee7de;
+  --soft: #f9f6f1;
+  --green: #7aa46d;
+  --green-bg: #eef7e9;
+  --shadow: 0 24px 52px rgba(35, 27, 20, .12);
+}
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; }
+body {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #17120f;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+button, input, a { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.kiosk-stage { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+.health-screen {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 2140px; height: 1350px;
+  transform: translate(-50%, -50%) scale(var(--kiosk-scale, .5));
+  transform-origin: center;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  background:
+    radial-gradient(circle at 78% 8%, rgba(155,115,80,.11), transparent 23%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(243,241,236,.96)),
+    var(--paper);
+  box-shadow: 0 30px 90px rgba(0,0,0,.34);
+}
+.health-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 9% 92%, rgba(255,255,255,.75), transparent 20%);
+}
+.side-nav {
+  position: relative;
+  z-index: 1;
+  padding: 172px 34px 60px;
+  border-right: 1px solid rgba(92,73,55,.08);
+  background: rgba(255,255,255,.28);
+}
+.side-nav a {
+  height: 66px;
+  margin-bottom: 28px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #2d2a28;
+  font-size: 23px;
+  font-weight: 900;
+}
+.side-nav a.active {
+  color: var(--brown-dark);
+  background: rgba(238,232,223,.86);
+  box-shadow: 0 12px 24px rgba(35,27,20,.08);
+}
+.side-nav span {
+  width: 34px;
+  height: 34px;
+  color: var(--brown);
+  text-align: center;
+  display: inline-grid;
+  place-items: center;
+  font-size: 30px;
+}
+.main-area {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding: 44px 98px 28px 82px;
+}
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+.eyebrow, .section-en {
+  margin: 0 0 10px;
+  color: var(--brown);
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: .26em;
+}
+.top-row h1 {
+  margin: 0;
+  font-size: 47px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+.subtitle {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 20px;
+  font-weight: 700;
+}
+.status-area { display: flex; align-items: flex-start; gap: 26px; padding-top: 4px; }
+.notify-button { position: relative; width: 52px; height: 52px; border: 0; background: transparent; color: #1f1d1d; }
+.notify-button i { position: absolute; right: 2px; top: 4px; width: 15px; height: 15px; border-radius: 50%; background: #d86435; border: 3px solid var(--paper); }
+.clock strong, .clock span { display: block; text-align: left; }
+.clock strong { font-size: 54px; line-height: .95; font-weight: 600; letter-spacing: .03em; }
+.clock span { margin-top: 10px; font-size: 22px; font-weight: 700; }
+.back-benefits {
+  width: max-content;
+  height: 52px;
+  margin-top: 24px;
+  padding: 0 26px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255,255,255,.84);
+  text-decoration: none;
+  color: var(--brown-dark);
+  font-size: 22px;
+  font-weight: 900;
+  box-shadow: 0 12px 26px rgba(35,27,20,.08);
+}
+.identity-view, .dashboard-view { margin-top: 24px; }
+.identity-copy h2, .health-heading h2 {
+  margin: 0;
+  font-size: 50px;
+  line-height: 1;
+  font-weight: 900;
+}
+.identity-copy p:last-child, .health-heading p:last-child {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.verify-panel {
+  margin-top: 34px;
+  padding: 46px;
+  display: grid;
+  grid-template-columns: 1fr 600px;
+  gap: 46px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background: rgba(255,255,255,.8);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+.verify-left label {
+  display: block;
+  margin-bottom: 18px;
+  color: #2b2927;
+  font-size: 30px;
+  font-weight: 900;
+}
+.employee-input-wrap {
+  height: 92px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid rgba(92,73,55,.16);
+  border-radius: 24px;
+  background: var(--soft);
+}
+.employee-input-wrap img { width: 48px; height: 48px; object-fit: contain; opacity: .75; mix-blend-mode: multiply; }
+.employee-input-wrap input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1f1d1d;
+  font-size: 28px;
+  font-weight: 800;
+}
+.employee-input-wrap input::placeholder { color: rgba(116,110,103,.55); }
+.health-employee-card {
+  margin: 24px 0 28px;
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 1fr 310px 150px;
+  align-items: end;
+  gap: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 16px 34px rgba(35,27,20,.08);
+}
+.health-employee-card small {
+  color: var(--brown);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .2em;
+}
+.health-employee-card h3 {
+  margin: 10px 0 8px;
+  font-size: 30px;
+}
+.health-employee-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+.health-employee-card label span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+.health-employee-card input {
+  width: 100%;
+  height: 58px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--soft);
+  font-size: 22px;
+  font-weight: 800;
+  outline: 0;
+}
+.health-employee-card button {
+  height: 58px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--brown), var(--brown-dark));
+  color: #fff;
+  font-size: 21px;
+  font-weight: 900;
+}
+#healthEmployeeResult {
+  grid-column: 1 / -1;
+  min-height: 30px;
+  color: var(--brown-dark);
+  font-size: 20px;
+}
+.hint {
+  margin: 26px 0 0;
+  max-width: 700px;
+  color: var(--muted);
+  font-size: 23px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+.verify-button {
+  width: 330px;
+  height: 74px;
+  margin-top: 166px;
+  border: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--brown), var(--brown-dark));
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+  box-shadow: 0 18px 36px rgba(118,81,54,.24);
+}
+.camera-card {
+  padding: 26px;
+  border-radius: 30px;
+  background: linear-gradient(180deg, #f9f6f1, #eee7de);
+  border: 1px solid rgba(92,73,55,.12);
+}
+.camera-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.camera-top span { font-size: 28px; font-weight: 900; }
+.camera-top small { color: var(--brown); font-size: 18px; font-weight: 900; }
+.camera-window {
+  position: relative;
+  overflow: hidden;
+  height: 390px;
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,.5), rgba(40,31,22,.1)), #d8d1c8;
+  display: grid;
+  place-items: center;
+}
+.camera-window video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); opacity: .86; }
+.face-frame {
+  position: absolute;
+  width: 250px;
+  height: 300px;
+  border-radius: 92px;
+  border: 2px solid rgba(155,115,80,.55);
+  box-shadow: 0 0 0 999px rgba(255,255,255,.05), inset 0 0 28px rgba(255,255,255,.28);
+}
+.face-frame i { position: absolute; width: 42px; height: 42px; border-color: var(--brown); border-style: solid; }
+.face-frame i:nth-child(1) { left: -2px; top: -2px; border-width: 4px 0 0 4px; border-top-left-radius: 24px; }
+.face-frame i:nth-child(2) { right: -2px; top: -2px; border-width: 4px 4px 0 0; border-top-right-radius: 24px; }
+.face-frame i:nth-child(3) { left: -2px; bottom: -2px; border-width: 0 0 4px 4px; border-bottom-left-radius: 24px; }
+.face-frame i:nth-child(4) { right: -2px; bottom: -2px; border-width: 0 4px 4px 0; border-bottom-right-radius: 24px; }
+.scan-line { position: absolute; width: 310px; height: 2px; border-radius: 999px; background: rgba(155,115,80,.85); animation: scan 2.2s infinite ease-in-out; }
+@keyframes scan { 0%,100% { transform: translateY(-130px); opacity:.25; } 50% { transform: translateY(130px); opacity:1; } }
+.camera-fallback { position: relative; z-index: 1; display: grid; place-items: center; gap: 16px; color: var(--brown-dark); font-size: 22px; font-weight: 900; }
+.camera-fallback img { width: 86px; height: 86px; object-fit: contain; opacity: .82; mix-blend-mode: multiply; }
+.camera-card p { margin: 18px 0 0; color: var(--muted); font-size: 20px; line-height: 1.4; font-weight: 700; }
+.health-heading { margin-top: -16px; }
+.status-card {
+  margin-top: 20px;
+  min-height: 218px;
+  padding: 28px 42px;
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  align-items: center;
+  gap: 32px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: rgba(255,255,255,.82);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+.status-copy small { display: block; margin-bottom: 8px; font-size: 24px; font-weight: 800; color: #2b2927; }
+.status-copy strong { display: block; font-size: 32px; line-height: 1.25; font-weight: 900; }
+.status-copy strong b { color: var(--brown); }
+.status-meta { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); }
+.status-meta span { min-height: 74px; padding-left: 24px; border-left: 1px solid rgba(92,73,55,.13); color: var(--muted); font-size: 20px; line-height: 1.55; font-weight: 800; }
+.status-meta img { width: 28px; height: 28px; margin-right: 9px; vertical-align: -7px; object-fit: contain; mix-blend-mode: multiply; }
+.status-meta b { color: #211f1e; font-size: 22px; }
+.status-actions { display: grid; justify-items: stretch; gap: 38px; }
+.status-actions em { justify-self: end; min-width: 154px; height: 50px; padding: 0 20px; display: grid; place-items: center; border-radius: 999px; background: #f9eadc; color: #b36c38; font-size: 19px; font-style: normal; font-weight: 900; }
+.status-actions button, .slot-card button { border: 0; border-radius: 13px; background: linear-gradient(135deg, var(--brown), var(--brown-dark)); color: #fff; font-weight: 900; }
+.status-actions button { height: 64px; font-size: 23px; }
+.slot-title { margin-top: 30px; display: flex; align-items: center; color: #211f1e; font-size: 30px; font-weight: 900; }
+.slot-title span { width: 46px; height: 46px; margin-right: 16px; display: inline-grid; place-items: center; }
+.slot-title img { width: 42px; height: 42px; object-fit: contain; mix-blend-mode: multiply; }
+.slot-title a { margin-left: auto; color: var(--brown-dark); text-decoration: none; font-size: 22px; }
+.slots { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+.slot-card { min-height: 205px; padding: 24px 30px 22px; display: grid; grid-template-columns: 76px 1fr; align-items: start; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.82); box-shadow: 0 18px 38px rgba(35,27,20,.10); }
+.slot-card img { width: 70px; height: 70px; padding: 14px; border-radius: 50%; background: var(--sand); object-fit: contain; mix-blend-mode: multiply; }
+.slot-card strong { font-size: 34px; line-height: 1.1; font-weight: 900; }
+.slot-card span { grid-column: 2; margin-top: -24px; font-size: 23px; font-weight: 700; }
+.slot-card mark { grid-column: 2; justify-self: start; margin-top: 12px; padding: 8px 18px; border-radius: 999px; background: var(--green-bg); color: var(--green); font-size: 19px; font-weight: 900; }
+.slot-card button { grid-column: 1 / -1; height: 57px; margin-top: 20px; font-size: 22px; }
+.info-grid { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.info-card { position: relative; overflow: hidden; min-height: 238px; padding: 28px 42px; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.82); box-shadow: 0 18px 38px rgba(35,27,20,.10); }
+.info-card header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.info-card header img { width: 54px; height: 54px; object-fit: contain; mix-blend-mode: multiply; }
+.info-card h3 { margin: 0; font-size: 28px; font-weight: 900; }
+.info-card ul { position: relative; z-index: 1; margin: 0; padding: 0; list-style: none; color: #514a43; font-size: 20px; line-height: 1.65; font-weight: 800; }
+.items-card ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+.info-card li::before { content: "•"; margin-right: 14px; color: var(--brown); font-weight: 900; }
+.items-card li::before { content: "◉"; font-size: 15px; vertical-align: 2px; }
+.watermark { position: absolute; right: 44px; bottom: 26px; width: 150px; height: 150px; object-fit: contain; opacity: .11; mix-blend-mode: multiply; }
+.watermark.shield { width: 135px; height: 135px; }
+[hidden] { display: none !important; }
+@media print {
+  @page { size: 21.4cm 13.5cm; margin: 0; }
+  html, body, .kiosk-stage, .health-screen { width: 21.4cm; height: 13.5cm; }
+  .health-screen { position: relative; left: auto; top: auto; transform: none; box-shadow: none; }
+}
+
+/* ===============================
+   Context sidebar: health check
+   =============================== */
+.health-screen {
+  grid-template-columns: 390px 1fr;
+}
+
+.health-context-nav {
+  padding: 64px 38px 58px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.health-side-logo {
+  min-height: 144px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.health-side-logo img {
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.health-nav-group {
+  display: grid;
+  gap: 12px;
+}
+
+.health-nav-group h2 {
+  margin: 0 0 8px;
+  padding: 0 18px;
+  color: #756f69;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: .05em;
+}
+
+.health-context-nav a {
+  min-height: 56px;
+  margin: 0;
+  padding: 0 20px;
+  gap: 14px;
+  border-radius: 16px;
+  font-size: 23px;
+  line-height: 1.18;
+}
+
+.health-nav-group a b {
+  width: 36px;
+  flex: 0 0 auto;
+  color: #9a948d;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.health-return {
+  margin-top: auto !important;
+  min-height: 64px !important;
+  justify-content: flex-start;
+  color: #1f1d1d !important;
+  font-weight: 950 !important;
+}
+
+.main-area {
+  padding-left: 76px;
+  padding-right: 86px;
+}
+
+.health-side-logo {
+  position: relative !important;
+  width: 318px !important;
+  height: 142px !important;
+  min-height: 142px !important;
+  margin: 8px auto 0 !important;
+  overflow: hidden !important;
+}
+
+.health-side-logo img {
+  position: absolute !important;
+  left: -100px !important;
+  top: -112px !important;
+  width: 520px !important;
+  max-width: none !important;
+  height: auto !important;
+  mix-blend-mode: multiply !important;
+}
+
+/* 2026-07-10：健康檢查頁 icon 放大，並銜接移除頁首後的版面 */
+.dashboard-view {
+  margin-top: 0 !important;
+}
+
+.status-meta span {
+  padding-left: 30px;
+}
+
+.status-meta img {
+  width: 46px !important;
+  height: 46px !important;
+  margin-right: 14px !important;
+  vertical-align: -15px !important;
+}
+
+.slot-title span {
+  width: 66px !important;
+  height: 66px !important;
+  margin-right: 18px !important;
+}
+
+.slot-title img {
+  width: 58px !important;
+  height: 58px !important;
+}
+
+.slot-card {
+  grid-template-columns: 104px 1fr !important;
+  column-gap: 14px;
+}
+
+.slot-card img {
+  width: 96px !important;
+  height: 96px !important;
+  padding: 18px !important;
+}
+
+.slot-card strong {
+  padding-top: 4px;
+}
+
+.slot-card span {
+  margin-top: -18px !important;
+}
+
+.info-card header img {
+  width: 72px !important;
+  height: 72px !important;
+}
+/* 2026-07-10 健檢查詢 / 預約流程 / 觸控鍵盤 */
+.health-hidden { display: none !important; }
+.health-employee-card.is-first {
+  margin-top: 28px !important;
+  margin-bottom: 32px !important;
+  min-height: 176px;
+  grid-template-columns: 1fr 420px 190px !important;
+  padding: 34px 42px !important;
+  border-radius: 30px !important;
+}
+.health-employee-card.is-first h3 { font-size: 38px !important; }
+.health-employee-card.is-first p { font-size: 22px !important; }
+.health-employee-card.is-first input { height: 76px !important; font-size: 30px !important; border-radius: 20px !important; }
+.health-employee-card.is-first button { height: 76px !important; font-size: 28px !important; border-radius: 20px !important; }
+#healthEmployeeResult { font-size: 24px !important; font-weight: 900; }
+.status-card { margin-top: 12px !important; }
+.status-actions em.is-booked { background: #eaf5e7 !important; color: #5c8f4f !important; }
+.status-actions button.is-disabled,
+.status-actions button:disabled,
+.slot-card button:disabled {
+  opacity: .42 !important;
+  cursor: not-allowed !important;
+  filter: grayscale(.15);
+  box-shadow: none !important;
+}
+.booked-slot { max-width: 520px; }
+.booked-slot mark { background: #eaf5e7 !important; color: #5c8f4f !important; }
+
+.booking-modal[hidden] { display: none !important; }
+.booking-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+.booking-backdrop { position: absolute; inset: 0; background: rgba(24,18,13,.46); backdrop-filter: blur(10px); }
+.booking-dialog {
+  position: relative;
+  width: min(1500px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  padding: 38px 44px 34px;
+  border-radius: 36px;
+  border: 1px solid rgba(92,73,55,.16);
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,245,240,.98));
+  box-shadow: 0 40px 110px rgba(0,0,0,.32);
+  color: #211f1e;
+}
+.booking-close {
+  position: absolute;
+  right: 28px;
+  top: 24px;
+  width: 54px;
+  height: 54px;
+  border: 0;
+  border-radius: 50%;
+  background: #f0e7dd;
+  color: #765136;
+  font-size: 38px;
+  font-weight: 900;
+}
+.booking-head small { color: #9b7350; font-size: 18px; font-weight: 950; letter-spacing: .24em; }
+.booking-head h2 { margin: 12px 0 8px; font-size: 46px; line-height: 1; }
+.booking-head p { margin: 0; color: #746e67; font-size: 22px; font-weight: 800; }
+.booking-steps { margin-top: 26px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.booking-steps button {
+  min-height: 62px;
+  border: 1px solid rgba(92,73,55,.13);
+  border-radius: 18px;
+  background: #fff;
+  color: #746e67;
+  font-size: 20px;
+  font-weight: 950;
+}
+.booking-steps button.active { background: linear-gradient(135deg, #9b7350, #765136); color: #fff; }
+.booking-form { margin-top: 24px; }
+.booking-step { display: none; }
+.booking-step.active { display: block; }
+.form-grid { display: grid; gap: 20px; }
+.form-grid.three { grid-template-columns: repeat(3, 1fr); }
+.form-grid.two { grid-template-columns: repeat(2, 1fr); }
+.booking-form label { color: #2b2927; font-size: 21px; font-weight: 950; }
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  height: 70px;
+  margin-top: 10px;
+  padding: 0 22px;
+  border: 1px solid rgba(92,73,55,.16);
+  border-radius: 18px;
+  outline: 0;
+  background: #fbf8f4;
+  color: #211f1e;
+  font-size: 24px;
+  font-weight: 850;
+}
+.plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.plan-card {
+  min-height: 185px;
+  padding: 26px;
+  border: 1px solid rgba(92,73,55,.14);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 16px 34px rgba(35,27,20,.08);
+}
+.plan-card input { width: 28px; height: 28px; margin: 0 0 16px; accent-color: #765136; }
+.plan-card strong { display: block; font-size: 28px; }
+.plan-card span { display: block; margin-top: 10px; color: #746e67; font-size: 19px; line-height: 1.45; }
+.modal-slot-list { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.modal-slot {
+  min-height: 130px;
+  padding: 20px;
+  border: 1px solid rgba(92,73,55,.14);
+  border-radius: 22px;
+  background: #fff;
+  text-align: left;
+}
+.modal-slot strong, .modal-slot span, .modal-slot em { display: block; }
+.modal-slot strong { font-size: 25px; font-weight: 950; }
+.modal-slot span { margin-top: 8px; font-size: 22px; font-weight: 850; }
+.modal-slot em { width: max-content; margin-top: 12px; padding: 6px 14px; border-radius: 999px; background: #eef7e9; color: #6b9a5c; font-style: normal; font-weight: 950; }
+.question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.question-grid label span { display: block; min-height: 54px; }
+.check-list { margin-top: 26px; display: grid; gap: 16px; }
+.check-list label {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 18px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(92,73,55,.12);
+  font-size: 22px;
+}
+.check-list input { width: 28px; height: 28px; margin: 0; accent-color: #765136; }
+.confirm-card {
+  margin-top: 24px;
+  padding: 26px 30px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid rgba(92,73,55,.13);
+  color: #403a35;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.55;
+}
+.confirm-card h3 { margin: 0 0 10px; font-size: 30px; color: #211f1e; }
+.confirm-card p { margin: 6px 0; }
+.booking-footer { margin-top: 28px; display: flex; justify-content: flex-end; gap: 18px; }
+.booking-footer button {
+  min-width: 180px;
+  height: 68px;
+  border: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #9b7350, #765136);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 950;
+}
+.booking-footer button.ghost { background: #eee7de; color: #765136; }
+.booking-footer button:disabled { opacity: .4; cursor: not-allowed; }
+
+.touch-keyboard-panel[hidden] { display: none !important; }
+.touch-keyboard-panel {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 80;
+  width: min(1320px, 92vw);
+  padding: 20px 22px 24px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(92,73,55,.18);
+  border-radius: 30px;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 28px 80px rgba(0,0,0,.26);
+  color: #211f1e;
+}
+.keyboard-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.keyboard-top strong { font-size: 24px; font-weight: 950; }
+.keyboard-mode-tabs { margin-left: auto; display: flex; gap: 10px; }
+.keyboard-top button,
+.candidate-row button,
+.keyboard-keys button {
+  border: 0;
+  border-radius: 14px;
+  font-weight: 950;
+}
+.keyboard-mode-tabs button, .keyboard-hide { height: 44px; padding: 0 20px; background: #eee7de; color: #765136; font-size: 18px; }
+.keyboard-mode-tabs button.active { background: #765136; color: #fff; }
+.zhuyin-compose { min-height: 28px; color: #9b7350; font-size: 22px; font-weight: 950; }
+.candidate-row { min-height: 54px; display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 12px; }
+.candidate-row button { min-width: 62px; height: 52px; background: #f9eadc; color: #9b5f31; font-size: 28px; }
+.keyboard-keys { display: grid; gap: 10px; }
+.key-row { display: flex; justify-content: center; gap: 10px; }
+.keyboard-keys button { min-width: 72px; height: 62px; padding: 0 18px; background: #f7f3ee; color: #211f1e; font-size: 27px; box-shadow: inset 0 -2px 0 rgba(92,73,55,.08); }
+.keyboard-keys button.wide { min-width: 130px; background: #eee7de; color: #765136; }
+
+/* 2026-07-10 v2：鍵盤不遮擋表單 + 觸控版大千注音鍵盤 */
+body.keyboard-open .booking-dialog,
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(92vh - 360px) !important;
+  overflow: auto !important;
+  margin-bottom: 350px !important;
+}
+
+.touch-keyboard-panel {
+  left: 50% !important;
+  right: auto !important;
+  bottom: 14px !important;
+  width: min(1180px, calc(100vw - 36px)) !important;
+  max-height: 330px !important;
+  overflow: auto !important;
+  padding: 16px 18px 18px !important;
+  border-radius: 28px !important;
+  background: rgba(255,255,255,.985) !important;
+  box-shadow: 0 18px 60px rgba(0,0,0,.22) !important;
+  touch-action: none;
+}
+
+.keyboard-top {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-bottom: 8px !important;
+  padding-bottom: 8px;
+  background: rgba(255,255,255,.985);
+}
+.keyboard-top strong { font-size: 22px !important; }
+.keyboard-mode-tabs button,
+.keyboard-hide {
+  height: 42px !important;
+  padding: 0 20px !important;
+  border-radius: 13px !important;
+}
+.zhuyin-compose {
+  min-height: 24px !important;
+  font-size: 20px !important;
+}
+.candidate-row {
+  min-height: 44px !important;
+  margin: 4px 0 8px !important;
+  gap: 8px !important;
+}
+.candidate-row button {
+  min-width: 56px !important;
+  height: 42px !important;
+  font-size: 24px !important;
+}
+.keyboard-keys { gap: 7px !important; }
+.key-row { gap: 7px !important; }
+.keyboard-keys button {
+  position: relative;
+  min-width: 54px !important;
+  height: 50px !important;
+  padding: 0 10px !important;
+  border-radius: 13px !important;
+  font-size: 22px !important;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  transition: transform .08s ease, background .08s ease;
+}
+.keyboard-keys button.is-pressing {
+  transform: translateY(-2px) scale(1.06);
+  background: #eadfD3 !important;
+}
+.keyboard-keys button.wide { min-width: 118px !important; }
+.touch-keyboard-panel.is-number {
+  width: min(520px, calc(100vw - 36px)) !important;
+  max-height: 390px !important;
+}
+.touch-keyboard-panel.is-number .keyboard-keys button {
+  min-width: 118px !important;
+  height: 58px !important;
+  font-size: 28px !important;
+}
+.touch-keyboard-panel.is-number .key-row { gap: 12px !important; }
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.zhuyin-key {
+  min-width: 66px !important;
+  height: 54px !important;
+  display: grid;
+  place-items: center;
+  gap: 0;
+  padding: 4px 8px !important;
+}
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.zhuyin-key .kb-latin {
+  color: #9b7350;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.zhuyin-key strong {
+  display: block;
+  margin-top: 1px;
+  color: #211f1e;
+  font-size: 26px;
+  line-height: 1;
+}
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.zhuyin-key.wide {
+  min-width: 130px !important;
+}
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.zhuyin-key.wide strong {
+  font-size: 20px;
+}
+.key-preview-pop {
+  position: fixed;
+  z-index: 9999;
+  min-width: 58px;
+  height: 64px;
+  padding: 0 16px;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -100%);
+  border-radius: 18px;
+  background: #765136;
+  color: #fff;
+  font-size: 34px;
+  font-weight: 950;
+  box-shadow: 0 14px 34px rgba(0,0,0,.2);
+  pointer-events: none;
+}
+.key-preview-pop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 16px;
+  height: 16px;
+  background: #765136;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@media (max-height: 820px) {
+  body.keyboard-open .booking-dialog,
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(96vh - 300px) !important;
+    margin-bottom: 295px !important;
+  }
+  .touch-keyboard-panel {
+    max-height: 286px !important;
+    padding: 12px 14px 14px !important;
+  }
+  .keyboard-keys button { height: 44px !important; font-size: 20px !important; }
+  .touch-keyboard-panel.is-zhuyin .keyboard-keys button.zhuyin-key { height: 48px !important; }
+  .touch-keyboard-panel.is-zhuyin .keyboard-keys button.zhuyin-key strong { font-size: 23px !important; }
+}
+
+/* 2026-07-10 v3：鍵盤修正，不遮輸入區、注音鍵只保留注音、功能鍵可點 */
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 430px) !important;
+  overflow-y: auto !important;
+  padding-bottom: 26px !important;
+  scroll-padding-bottom: 28px;
+}
+
+.touch-keyboard-panel {
+  bottom: 10px !important;
+  width: min(1160px, 82vw) !important;
+  max-height: 380px !important;
+  overflow: hidden !important;
+  padding: 18px 20px 18px !important;
+  border-radius: 28px !important;
+}
+
+.keyboard-top {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: rgba(255,255,255,.98);
+}
+
+.zhuyin-compose {
+  position: sticky;
+  top: 58px;
+  z-index: 3;
+  min-height: 40px !important;
+  padding: 5px 0 8px;
+  background: rgba(255,255,255,.98);
+  color: #9b7350 !important;
+  font-size: 24px !important;
+  font-weight: 950 !important;
+}
+
+.candidate-row {
+  position: sticky;
+  top: 104px;
+  z-index: 3;
+  min-height: 48px !important;
+  padding-bottom: 8px;
+  background: rgba(255,255,255,.98);
+}
+
+.keyboard-keys {
+  max-height: 214px;
+  overflow-y: auto;
+  padding-bottom: 4px;
+}
+
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button .kb-latin,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button span {
+  display: none !important;
+}
+
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button {
+  min-width: 64px !important;
+  height: 56px !important;
+  padding: 0 12px !important;
+}
+
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button strong {
+  font-size: 34px !important;
+  line-height: 1 !important;
+}
+
+.touch-keyboard-panel.is-zhuyin .key-row:nth-child(5) {
+  order: 99;
+  margin-top: 8px;
+}
+
+.touch-keyboard-panel.is-zhuyin .key-row:nth-child(5) button {
+  min-width: 118px !important;
+  height: 58px !important;
+  background: #eee7de !important;
+  color: #765136 !important;
+}
+
+.touch-keyboard-panel.is-zhuyin .key-row:nth-child(5) .action-space {
+  min-width: 240px !important;
+}
+
+.touch-keyboard-panel.is-zhuyin .key-row:nth-child(5) .action-space strong::before {
+  content: "空白｜一聲";
+}
+.touch-keyboard-panel.is-zhuyin .key-row:nth-child(5) .action-space strong {
+  font-size: 0 !important;
+}
+.touch-keyboard-panel.is-zhuyin .key-row:nth-child(5) .action-space strong::before {
+  font-size: 24px !important;
+}
+
+.touch-keyboard-panel.is-number .keyboard-keys {
+  max-height: 300px !important;
+}
+
+.touch-keyboard-panel.is-number .keyboard-keys button {
+  min-width: 96px !important;
+  height: 70px !important;
+  font-size: 30px !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys {
+  max-height: 270px !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys button {
+  min-width: 68px !important;
+  height: 58px !important;
+}
+
+.key-preview-pop { pointer-events: none; }
+
+
+/* 2026-07-10：員工資料鎖定，不可在健檢預約流程更改 */
+.employee-locked-field,
+.booking-form input.employee-locked-field,
+.booking-form select.employee-locked-field {
+  background: #eee9e2 !important;
+  color: #6f665e !important;
+  cursor: not-allowed !important;
+  border-style: dashed !important;
+  box-shadow: inset 0 0 0 1px rgba(118,81,54,.05) !important;
+}
+.booking-form select.employee-locked-field {
+  opacity: 1 !important;
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+}
+.employee-locked-note {
+  margin: 18px 0 0;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #f9eadc;
+  color: #8b5d3c;
+  font-size: 20px;
+  line-height: 1.45;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   2026-07-10：WOHOURS 系統版 macOS/iOS 大千式三合一鍵盤
+   - 與健康檢查系統視覺整合：白卡、米色、棕色、圓角、陰影
+   - 4 排鍵盤主體 + 候選字列
+   ========================================================= */
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 468px) !important;
+  margin-bottom: 414px !important;
+  overflow-y: auto !important;
+  scroll-padding-bottom: 36px !important;
+}
+
+.touch-keyboard-panel[hidden] { display: none !important; }
+
+.touch-keyboard-panel {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 18px !important;
+  z-index: 100 !important;
+  width: min(1480px, calc(100vw - 62px)) !important;
+  max-height: 404px !important;
+  padding: 16px 18px 18px !important;
+  transform: translateX(-50%) !important;
+  overflow: hidden !important;
+  border-radius: 32px !important;
+  border: 1px solid rgba(118,81,54,.18) !important;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255,255,255,.95), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(249,246,241,.98)) !important;
+  box-shadow: 0 30px 90px rgba(35,27,20,.26) !important;
+  color: var(--ink) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif !important;
+  touch-action: none;
+}
+
+.keyboard-top {
+  height: 50px !important;
+  margin: 0 0 8px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  background: transparent !important;
+  position: relative !important;
+  top: auto !important;
+}
+
+.keyboard-top strong {
+  color: #211f1e !important;
+  font-size: 25px !important;
+  font-weight: 950 !important;
+  letter-spacing: .01em;
+}
+
+.keyboard-mode-tabs {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 10px !important;
+}
+
+.keyboard-mode-tabs button,
+.keyboard-hide {
+  height: 42px !important;
+  min-width: 78px !important;
+  padding: 0 18px !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #eee7de !important;
+  color: #765136 !important;
+  font-size: 18px !important;
+  font-weight: 950 !important;
+  box-shadow: inset 0 -2px 0 rgba(118,81,54,.08);
+}
+
+.keyboard-mode-tabs button.active {
+  background: linear-gradient(135deg, #9b7350, #765136) !important;
+  color: #fff !important;
+}
+
+.zhuyin-compose {
+  min-height: 38px !important;
+  padding: 7px 16px !important;
+  margin: 0 0 8px !important;
+  border-radius: 18px !important;
+  background: #f9eadc !important;
+  color: #8b5d3c !important;
+  font-size: 22px !important;
+  line-height: 1.1 !important;
+  font-weight: 950 !important;
+}
+
+.candidate-row {
+  min-height: 52px !important;
+  margin: 0 0 10px !important;
+  padding: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,.76) !important;
+  border: 1px solid rgba(92,73,55,.12);
+  scrollbar-width: none;
+}
+.candidate-row::-webkit-scrollbar { display: none; }
+
+.candidate-row button {
+  flex: 0 0 auto !important;
+  min-width: 62px !important;
+  height: 40px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: #211f1e !important;
+  font-size: 24px !important;
+  font-weight: 950 !important;
+  box-shadow: 0 8px 18px rgba(35,27,20,.08), inset 0 -2px 0 rgba(92,73,55,.08);
+}
+.candidate-row button:first-child {
+  background: linear-gradient(180deg, #fff, #f7efe7) !important;
+  color: #765136 !important;
+}
+
+.keyboard-keys {
+  display: grid !important;
+  gap: 8px !important;
+  max-height: 270px !important;
+  overflow: hidden !important;
+}
+
+.key-row {
+  display: grid !important;
+  gap: 8px !important;
+  width: 100% !important;
+  justify-content: stretch !important;
+}
+.key-row.row-1 { grid-template-columns: repeat(13, 1fr) 1.45fr; }
+.key-row.row-2 { grid-template-columns: 1.3fr repeat(13, 1fr); }
+.key-row.row-3 { grid-template-columns: 1.8fr repeat(11, 1fr) 1.75fr; }
+.key-row.row-4 { grid-template-columns: 1.35fr 1.05fr 1.55fr repeat(10, 1fr) 3.2fr 1.55fr; }
+
+.keyboard-keys button {
+  position: relative !important;
+  min-width: 0 !important;
+  height: 54px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(92,73,55,.12) !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #fff, #f6f2ed) !important;
+  color: #211f1e !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  box-shadow: 0 7px 14px rgba(35,27,20,.09), inset 0 -2px 0 rgba(92,73,55,.08) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  touch-action: none !important;
+  transition: transform .08s ease, filter .08s ease, background .08s ease !important;
+}
+
+.keyboard-keys button.is-pressing {
+  transform: translateY(-2px) scale(1.035) !important;
+  filter: brightness(.98) !important;
+  background: #eee7de !important;
+}
+
+.keyboard-keys button.kb-special {
+  background: linear-gradient(180deg, #eee7de, #ded3c6) !important;
+  color: #765136 !important;
+}
+
+.keyboard-keys button.kb-space {
+  background: linear-gradient(180deg, #fff, #faf7f2) !important;
+  color: #211f1e !important;
+  font-size: 23px !important;
+}
+
+.keyboard-keys .kb-zh {
+  position: absolute;
+  left: 9px;
+  top: 10px;
+  color: #211f1e;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.keyboard-keys .kb-en {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  color: #8b6a50;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.keyboard-keys .kb-num {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  color: #8b6a50;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.keyboard-keys .kb-tone {
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+  color: #b36c38;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-num,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-tone,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys button:not(.kb-special),
+.touch-keyboard-panel.is-number .keyboard-keys button:not(.kb-special) {
+  display: grid !important;
+  place-items: center !important;
+  font-size: 25px !important;
+  font-weight: 900 !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-num {
+  position: static !important;
+  display: block !important;
+  color: #211f1e !important;
+  font-size: 25px !important;
+  line-height: 1 !important;
+}
+
+.key-preview-pop {
+  position: fixed;
+  z-index: 9999;
+  min-width: 62px;
+  height: 70px;
+  padding: 0 18px;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -100%);
+  border-radius: 22px;
+  background: #765136;
+  color: #fff;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 950;
+  box-shadow: 0 16px 36px rgba(0,0,0,.22);
+  pointer-events: none;
+}
+.key-preview-pop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 16px;
+  height: 16px;
+  background: #765136;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.bpmf-status {
+  margin-left: 6px;
+  color: #8b6a50;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+@media (max-height: 820px) {
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 398px) !important;
+    margin-bottom: 360px !important;
+  }
+  .touch-keyboard-panel {
+    max-height: 350px !important;
+    bottom: 10px !important;
+  }
+  .keyboard-keys { max-height: 230px !important; gap: 6px !important; }
+  .key-row { gap: 6px !important; }
+  .keyboard-keys button { height: 46px !important; border-radius: 12px !important; }
+  .keyboard-keys .kb-zh { font-size: 21px; top: 8px; }
+  .keyboard-keys .kb-en { font-size: 12px; }
+  .keyboard-keys .kb-num { font-size: 12px; }
+  .keyboard-keys .kb-tone { font-size: 12px; }
+  .zhuyin-compose { min-height: 34px !important; font-size: 19px !important; }
+  .candidate-row { min-height: 44px !important; }
+  .candidate-row button { height: 34px !important; font-size: 20px !important; }
+}
+
+
+/* =========================================================
+   FINAL FIX：避免舊規則把大千式按鍵文字隱藏
+   - 修正畫面出現空白鍵帽的問題
+   - 注音模式正常顯示：注音 / 英文 / 數字 / 聲調
+   - 英文模式只顯示英文
+   - 數字模式只顯示數字
+   ========================================================= */
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-num,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-tone {
+  display: block !important;
+}
+
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.kb-special .kb-zh,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.kb-special .kb-en,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.kb-special .kb-num,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys button.kb-special .kb-tone {
+  display: none !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-en {
+  display: block !important;
+  position: static !important;
+}
+
+.touch-keyboard-panel.is-number .keyboard-keys .kb-num {
+  display: block !important;
+  position: static !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-num,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-tone,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+
+/* =========================================================
+   FINAL FIX 2026-07-10：鍵盤完整顯示，不再被畫面切掉
+   ========================================================= */
+.touch-keyboard-panel {
+  bottom: 12px !important;
+  width: min(1420px, calc(100vw - 56px)) !important;
+  max-height: min(342px, calc(100vh - 190px)) !important;
+  padding: 12px 16px 14px !important;
+  overflow: visible !important;
+}
+
+.keyboard-top {
+  height: 40px !important;
+  margin-bottom: 6px !important;
+}
+
+.keyboard-top strong {
+  font-size: 22px !important;
+}
+
+.keyboard-mode-tabs button,
+.keyboard-hide {
+  height: 36px !important;
+  min-width: 70px !important;
+  padding: 0 16px !important;
+  border-radius: 14px !important;
+  font-size: 17px !important;
+}
+
+.zhuyin-compose {
+  min-height: 30px !important;
+  padding: 5px 14px !important;
+  margin-bottom: 6px !important;
+  border-radius: 14px !important;
+  font-size: 18px !important;
+}
+
+.candidate-row {
+  min-height: 42px !important;
+  height: 42px !important;
+  margin-bottom: 7px !important;
+  padding: 4px 6px !important;
+  border-radius: 14px !important;
+}
+
+.candidate-row button {
+  height: 32px !important;
+  min-width: 54px !important;
+  padding: 0 12px !important;
+  border-radius: 12px !important;
+  font-size: 19px !important;
+}
+
+.keyboard-keys {
+  max-height: none !important;
+  overflow: visible !important;
+  gap: 6px !important;
+}
+
+.key-row {
+  gap: 6px !important;
+}
+
+.keyboard-keys button {
+  height: 40px !important;
+  border-radius: 11px !important;
+}
+
+.keyboard-keys .kb-zh {
+  left: 8px !important;
+  top: 7px !important;
+  font-size: 20px !important;
+}
+
+.keyboard-keys .kb-en {
+  right: 7px !important;
+  bottom: 5px !important;
+  font-size: 11px !important;
+}
+
+.keyboard-keys .kb-num {
+  right: 7px !important;
+  top: 5px !important;
+  font-size: 11px !important;
+}
+
+.keyboard-keys .kb-tone {
+  left: 9px !important;
+  bottom: 4px !important;
+  font-size: 11px !important;
+}
+
+.keyboard-keys button.kb-special {
+  font-size: 18px !important;
+}
+
+.keyboard-keys button.kb-space {
+  font-size: 18px !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-num {
+  font-size: 21px !important;
+}
+
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 376px) !important;
+  margin-bottom: 332px !important;
+}
+
+@media (max-height: 760px) {
+  .touch-keyboard-panel {
+    bottom: 8px !important;
+    max-height: min(318px, calc(100vh - 164px)) !important;
+    padding: 10px 14px 12px !important;
+  }
+
+  .keyboard-top {
+    height: 34px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .keyboard-top strong {
+    font-size: 20px !important;
+  }
+
+  .keyboard-mode-tabs button,
+  .keyboard-hide {
+    height: 32px !important;
+    min-width: 62px !important;
+    font-size: 15px !important;
+  }
+
+  .zhuyin-compose {
+    min-height: 27px !important;
+    padding: 4px 12px !important;
+    font-size: 16px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .candidate-row {
+    min-height: 36px !important;
+    height: 36px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .candidate-row button {
+    height: 28px !important;
+    font-size: 17px !important;
+  }
+
+  .keyboard-keys button {
+    height: 36px !important;
+  }
+
+  .keyboard-keys .kb-zh {
+    font-size: 18px !important;
+  }
+
+  .keyboard-keys .kb-en,
+  .keyboard-keys .kb-num,
+  .keyboard-keys .kb-tone {
+    font-size: 10px !important;
+  }
+
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 344px) !important;
+    margin-bottom: 304px !important;
+  }
+}
+
+/* 保留大千式注音模式時的四角字元，不被舊規則隱藏 */
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-num,
+.touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-tone {
+  display: block !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-num,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-tone,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+
+/* =========================================================
+   ABSOLUTE FINAL KEYBOARD FIX
+   目的：
+   1. 4 排鍵盤完整顯示，不切掉底部
+   2. 同一輸入框內不被迫捲動鍵盤內容
+   3. 保留 WOHOURS 米白 / 棕色系統風格
+   ========================================================= */
+
+.touch-keyboard-panel[hidden] {
+  display: none !important;
+}
+
+.touch-keyboard-panel {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 10px !important;
+  z-index: 120 !important;
+  transform: translateX(-50%) !important;
+
+  width: min(1400px, calc(100vw - 52px)) !important;
+  height: auto !important;
+  max-height: none !important;
+
+  padding: 10px 14px 12px !important;
+  overflow: visible !important;
+
+  border-radius: 26px !important;
+  border: 1px solid rgba(118,81,54,.18) !important;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(255,255,255,.98), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,.985), rgba(249,246,241,.985)) !important;
+  box-shadow: 0 20px 62px rgba(35,27,20,.24) !important;
+}
+
+.keyboard-top {
+  height: 34px !important;
+  min-height: 34px !important;
+  margin: 0 0 5px !important;
+  padding: 0 !important;
+  position: static !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background: transparent !important;
+}
+
+.keyboard-top strong {
+  font-size: 20px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+}
+
+.bpmf-status {
+  font-size: 13px !important;
+}
+
+.keyboard-mode-tabs {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.keyboard-mode-tabs button,
+.keyboard-hide {
+  height: 31px !important;
+  min-width: 58px !important;
+  padding: 0 13px !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+.zhuyin-compose {
+  min-height: 26px !important;
+  height: 26px !important;
+  margin: 0 0 5px !important;
+  padding: 4px 12px !important;
+  position: static !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  line-height: 18px !important;
+  white-space: nowrap !important;
+}
+
+.candidate-row {
+  min-height: 34px !important;
+  height: 34px !important;
+  margin: 0 0 6px !important;
+  padding: 3px 5px !important;
+  position: static !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  flex-wrap: nowrap !important;
+  border-radius: 12px !important;
+}
+
+.candidate-row button {
+  height: 26px !important;
+  min-width: 48px !important;
+  padding: 0 10px !important;
+  border-radius: 10px !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys {
+  display: grid !important;
+  gap: 5px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+.key-row {
+  display: grid !important;
+  gap: 5px !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.key-row.row-1 { grid-template-columns: repeat(13, 1fr) 1.35fr !important; }
+.key-row.row-2 { grid-template-columns: 1.22fr repeat(13, 1fr) !important; }
+.key-row.row-3 { grid-template-columns: 1.65fr repeat(11, 1fr) 1.55fr !important; }
+.key-row.row-4 { grid-template-columns: 1.10fr 1.00fr 1.30fr repeat(10, 1fr) 2.90fr 1.32fr !important; }
+
+.keyboard-keys button {
+  height: 34px !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys button.kb-special,
+.keyboard-keys button.kb-space {
+  font-size: 15px !important;
+}
+
+.keyboard-keys .kb-zh {
+  display: block !important;
+  left: 7px !important;
+  top: 5px !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys .kb-en {
+  display: block !important;
+  right: 6px !important;
+  bottom: 4px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys .kb-num {
+  display: block !important;
+  right: 6px !important;
+  top: 4px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys .kb-tone {
+  display: block !important;
+  left: 7px !important;
+  bottom: 3px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-num,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-tone,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-num {
+  position: static !important;
+  display: block !important;
+  font-size: 18px !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys button:not(.kb-special),
+.touch-keyboard-panel.is-number .keyboard-keys button:not(.kb-special) {
+  display: grid !important;
+  place-items: center !important;
+}
+
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 312px) !important;
+  margin-bottom: 278px !important;
+  overflow-y: auto !important;
+}
+
+@media (max-height: 760px) {
+  .touch-keyboard-panel {
+    bottom: 6px !important;
+    padding: 8px 12px 10px !important;
+    width: min(1360px, calc(100vw - 42px)) !important;
+  }
+
+  .keyboard-top {
+    height: 30px !important;
+    min-height: 30px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .keyboard-top strong {
+    font-size: 18px !important;
+  }
+
+  .keyboard-mode-tabs button,
+  .keyboard-hide {
+    height: 28px !important;
+    min-width: 54px !important;
+    padding: 0 11px !important;
+    font-size: 14px !important;
+  }
+
+  .zhuyin-compose {
+    height: 22px !important;
+    min-height: 22px !important;
+    padding: 3px 10px !important;
+    margin-bottom: 4px !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+  }
+
+  .candidate-row {
+    height: 30px !important;
+    min-height: 30px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .candidate-row button {
+    height: 23px !important;
+    font-size: 15px !important;
+  }
+
+  .keyboard-keys,
+  .key-row {
+    gap: 4px !important;
+  }
+
+  .keyboard-keys button {
+    height: 31px !important;
+    border-radius: 9px !important;
+  }
+
+  .keyboard-keys .kb-zh {
+    font-size: 15px !important;
+    top: 4px !important;
+  }
+
+  .keyboard-keys .kb-en,
+  .keyboard-keys .kb-num,
+  .keyboard-keys .kb-tone {
+    font-size: 8px !important;
+  }
+
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 284px) !important;
+    margin-bottom: 252px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .touch-keyboard-panel {
+    width: calc(100vw - 32px) !important;
+  }
+
+  .keyboard-keys button {
+    height: 30px !important;
+  }
+
+  .keyboard-keys .kb-zh {
+    font-size: 14px !important;
+  }
+
+  .keyboard-keys .kb-en,
+  .keyboard-keys .kb-num,
+  .keyboard-keys .kb-tone {
+    font-size: 7px !important;
+  }
+}
+
+/* 2026-07-10 final: booking memory + keyboard containment */
+.health-context-nav {
+  justify-content: flex-start !important;
+}
+
+.health-context-nav .health-nav-group {
+  margin-top: 28px;
+}
+
+.health-return {
+  margin-top: auto !important;
+}
+
+.status-actions em.is-open {
+  background: #fae3d2 !important;
+  color: #b35f28 !important;
+}
+
+.status-actions em.is-completed {
+  background: #eeeeea !important;
+  color: #746e67 !important;
+}
+
+.status-actions em.is-booked {
+  background: #eaf5e7 !important;
+  color: #4f8b52 !important;
+}
+
+.booking-modal.is-editing .booking-head h2::after {
+  content: "（更改資料）";
+  color: #9b7350;
+  font-size: .72em;
+}
+
+.booking-validation {
+  min-height: 34px;
+  margin: 18px 0 0;
+  color: #b34024;
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: 950;
+}
+
+.booking-form label.field-missing input,
+.booking-form label.field-missing select,
+.booking-form label.field-missing textarea,
+.plan-card.field-missing,
+.check-list label.field-missing {
+  border-color: #d65a3f !important;
+  box-shadow: 0 0 0 4px rgba(214, 90, 63, .14) !important;
+}
+
+html body .touch-keyboard-panel.keyboard-full-visible-final,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-zhuyin,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-english {
+  bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  width: min(1540px, calc(100vw - 48px)) !important;
+  max-width: calc(100vw - 48px) !important;
+  max-height: min(430px, calc(100vh - 28px)) !important;
+  padding: 12px 14px 14px !important;
+  overflow: hidden !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top {
+  height: 34px !important;
+  min-height: 34px !important;
+  margin-bottom: 6px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top strong {
+  font-size: 20px !important;
+}
+
+html body .keyboard-full-visible-final .bpmf-status {
+  font-size: 12px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs button,
+html body .keyboard-full-visible-final .keyboard-hide {
+  height: 32px !important;
+  min-width: 58px !important;
+  padding: 0 13px !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+}
+
+html body .keyboard-full-visible-final .zhuyin-compose {
+  height: 30px !important;
+  min-height: 30px !important;
+  margin-bottom: 6px !important;
+  padding: 5px 12px !important;
+  font-size: 17px !important;
+  line-height: 20px !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row {
+  height: 38px !important;
+  min-height: 38px !important;
+  margin-bottom: 7px !important;
+  overflow-x: auto !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row button {
+  height: 30px !important;
+  min-width: 50px !important;
+  font-size: 19px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys {
+  gap: 6px !important;
+  overflow: visible !important;
+}
+
+html body .keyboard-full-visible-final .key-row {
+  gap: 6px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button {
+  height: 42px !important;
+  min-height: 42px !important;
+  border-radius: 12px !important;
+  font-size: 18px !important;
+  text-transform: none !important;
+}
+
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+  font-size: 28px !important;
+}
+
+html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-en {
+  font-size: 22px !important;
+  text-transform: none !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button[data-action="caps"]::after {
+  content: "小寫";
+  position: absolute;
+  right: 7px;
+  bottom: 4px;
+  color: #9a7657;
+  font-size: 10px;
+  line-height: 1;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button[data-action="caps"].active::after {
+  content: "大寫";
+  color: #fff;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button[data-action="caps"].active {
+  background: linear-gradient(135deg, #9b7350, #765136) !important;
+  color: #fff !important;
+}
+
+html body .keyboard-full-visible-final.is-english .key-row.row-5 {
+  grid-template-columns: minmax(90px, 1fr) minmax(340px, 4.2fr) minmax(90px, 1fr) !important;
+}
+
+html body .keyboard-full-visible-final.is-zhuyin .key-row.row-5 {
+  grid-template-columns: minmax(90px, 1fr) minmax(340px, 4.2fr) minmax(90px, 1fr) !important;
+}
+
+body.keyboard-open .booking-dialog,
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 470px) !important;
+  margin-bottom: 420px !important;
+  scroll-padding-bottom: 40px !important;
+}
+
+@media (max-height: 820px) {
+  html body .touch-keyboard-panel.keyboard-full-visible-final {
+    max-height: min(360px, calc(100vh - 20px)) !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-keys button {
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+
+  html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+    font-size: 22px !important;
+  }
+
+  html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-en {
+    font-size: 18px !important;
+  }
+
+  body.keyboard-open .booking-dialog,
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 390px) !important;
+    margin-bottom: 340px !important;
+  }
+}
+
+
+/* =========================================================
+   DELETE KEY FIX：補上右上角退格 / 刪除鍵
+   ========================================================= */
+.key-row.row-1 .kb-special:last-child {
+  min-width: 0 !important;
+  background: linear-gradient(180deg, #eee7de, #ded3c6) !important;
+  color: #765136 !important;
+  font-size: 22px !important;
+  font-weight: 950 !important;
+}
+
+.key-row.row-1 .kb-special:last-child::after {
+  content: "退格";
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  transform: translateX(-50%);
+  color: #8b6a50;
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+@media (max-height: 760px) {
+  .key-row.row-1 .kb-special:last-child {
+    font-size: 18px !important;
+  }
+
+  .key-row.row-1 .kb-special:last-child::after {
+    font-size: 7px;
+    bottom: 3px;
+  }
+}
+
+
+/* =========================================================
+   2026-07-10 ULTRA COMPACT FINAL
+   修正：鍵盤超出畫面、底部被切掉、右側超出看不到
+   做法：
+   - 鍵盤寬度改為 viewport 內安全寬度
+   - 取消舊 max-height / overflow visible 的衝突
+   - 4 排鍵全部縮小並固定完整顯示
+   - 右上角退格鍵保留
+   ========================================================= */
+
+.touch-keyboard-panel[hidden] {
+  display: none !important;
+}
+
+.touch-keyboard-panel {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 18px !important;
+  z-index: 999 !important;
+  transform: translateX(-50%) !important;
+
+  width: min(1120px, calc(100vw - 180px)) !important;
+  max-width: calc(100vw - 180px) !important;
+  height: auto !important;
+  max-height: calc(100vh - 230px) !important;
+
+  padding: 8px 10px 10px !important;
+  overflow: hidden !important;
+
+  border-radius: 22px !important;
+  border: 1px solid rgba(118,81,54,.18) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.99)) !important;
+  box-shadow: 0 18px 50px rgba(35,27,20,.24) !important;
+}
+
+.keyboard-top {
+  height: 28px !important;
+  min-height: 28px !important;
+  margin: 0 0 4px !important;
+  padding: 0 !important;
+  position: static !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: transparent !important;
+}
+
+.keyboard-top strong {
+  font-size: 17px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  white-space: nowrap !important;
+}
+
+.bpmf-status {
+  font-size: 11px !important;
+  margin-left: 4px !important;
+}
+
+.keyboard-mode-tabs {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 6px !important;
+  flex: 0 0 auto !important;
+}
+
+.keyboard-mode-tabs button,
+.keyboard-hide {
+  height: 26px !important;
+  min-width: 48px !important;
+  padding: 0 10px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+.zhuyin-compose {
+  position: static !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  margin: 0 0 4px !important;
+  padding: 2px 9px !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  line-height: 16px !important;
+  white-space: nowrap !important;
+}
+
+.candidate-row {
+  position: static !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  margin: 0 0 4px !important;
+  padding: 2px 4px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  flex-wrap: nowrap !important;
+  border-radius: 10px !important;
+  scrollbar-width: none !important;
+}
+.candidate-row::-webkit-scrollbar {
+  display: none !important;
+}
+
+.candidate-row button {
+  height: 22px !important;
+  min-width: 42px !important;
+  padding: 0 8px !important;
+  border-radius: 9px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys {
+  display: grid !important;
+  gap: 4px !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+.key-row {
+  display: grid !important;
+  gap: 4px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  justify-content: stretch !important;
+}
+
+/* 對應 JS 的 4 排：
+   row1: 13 一般鍵 + 退格
+   row2: Tab + 13 一般鍵
+   row3: 中英 + 11 一般鍵 + Enter
+   row4: 地球 + 123 + Shift + 10 一般鍵 + Space + Done
+*/
+.key-row.row-1 { grid-template-columns: repeat(13, minmax(0, 1fr)) minmax(34px, .95fr) !important; }
+.key-row.row-2 { grid-template-columns: minmax(44px, .9fr) repeat(13, minmax(0, 1fr)) !important; }
+.key-row.row-3 { grid-template-columns: minmax(58px, 1.15fr) repeat(11, minmax(0, 1fr)) minmax(52px, 1.05fr) !important; }
+.key-row.row-4 { grid-template-columns: minmax(34px, .55fr) minmax(42px, .75fr) minmax(52px, .95fr) repeat(10, minmax(0, 1fr)) minmax(115px, 2.3fr) minmax(48px, .88fr) !important; }
+
+.keyboard-keys button {
+  height: 30px !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 9px !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+.keyboard-keys button.kb-special,
+.keyboard-keys button.kb-space {
+  font-size: 13px !important;
+}
+
+.keyboard-keys .kb-zh {
+  display: block !important;
+  left: 5px !important;
+  top: 4px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys .kb-en {
+  display: block !important;
+  right: 5px !important;
+  bottom: 3px !important;
+  font-size: 7px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys .kb-num {
+  display: block !important;
+  right: 5px !important;
+  top: 3px !important;
+  font-size: 7px !important;
+  line-height: 1 !important;
+}
+
+.keyboard-keys .kb-tone {
+  display: block !important;
+  left: 6px !important;
+  bottom: 2px !important;
+  font-size: 7px !important;
+  line-height: 1 !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-num,
+.touch-keyboard-panel.is-english .keyboard-keys .kb-tone,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-zh,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys .kb-en,
+.touch-keyboard-panel.is-number .keyboard-keys .kb-num {
+  position: static !important;
+  display: block !important;
+  font-size: 16px !important;
+}
+
+.touch-keyboard-panel.is-english .keyboard-keys button:not(.kb-special),
+.touch-keyboard-panel.is-number .keyboard-keys button:not(.kb-special) {
+  display: grid !important;
+  place-items: center !important;
+}
+
+.key-row.row-1 .kb-special:last-child {
+  font-size: 18px !important;
+}
+.key-row.row-1 .kb-special:last-child::after {
+  content: "" !important;
+}
+
+/* 預約彈窗打開鍵盤時，保留鍵盤空間 */
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 260px) !important;
+  margin-bottom: 228px !important;
+  overflow-y: auto !important;
+}
+
+/* 螢幕高度較小時再縮一級 */
+@media (max-height: 760px) {
+  .touch-keyboard-panel {
+    bottom: 6px !important;
+    width: min(1040px, calc(100vw - 150px)) !important;
+    max-width: calc(100vw - 150px) !important;
+    padding: 6px 8px 8px !important;
+  }
+
+  .keyboard-top {
+    height: 24px !important;
+    min-height: 24px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .keyboard-top strong {
+    font-size: 15px !important;
+  }
+
+  .bpmf-status {
+    font-size: 10px !important;
+  }
+
+  .keyboard-mode-tabs button,
+  .keyboard-hide {
+    height: 23px !important;
+    min-width: 42px !important;
+    padding: 0 8px !important;
+    font-size: 12px !important;
+  }
+
+  .zhuyin-compose {
+    height: 18px !important;
+    min-height: 18px !important;
+    padding: 2px 8px !important;
+    margin-bottom: 3px !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+  }
+
+  .candidate-row {
+    height: 24px !important;
+    min-height: 24px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .candidate-row button {
+    height: 19px !important;
+    font-size: 12px !important;
+  }
+
+  .keyboard-keys,
+  .key-row {
+    gap: 3px !important;
+  }
+
+  .keyboard-keys button {
+    height: 26px !important;
+    border-radius: 8px !important;
+  }
+
+  .keyboard-keys button.kb-special,
+  .keyboard-keys button.kb-space {
+    font-size: 12px !important;
+  }
+
+  .keyboard-keys .kb-zh {
+    font-size: 12px !important;
+    left: 4px !important;
+    top: 3px !important;
+  }
+
+  .keyboard-keys .kb-en,
+  .keyboard-keys .kb-num,
+  .keyboard-keys .kb-tone {
+    font-size: 6px !important;
+  }
+
+  .touch-keyboard-panel.is-english .keyboard-keys .kb-en,
+  .touch-keyboard-panel.is-number .keyboard-keys .kb-num {
+    font-size: 14px !important;
+  }
+
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 220px) !important;
+    margin-bottom: 194px !important;
+  }
+}
+
+/* 視窗太窄時，保證不出框 */
+@media (max-width: 1200px) {
+  .touch-keyboard-panel {
+    width: calc(100vw - 120px) !important;
+    max-width: calc(100vw - 120px) !important;
+  }
+
+  .key-row.row-4 {
+    grid-template-columns: minmax(28px, .5fr) minmax(36px, .65fr) minmax(44px, .82fr) repeat(10, minmax(0, 1fr)) minmax(88px, 1.75fr) minmax(40px, .72fr) !important;
+  }
+
+  .keyboard-keys button {
+    height: 25px !important;
+  }
+
+  .keyboard-keys .kb-zh {
+    font-size: 11px !important;
+  }
+}
+
+
+/* =========================================================
+   SCROLL FINAL 2026-07-10
+   修正：鍵盤仍可能超出螢幕時，可在鍵盤內上下滑動。
+   - 鍵盤面板本身可垂直滑動
+   - 候選字橫列可左右滑動
+   - 保留右上角退格鍵
+   - 覆蓋舊版 .is-number 520px / overflow hidden 規則
+   ========================================================= */
+
+html body .touch-keyboard-panel.keyboard-scroll-final,
+html body .touch-keyboard-panel.keyboard-scroll-final.is-number,
+html body .touch-keyboard-panel.keyboard-scroll-final.is-english,
+html body .touch-keyboard-panel.keyboard-scroll-final.is-zhuyin {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 8px !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+
+  width: min(1280px, calc(100vw - 44px)) !important;
+  max-width: calc(100vw - 44px) !important;
+  min-width: 0 !important;
+
+  max-height: min(390px, calc(100vh - 170px)) !important;
+  height: auto !important;
+
+  padding: 10px 12px 12px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+
+  border-radius: 26px !important;
+  border: 1px solid rgba(118,81,54,.18) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.99)) !important;
+  box-shadow: 0 18px 52px rgba(35,27,20,.24) !important;
+}
+
+/* 讓滾動條不要太醜，但可提示可上下滑 */
+html body .touch-keyboard-panel.keyboard-scroll-final::-webkit-scrollbar {
+  width: 8px;
+}
+html body .touch-keyboard-panel.keyboard-scroll-final::-webkit-scrollbar-track {
+  background: rgba(238,231,222,.7);
+  border-radius: 999px;
+}
+html body .touch-keyboard-panel.keyboard-scroll-final::-webkit-scrollbar-thumb {
+  background: rgba(118,81,54,.38);
+  border-radius: 999px;
+}
+
+html body .keyboard-scroll-final .keyboard-top {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 5 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  margin: 0 0 5px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.96)) !important;
+}
+
+html body .keyboard-scroll-final .keyboard-top strong {
+  font-size: 18px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+html body .keyboard-scroll-final .bpmf-status {
+  font-size: 11px !important;
+  margin-left: 4px !important;
+}
+
+html body .keyboard-scroll-final .keyboard-mode-tabs {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 6px !important;
+  flex: 0 0 auto !important;
+}
+
+html body .keyboard-scroll-final .keyboard-mode-tabs button,
+html body .keyboard-scroll-final .keyboard-hide {
+  height: 28px !important;
+  min-width: 48px !important;
+  padding: 0 9px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-scroll-final .zhuyin-compose {
+  position: sticky !important;
+  top: 37px !important;
+  z-index: 4 !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  margin: 0 0 5px !important;
+  padding: 3px 10px !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  background: #f9eadc !important;
+}
+
+html body .keyboard-scroll-final .candidate-row {
+  position: sticky !important;
+  top: 66px !important;
+  z-index: 4 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  margin: 0 0 6px !important;
+  padding: 3px 5px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 5px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,.88) !important;
+  scrollbar-width: none !important;
+  touch-action: pan-x !important;
+}
+html body .keyboard-scroll-final .candidate-row::-webkit-scrollbar {
+  display: none !important;
+}
+
+html body .keyboard-scroll-final .candidate-row button {
+  flex: 0 0 auto !important;
+  height: 24px !important;
+  min-width: 42px !important;
+  padding: 0 8px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-scroll-final .keyboard-keys {
+  display: grid !important;
+  grid-template-rows: repeat(4, auto) !important;
+  gap: 5px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 0 2px !important;
+}
+
+html body .keyboard-scroll-final .key-row {
+  display: grid !important;
+  gap: 5px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  justify-content: stretch !important;
+  align-items: stretch !important;
+}
+
+/* 4 rows, no fifth row */
+html body .keyboard-scroll-final .key-row.row-1 {
+  grid-template-columns: repeat(13, minmax(0, 1fr)) minmax(38px, .85fr) !important;
+}
+html body .keyboard-scroll-final .key-row.row-2 {
+  grid-template-columns: minmax(54px, .9fr) repeat(13, minmax(0, 1fr)) !important;
+}
+html body .keyboard-scroll-final .key-row.row-3 {
+  grid-template-columns: minmax(68px, 1.12fr) repeat(11, minmax(0, 1fr)) minmax(64px, 1fr) !important;
+}
+html body .keyboard-scroll-final .key-row.row-4 {
+  grid-template-columns: minmax(34px, .5fr) minmax(44px, .68fr) minmax(58px, .82fr) repeat(10, minmax(0, 1fr)) minmax(150px, 2.35fr) minmax(54px, .78fr) !important;
+}
+
+html body .keyboard-scroll-final .keyboard-keys button,
+html body .keyboard-scroll-final.is-number .keyboard-keys button,
+html body .keyboard-scroll-final.is-english .keyboard-keys button,
+html body .keyboard-scroll-final.is-zhuyin .keyboard-keys button {
+  position: relative !important;
+  height: 34px !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+html body .keyboard-scroll-final .keyboard-keys button.kb-special,
+html body .keyboard-scroll-final .keyboard-keys button.kb-space {
+  font-size: 14px !important;
+}
+
+/* 注音模式：四角字元 */
+html body .keyboard-scroll-final.is-zhuyin .keyboard-keys .kb-zh {
+  display: block !important;
+  position: absolute !important;
+  left: 6px !important;
+  top: 5px !important;
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+html body .keyboard-scroll-final.is-zhuyin .keyboard-keys .kb-en {
+  display: block !important;
+  position: absolute !important;
+  right: 5px !important;
+  bottom: 3px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+html body .keyboard-scroll-final.is-zhuyin .keyboard-keys .kb-num {
+  display: block !important;
+  position: absolute !important;
+  right: 5px !important;
+  top: 3px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+html body .keyboard-scroll-final.is-zhuyin .keyboard-keys .kb-tone {
+  display: block !important;
+  position: absolute !important;
+  left: 6px !important;
+  bottom: 2px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+/* 英文 / 數字模式：置中 */
+html body .keyboard-scroll-final.is-english .keyboard-keys .kb-en,
+html body .keyboard-scroll-final.is-number .keyboard-keys .kb-num {
+  display: block !important;
+  position: static !important;
+  color: #211f1e !important;
+  font-size: 16px !important;
+}
+
+html body .keyboard-scroll-final.is-english .keyboard-keys .kb-zh,
+html body .keyboard-scroll-final.is-english .keyboard-keys .kb-num,
+html body .keyboard-scroll-final.is-english .keyboard-keys .kb-tone,
+html body .keyboard-scroll-final.is-number .keyboard-keys .kb-zh,
+html body .keyboard-scroll-final.is-number .keyboard-keys .kb-en,
+html body .keyboard-scroll-final.is-number .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+html body .keyboard-scroll-final.is-english .keyboard-keys button:not(.kb-special),
+html body .keyboard-scroll-final.is-number .keyboard-keys button:not(.kb-special) {
+  display: grid !important;
+  place-items: center !important;
+}
+
+/* 開彈窗時，彈窗也能滑動，鍵盤不擋住內容 */
+html body.keyboard-open .booking-dialog,
+html body .booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 310px) !important;
+  margin-bottom: 270px !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+}
+
+/* 螢幕高度不夠時：鍵盤高度限制更小，靠上下滑動看完整 */
+@media (max-height: 760px) {
+  html body .touch-keyboard-panel.keyboard-scroll-final,
+  html body .touch-keyboard-panel.keyboard-scroll-final.is-number,
+  html body .touch-keyboard-panel.keyboard-scroll-final.is-english,
+  html body .touch-keyboard-panel.keyboard-scroll-final.is-zhuyin {
+    bottom: 5px !important;
+    max-height: min(300px, calc(100vh - 130px)) !important;
+    padding: 7px 9px 9px !important;
+  }
+
+  html body .keyboard-scroll-final .keyboard-top {
+    height: 25px !important;
+    min-height: 25px !important;
+    margin-bottom: 3px !important;
+  }
+
+  html body .keyboard-scroll-final .keyboard-top strong {
+    font-size: 15px !important;
+  }
+
+  html body .keyboard-scroll-final .keyboard-mode-tabs button,
+  html body .keyboard-scroll-final .keyboard-hide {
+    height: 23px !important;
+    min-width: 42px !important;
+    padding: 0 7px !important;
+    font-size: 12px !important;
+  }
+
+  html body .keyboard-scroll-final .zhuyin-compose {
+    top: 30px !important;
+    height: 18px !important;
+    min-height: 18px !important;
+    margin-bottom: 3px !important;
+    padding: 2px 8px !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+  }
+
+  html body .keyboard-scroll-final .candidate-row {
+    top: 51px !important;
+    height: 25px !important;
+    min-height: 25px !important;
+    margin-bottom: 4px !important;
+  }
+
+  html body .keyboard-scroll-final .candidate-row button {
+    height: 20px !important;
+    font-size: 12px !important;
+  }
+
+  html body .keyboard-scroll-final .keyboard-keys,
+  html body .keyboard-scroll-final .key-row {
+    gap: 4px !important;
+  }
+
+  html body .keyboard-scroll-final .keyboard-keys button,
+  html body .keyboard-scroll-final.is-number .keyboard-keys button,
+  html body .keyboard-scroll-final.is-english .keyboard-keys button,
+  html body .keyboard-scroll-final.is-zhuyin .keyboard-keys button {
+    height: 30px !important;
+  }
+
+  html body.keyboard-open .booking-dialog,
+  html body .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 250px) !important;
+    margin-bottom: 218px !important;
+  }
+}
+
+
+/* =========================================================
+   NO NUMBER KEYBOARD FINAL
+   取消獨立數字鍵盤：只保留「注音 / 英 / 收起」
+   數字請用英文鍵盤第一排 1–0 輸入。
+   ========================================================= */
+
+/* 若舊 HTML / 快取殘留數字按鈕，直接隱藏 */
+.keyboard-mode-tabs [data-kb-mode="number"] {
+  display: none !important;
+}
+
+/* 第四排已移除 123 鍵：地球 / Shift / Z~ / 空白 / 完成 */
+html body .keyboard-scroll-final .key-row.row-4,
+html body .touch-keyboard-panel .key-row.row-4 {
+  grid-template-columns: minmax(38px, .58fr) minmax(64px, .95fr) repeat(10, minmax(0, 1fr)) minmax(150px, 2.45fr) minmax(58px, .9fr) !important;
+}
+
+/* 英文模式第一排數字清楚一點 */
+html body .keyboard-scroll-final.is-english .key-row.row-1 button:not(.kb-special),
+html body .touch-keyboard-panel.is-english .key-row.row-1 button:not(.kb-special) {
+  font-size: 17px !important;
+  font-weight: 950 !important;
+}
+
+/* 數字欄位開啟英文鍵盤時，標題不要再出現數字鍵盤 */
+html body .touch-keyboard-panel.is-number {
+  width: min(1280px, calc(100vw - 44px)) !important;
+  max-width: calc(100vw - 44px) !important;
+}
+
+@media (max-height: 760px) {
+  html body .keyboard-scroll-final .key-row.row-4,
+  html body .touch-keyboard-panel .key-row.row-4 {
+    grid-template-columns: minmax(32px, .52fr) minmax(54px, .82fr) repeat(10, minmax(0, 1fr)) minmax(120px, 2.1fr) minmax(48px, .78fr) !important;
+  }
+}
+
+
+/* =========================================================
+   STANDARD DACHEN + MAC ENGLISH LAYOUT FINAL
+   修正：
+   1. 注音鍵位改回標準大千式：ㄅㄆㄇㄈ垂直排列
+   2. 英文鍵位改回 Mac US：~ 1... delete / tab Q... / caps A... return / shift Z... shift / 系統列
+   3. 移除獨立數字鍵盤，只用英文鍵盤第一排數字
+   4. 鍵盤面板可上下滑動
+   ========================================================= */
+
+.keyboard-mode-tabs [data-kb-mode="number"] {
+  display: none !important;
+}
+
+html body .touch-keyboard-panel.keyboard-standard-dachen,
+html body .touch-keyboard-panel.keyboard-standard-dachen.is-zhuyin,
+html body .touch-keyboard-panel.keyboard-standard-dachen.is-english {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 8px !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+
+  width: min(1320px, calc(100vw - 44px)) !important;
+  max-width: calc(100vw - 44px) !important;
+  max-height: min(420px, calc(100vh - 150px)) !important;
+  height: auto !important;
+
+  padding: 10px 12px 12px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+
+  border-radius: 26px !important;
+  border: 1px solid rgba(118,81,54,.18) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.99)) !important;
+  box-shadow: 0 18px 52px rgba(35,27,20,.24) !important;
+}
+
+html body .keyboard-standard-dachen .keyboard-top {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 6 !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  margin: 0 0 5px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.96)) !important;
+}
+
+html body .keyboard-standard-dachen .keyboard-top strong {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-standard-dachen .bpmf-status {
+  font-size: 11px !important;
+}
+
+html body .keyboard-standard-dachen .keyboard-mode-tabs {
+  display: flex !important;
+  gap: 6px !important;
+  margin-left: auto !important;
+}
+
+html body .keyboard-standard-dachen .keyboard-mode-tabs button,
+html body .keyboard-standard-dachen .keyboard-hide {
+  height: 26px !important;
+  min-width: 48px !important;
+  padding: 0 9px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+}
+
+html body .keyboard-standard-dachen .zhuyin-compose {
+  position: sticky !important;
+  top: 35px !important;
+  z-index: 5 !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  margin: 0 0 5px !important;
+  padding: 3px 10px !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  background: #f9eadc !important;
+}
+
+html body .keyboard-standard-dachen .candidate-row {
+  position: sticky !important;
+  top: 64px !important;
+  z-index: 5 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  margin: 0 0 6px !important;
+  padding: 3px 5px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 5px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,.88) !important;
+  scrollbar-width: none !important;
+  touch-action: pan-x !important;
+}
+html body .keyboard-standard-dachen .candidate-row::-webkit-scrollbar { display: none !important; }
+
+html body .keyboard-standard-dachen .candidate-row button {
+  flex: 0 0 auto !important;
+  height: 24px !important;
+  min-width: 42px !important;
+  padding: 0 8px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+}
+
+html body .keyboard-standard-dachen .keyboard-keys {
+  display: grid !important;
+  grid-template-rows: repeat(5, auto) !important;
+  gap: 5px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 0 2px !important;
+}
+
+html body .keyboard-standard-dachen .key-row {
+  display: grid !important;
+  gap: 5px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  justify-content: stretch !important;
+  align-items: stretch !important;
+}
+
+/* Mac / US standard columns */
+html body .keyboard-standard-dachen .key-row.row-1 {
+  grid-template-columns: repeat(13, minmax(0, 1fr)) minmax(58px, 1.12fr) !important;
+}
+html body .keyboard-standard-dachen .key-row.row-2 {
+  grid-template-columns: minmax(62px, 1.18fr) repeat(13, minmax(0, 1fr)) !important;
+}
+html body .keyboard-standard-dachen .key-row.row-3 {
+  grid-template-columns: minmax(82px, 1.55fr) repeat(11, minmax(0, 1fr)) minmax(82px, 1.55fr) !important;
+}
+html body .keyboard-standard-dachen .key-row.row-4 {
+  grid-template-columns: minmax(104px, 1.9fr) repeat(10, minmax(0, 1fr)) minmax(104px, 1.9fr) !important;
+}
+html body .keyboard-standard-dachen .key-row.row-5 {
+  grid-template-columns: minmax(48px, .7fr) minmax(52px, .75fr) minmax(72px, 1fr) minmax(72px, 1fr) minmax(92px, 1.28fr) minmax(360px, 5.4fr) minmax(92px, 1.28fr) minmax(72px, 1fr) !important;
+}
+
+html body .keyboard-standard-dachen .keyboard-keys button,
+html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys button,
+html body .keyboard-standard-dachen.is-english .keyboard-keys button {
+  position: relative !important;
+  height: 34px !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+/* 特殊鍵 */
+html body .keyboard-standard-dachen .keyboard-keys button.kb-special,
+html body .keyboard-standard-dachen .keyboard-keys button.kb-space {
+  font-size: 14px !important;
+}
+
+/* 注音模式四角字元 */
+html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-zh {
+  display: block !important;
+  position: absolute !important;
+  left: 6px !important;
+  top: 5px !important;
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-en {
+  display: block !important;
+  position: absolute !important;
+  right: 5px !important;
+  bottom: 3px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-num {
+  display: block !important;
+  position: absolute !important;
+  right: 5px !important;
+  top: 3px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-tone {
+  display: block !important;
+  position: absolute !important;
+  left: 6px !important;
+  bottom: 2px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+/* 英文模式只顯示英文 */
+html body .keyboard-standard-dachen.is-english .keyboard-keys .kb-zh,
+html body .keyboard-standard-dachen.is-english .keyboard-keys .kb-num,
+html body .keyboard-standard-dachen.is-english .keyboard-keys .kb-tone {
+  display: none !important;
+}
+html body .keyboard-standard-dachen.is-english .keyboard-keys .kb-en {
+  display: block !important;
+  position: static !important;
+  color: #211f1e !important;
+  font-size: 16px !important;
+}
+html body .keyboard-standard-dachen.is-english .keyboard-keys button:not(.kb-special) {
+  display: grid !important;
+  place-items: center !important;
+}
+
+/* 彈窗與鍵盤都能上下滑 */
+html body.keyboard-open .booking-dialog,
+html body .booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 325px) !important;
+  margin-bottom: 282px !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+}
+
+@media (max-height: 760px) {
+  html body .touch-keyboard-panel.keyboard-standard-dachen,
+  html body .touch-keyboard-panel.keyboard-standard-dachen.is-zhuyin,
+  html body .touch-keyboard-panel.keyboard-standard-dachen.is-english {
+    bottom: 5px !important;
+    max-height: min(330px, calc(100vh - 120px)) !important;
+    padding: 7px 9px 9px !important;
+  }
+
+  html body .keyboard-standard-dachen .keyboard-top {
+    height: 25px !important;
+    min-height: 25px !important;
+    margin-bottom: 3px !important;
+  }
+
+  html body .keyboard-standard-dachen .keyboard-top strong {
+    font-size: 15px !important;
+  }
+
+  html body .keyboard-standard-dachen .keyboard-mode-tabs button,
+  html body .keyboard-standard-dachen .keyboard-hide {
+    height: 23px !important;
+    min-width: 42px !important;
+    padding: 0 7px !important;
+    font-size: 12px !important;
+  }
+
+  html body .keyboard-standard-dachen .zhuyin-compose {
+    top: 30px !important;
+    height: 18px !important;
+    min-height: 18px !important;
+    margin-bottom: 3px !important;
+    padding: 2px 8px !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+  }
+
+  html body .keyboard-standard-dachen .candidate-row {
+    top: 51px !important;
+    height: 25px !important;
+    min-height: 25px !important;
+    margin-bottom: 4px !important;
+  }
+
+  html body .keyboard-standard-dachen .candidate-row button {
+    height: 20px !important;
+    font-size: 12px !important;
+  }
+
+  html body .keyboard-standard-dachen .keyboard-keys,
+  html body .keyboard-standard-dachen .key-row {
+    gap: 4px !important;
+  }
+
+  html body .keyboard-standard-dachen .keyboard-keys button {
+    height: 30px !important;
+  }
+
+  html body.keyboard-open .booking-dialog,
+  html body .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 255px) !important;
+    margin-bottom: 220px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  html body .touch-keyboard-panel.keyboard-standard-dachen {
+    width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 32px) !important;
+  }
+
+  html body .keyboard-standard-dachen .key-row.row-5 {
+    grid-template-columns: minmax(36px, .6fr) minmax(40px, .65fr) minmax(56px, .9fr) minmax(56px, .9fr) minmax(68px, 1fr) minmax(220px, 4fr) minmax(68px, 1fr) minmax(56px, .9fr) !important;
+  }
+
+  html body .keyboard-standard-dachen .keyboard-keys button {
+    height: 28px !important;
+  }
+
+  html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-zh {
+    font-size: 12px !important;
+  }
+
+  html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-en,
+  html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-num,
+  html body .keyboard-standard-dachen.is-zhuyin .keyboard-keys .kb-tone {
+    font-size: 6px !important;
+  }
+}
+
+
+/* =========================================================
+   SCROLL + NEXT FIX 2026-07-10
+   修正：
+   1. 健檢頁主內容可上下滑動
+   2. 查詢 1116 後「立即預約 > 下一步」不再卡住
+   3. 預約彈窗、鍵盤開啟時都保留可滑動空間
+   ========================================================= */
+
+/* 外層允許滾動，不再整頁鎖死 */
+html,
+body {
+  overflow: auto !important;
+}
+
+/* kiosk 舞台可以接收滾輪 / 觸控滑動 */
+.kiosk-stage {
+  overflow: auto !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* 保持原本縮放式畫面，但讓右側內容可滑動 */
+.health-screen {
+  overflow: hidden !important;
+}
+
+/* 主要內容區上下滑動 */
+.main-area {
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-bottom: 210px !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  scroll-padding-bottom: 220px !important;
+}
+
+/* 側邊欄本身也可滑，避免小螢幕下面項目看不到 */
+.health-context-nav,
+.side-nav {
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* 滾動條維持淡淡的，不影響視覺 */
+.main-area::-webkit-scrollbar,
+.health-context-nav::-webkit-scrollbar,
+.side-nav::-webkit-scrollbar,
+.kiosk-stage::-webkit-scrollbar {
+  width: 8px;
+}
+.main-area::-webkit-scrollbar-thumb,
+.health-context-nav::-webkit-scrollbar-thumb,
+.side-nav::-webkit-scrollbar-thumb,
+.kiosk-stage::-webkit-scrollbar-thumb {
+  background: rgba(118,81,54,.28);
+  border-radius: 999px;
+}
+.main-area::-webkit-scrollbar-track,
+.health-context-nav::-webkit-scrollbar-track,
+.side-nav::-webkit-scrollbar-track,
+.kiosk-stage::-webkit-scrollbar-track {
+  background: rgba(238,231,222,.45);
+}
+
+/* 預約彈窗內容很多時可滑動 */
+.booking-dialog {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+}
+
+/* 鍵盤開啟時，彈窗往上縮並可滑 */
+body.keyboard-open .booking-dialog,
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 330px) !important;
+  margin-bottom: 285px !important;
+  overflow-y: auto !important;
+  scroll-padding-bottom: 48px !important;
+}
+
+/* 讓底部內容不會貼底被切 */
+.info-grid {
+  margin-bottom: 120px !important;
+}
+
+/* 如果視窗高度較小，再保守一點 */
+@media (max-height: 760px) {
+  .main-area {
+    padding-bottom: 260px !important;
+    scroll-padding-bottom: 260px !important;
+  }
+
+  body.keyboard-open .booking-dialog,
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 265px) !important;
+    margin-bottom: 230px !important;
+  }
+}
+
+
+/* =========================================================
+   CLEAN KEYBOARD FINAL
+   - 中文鍵盤只留注音，不顯示英文/數字/符號
+   - 英文鍵盤只留數字 + 英文字母 + Caps + 刪除 + 空白 + 完成
+   - 刪除 Tab / Shift / Fn / Control / Option / Command / Return 等用不到鍵
+   - 修正左下角重疊
+   ========================================================= */
+
+.keyboard-mode-tabs [data-kb-mode="number"] {
+  display: none !important;
+}
+
+html body .touch-keyboard-panel.keyboard-clean-final,
+html body .touch-keyboard-panel.keyboard-clean-final.is-zhuyin,
+html body .touch-keyboard-panel.keyboard-clean-final.is-english {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 8px !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+  width: min(1180px, calc(100vw - 44px)) !important;
+  max-width: calc(100vw - 44px) !important;
+  max-height: min(390px, calc(100vh - 140px)) !important;
+  padding: 10px 12px 12px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  border-radius: 26px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.99)) !important;
+  box-shadow: 0 18px 52px rgba(35,27,20,.24) !important;
+}
+
+html body .keyboard-clean-final .keyboard-top {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 6 !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  margin: 0 0 5px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.96)) !important;
+}
+
+html body .keyboard-clean-final .keyboard-top strong {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-clean-final .keyboard-mode-tabs {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 6px !important;
+}
+
+html body .keyboard-clean-final .keyboard-mode-tabs button,
+html body .keyboard-clean-final .keyboard-hide {
+  height: 26px !important;
+  min-width: 48px !important;
+  padding: 0 9px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+}
+
+html body .keyboard-clean-final .zhuyin-compose {
+  position: sticky !important;
+  top: 35px !important;
+  z-index: 5 !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  margin: 0 0 5px !important;
+  padding: 3px 10px !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
+  background: #f9eadc !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+html body .keyboard-clean-final .candidate-row {
+  position: sticky !important;
+  top: 64px !important;
+  z-index: 5 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  margin: 0 0 6px !important;
+  padding: 3px 5px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 5px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,.88) !important;
+  scrollbar-width: none !important;
+}
+html body .keyboard-clean-final .candidate-row::-webkit-scrollbar {
+  display: none !important;
+}
+
+html body .keyboard-clean-final .candidate-row button {
+  height: 24px !important;
+  min-width: 42px !important;
+  padding: 0 8px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+}
+
+html body .keyboard-clean-final .keyboard-keys {
+  display: grid !important;
+  gap: 6px !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+html body .keyboard-clean-final .key-row {
+  display: grid !important;
+  gap: 6px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* 注音模式：4 排注音 + 1 排中英/空白/完成 */
+html body .keyboard-clean-final.is-zhuyin .key-row.row-1 {
+  grid-template-columns: repeat(11, minmax(0, 1fr)) minmax(56px, .9fr) !important;
+}
+html body .keyboard-clean-final.is-zhuyin .key-row.row-2,
+html body .keyboard-clean-final.is-zhuyin .key-row.row-3,
+html body .keyboard-clean-final.is-zhuyin .key-row.row-4 {
+  grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
+}
+html body .keyboard-clean-final.is-zhuyin .key-row.row-5 {
+  grid-template-columns: minmax(90px, 1.1fr) minmax(360px, 4.4fr) minmax(90px, 1.1fr) !important;
+}
+
+/* 英文模式：數字列 + QWERTY + Caps + 英文 + 底部 */
+html body .keyboard-clean-final.is-english .key-row.row-1 {
+  grid-template-columns: repeat(10, minmax(0, 1fr)) minmax(56px, .85fr) !important;
+}
+html body .keyboard-clean-final.is-english .key-row.row-2 {
+  grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
+}
+html body .keyboard-clean-final.is-english .key-row.row-3 {
+  grid-template-columns: minmax(78px, 1.25fr) repeat(10, minmax(0, 1fr)) !important;
+}
+html body .keyboard-clean-final.is-english .key-row.row-4 {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+}
+html body .keyboard-clean-final.is-english .key-row.row-5 {
+  grid-template-columns: minmax(90px, 1.1fr) minmax(360px, 4.4fr) minmax(90px, 1.1fr) !important;
+}
+
+html body .keyboard-clean-final .keyboard-keys button {
+  height: 38px !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  position: relative !important;
+}
+
+html body .keyboard-clean-final .keyboard-keys button.kb-special,
+html body .keyboard-clean-final .keyboard-keys button.kb-space {
+  font-size: 16px !important;
+}
+
+/* 中文鍵盤：只顯示注音 */
+html body .keyboard-clean-final.is-zhuyin .keyboard-keys .kb-en,
+html body .keyboard-clean-final.is-zhuyin .keyboard-keys .kb-num,
+html body .keyboard-clean-final.is-zhuyin .keyboard-keys .kb-tone {
+  display: none !important;
+}
+html body .keyboard-clean-final.is-zhuyin .keyboard-keys .kb-zh {
+  position: static !important;
+  display: block !important;
+  color: #211f1e !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+}
+
+/* 英文鍵盤：只顯示英文/數字 */
+html body .keyboard-clean-final.is-english .keyboard-keys .kb-zh,
+html body .keyboard-clean-final.is-english .keyboard-keys .kb-num,
+html body .keyboard-clean-final.is-english .keyboard-keys .kb-tone {
+  display: none !important;
+}
+html body .keyboard-clean-final.is-english .keyboard-keys .kb-en {
+  position: static !important;
+  display: block !important;
+  color: #211f1e !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-clean-final.is-zhuyin .keyboard-keys button:not(.kb-special),
+html body .keyboard-clean-final.is-english .keyboard-keys button:not(.kb-special) {
+  display: grid !important;
+  place-items: center !important;
+}
+
+/* 彈窗與主畫面可滑動 */
+html, body {
+  overflow: auto !important;
+}
+.kiosk-stage,
+.main-area,
+.booking-dialog {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+}
+
+.main-area {
+  padding-bottom: 220px !important;
+}
+
+body.keyboard-open .booking-dialog,
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 310px) !important;
+  margin-bottom: 270px !important;
+  overflow-y: auto !important;
+}
+
+@media (max-height: 760px) {
+  html body .touch-keyboard-panel.keyboard-clean-final {
+    bottom: 5px !important;
+    max-height: min(330px, calc(100vh - 120px)) !important;
+    padding: 7px 9px 9px !important;
+  }
+
+  html body .keyboard-clean-final .keyboard-top {
+    height: 25px !important;
+    min-height: 25px !important;
+  }
+
+  html body .keyboard-clean-final .zhuyin-compose {
+    top: 30px !important;
+    height: 18px !important;
+    min-height: 18px !important;
+    font-size: 12px !important;
+  }
+
+  html body .keyboard-clean-final .candidate-row {
+    top: 51px !important;
+    height: 25px !important;
+    min-height: 25px !important;
+  }
+
+  html body .keyboard-clean-final .keyboard-keys button {
+    height: 32px !important;
+  }
+
+  html body .keyboard-clean-final.is-zhuyin .keyboard-keys .kb-zh {
+    font-size: 20px !important;
+  }
+
+  html body .keyboard-clean-final.is-english .keyboard-keys .kb-en {
+    font-size: 17px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  html body .touch-keyboard-panel.keyboard-clean-final {
+    width: calc(100vw - 28px) !important;
+    max-width: calc(100vw - 28px) !important;
+  }
+
+  html body .keyboard-clean-final.is-zhuyin .key-row.row-5,
+  html body .keyboard-clean-final.is-english .key-row.row-5 {
+    grid-template-columns: minmax(72px, 1fr) minmax(220px, 3.2fr) minmax(72px, 1fr) !important;
+  }
+
+  html body .keyboard-clean-final .keyboard-keys button {
+    height: 30px !important;
+  }
+}
+
+
+/* =========================================================
+   FULL VISIBLE KEYBOARD FINAL
+   需求：
+   1. 鍵盤不要滑動
+   2. 一次看到全部按鍵
+   3. Caps 開關時，英文鍵盤按鍵會同步大小寫
+   ========================================================= */
+
+.keyboard-mode-tabs [data-kb-mode="number"] {
+  display: none !important;
+}
+
+html body .touch-keyboard-panel.keyboard-full-visible-final,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-zhuyin,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-english {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 8px !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+
+  width: min(1120px, calc(100vw - 42px)) !important;
+  max-width: calc(100vw - 42px) !important;
+  height: auto !important;
+  max-height: none !important;
+
+  padding: 7px 10px 9px !important;
+  overflow: visible !important;
+  touch-action: none !important;
+
+  border-radius: 22px !important;
+  border: 1px solid rgba(118,81,54,.18) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(249,246,241,.99)) !important;
+  box-shadow: 0 16px 48px rgba(35,27,20,.24) !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top {
+  position: static !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  margin: 0 0 3px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: transparent !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top strong {
+  font-size: 15px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+html body .keyboard-full-visible-final .bpmf-status {
+  font-size: 9px !important;
+  margin-left: 3px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 5px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs button,
+html body .keyboard-full-visible-final .keyboard-hide {
+  height: 22px !important;
+  min-width: 40px !important;
+  padding: 0 7px !important;
+  border-radius: 9px !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs button.active,
+html body .keyboard-full-visible-final .keyboard-keys button.active {
+  background: linear-gradient(135deg, #9b7350, #765136) !important;
+  color: #fff !important;
+}
+
+html body .keyboard-full-visible-final .zhuyin-compose {
+  position: static !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  margin: 0 0 3px !important;
+  padding: 2px 8px !important;
+  overflow: hidden !important;
+  border-radius: 9px !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  white-space: nowrap !important;
+  background: #f9eadc !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row {
+  position: static !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  margin: 0 0 4px !important;
+  padding: 2px 4px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 4px !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  border-radius: 9px !important;
+  background: rgba(255,255,255,.86) !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row button {
+  height: 20px !important;
+  min-width: 38px !important;
+  padding: 0 7px !important;
+  border-radius: 7px !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys {
+  display: grid !important;
+  gap: 4px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+html body .keyboard-full-visible-final .key-row {
+  display: grid !important;
+  gap: 4px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+/* 中文鍵盤：4 排注音 + 1 排功能 */
+html body .keyboard-full-visible-final.is-zhuyin .key-row.row-1 {
+  grid-template-columns: repeat(11, minmax(0, 1fr)) minmax(44px, .82fr) !important;
+}
+html body .keyboard-full-visible-final.is-zhuyin .key-row.row-2,
+html body .keyboard-full-visible-final.is-zhuyin .key-row.row-3,
+html body .keyboard-full-visible-final.is-zhuyin .key-row.row-4 {
+  grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
+}
+html body .keyboard-full-visible-final.is-zhuyin .key-row.row-5 {
+  grid-template-columns: minmax(70px, 1fr) minmax(260px, 3.4fr) minmax(70px, 1fr) !important;
+}
+
+/* 英文鍵盤：數字列 + QWERTY + Caps + 英文字母 + 底部 */
+html body .keyboard-full-visible-final.is-english .key-row.row-1 {
+  grid-template-columns: repeat(10, minmax(0, 1fr)) minmax(44px, .8fr) !important;
+}
+html body .keyboard-full-visible-final.is-english .key-row.row-2 {
+  grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
+}
+html body .keyboard-full-visible-final.is-english .key-row.row-3 {
+  grid-template-columns: minmax(64px, 1.05fr) repeat(10, minmax(0, 1fr)) !important;
+}
+html body .keyboard-full-visible-final.is-english .key-row.row-4 {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+}
+html body .keyboard-full-visible-final.is-english .key-row.row-5 {
+  grid-template-columns: minmax(70px, 1fr) minmax(260px, 3.4fr) minmax(70px, 1fr) !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button {
+  height: 28px !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 9px !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  position: relative !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button.kb-special,
+html body .keyboard-full-visible-final .keyboard-keys button.kb-space {
+  font-size: 13px !important;
+}
+
+/* 中文：只顯示注音，不顯示英文/數字/聲調角標 */
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-en,
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-num,
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+  position: static !important;
+  display: block !important;
+  color: #211f1e !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+}
+
+/* 英文：只顯示英文/數字，Caps 後會變大寫 */
+html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-zh,
+html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-num,
+html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-en {
+  position: static !important;
+  display: block !important;
+  color: #211f1e !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+}
+
+/* Caps 啟用時更明顯 */
+html body .keyboard-full-visible-final .keyboard-keys button[data-action="caps"].active {
+  background: linear-gradient(135deg, #9b7350, #765136) !important;
+  color: #fff !important;
+}
+
+/* 不讓彈窗底部被鍵盤擋住，但鍵盤本身不用滑 */
+body.keyboard-open .booking-dialog,
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 250px) !important;
+  margin-bottom: 210px !important;
+  overflow-y: auto !important;
+}
+
+/* 小高度再縮小，但仍一次看完 */
+@media (max-height: 760px) {
+  html body .touch-keyboard-panel.keyboard-full-visible-final {
+    bottom: 5px !important;
+    width: min(1040px, calc(100vw - 28px)) !important;
+    max-width: calc(100vw - 28px) !important;
+    padding: 5px 8px 7px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-top {
+    height: 20px !important;
+    min-height: 20px !important;
+    margin-bottom: 2px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-top strong {
+    font-size: 13px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-mode-tabs button,
+  html body .keyboard-full-visible-final .keyboard-hide {
+    height: 19px !important;
+    min-width: 34px !important;
+    padding: 0 6px !important;
+    font-size: 10px !important;
+  }
+
+  html body .keyboard-full-visible-final .zhuyin-compose {
+    height: 15px !important;
+    min-height: 15px !important;
+    margin-bottom: 2px !important;
+    padding: 1px 7px !important;
+    font-size: 10px !important;
+    line-height: 13px !important;
+  }
+
+  html body .keyboard-full-visible-final .candidate-row {
+    height: 20px !important;
+    min-height: 20px !important;
+    margin-bottom: 3px !important;
+  }
+
+  html body .keyboard-full-visible-final .candidate-row button {
+    height: 16px !important;
+    font-size: 10px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-keys,
+  html body .keyboard-full-visible-final .key-row {
+    gap: 3px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-keys button {
+    height: 24px !important;
+    border-radius: 8px !important;
+    font-size: 11px !important;
+  }
+
+  html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+    font-size: 17px !important;
+  }
+
+  html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-en {
+    font-size: 14px !important;
+  }
+
+  body.keyboard-open .booking-dialog,
+  .booking-modal.keyboard-open .booking-dialog {
+    max-height: calc(100vh - 210px) !important;
+    margin-bottom: 176px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  html body .touch-keyboard-panel.keyboard-full-visible-final {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-keys button {
+    height: 24px !important;
+  }
+
+  html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+    font-size: 16px !important;
+  }
+
+  html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-en {
+    font-size: 13px !important;
+  }
+}
+
+/* 2026-07-10 final keyboard containment: keep every row visible without covering active fields. */
+html body .touch-keyboard-panel.keyboard-full-visible-final,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-english,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-zhuyin {
+  bottom: max(8px, env(safe-area-inset-bottom)) !important;
+  width: min(1480px, calc(100vw - 40px)) !important;
+  max-width: calc(100vw - 40px) !important;
+  max-height: min(38vh, 330px) !important;
+  padding: 8px 12px 10px !important;
+  overflow: hidden !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top {
+  height: 28px !important;
+  min-height: 28px !important;
+  margin-bottom: 5px !important;
+}
+
+html body .keyboard-full-visible-final .zhuyin-compose {
+  height: 22px !important;
+  min-height: 22px !important;
+  margin-bottom: 5px !important;
+  line-height: 20px !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row {
+  height: 28px !important;
+  min-height: 28px !important;
+  margin-bottom: 6px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys {
+  gap: 5px !important;
+}
+
+html body .keyboard-full-visible-final .key-row {
+  gap: 5px !important;
+  min-width: 0 !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button,
+html body .keyboard-full-visible-final.is-english .keyboard-keys button,
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys button {
+  height: 31px !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  border-radius: 9px !important;
+}
+
+html body .keyboard-full-visible-final.is-english .key-row.row-5,
+html body .keyboard-full-visible-final.is-zhuyin .key-row.row-5 {
+  grid-template-columns: minmax(70px, .9fr) minmax(220px, 4fr) minmax(84px, 1fr) !important;
+}
+
+html body .keyboard-full-visible-final.is-english .keyboard-keys button[data-action="caps"]::after {
+  content: "小寫";
+  margin-left: 4px;
+  color: #8b8178;
+  font-size: 10px;
+}
+
+html body .keyboard-full-visible-final.is-english .keyboard-keys button[data-action="caps"].active::after {
+  content: "大寫";
+  color: rgba(255, 255, 255, .9);
+}
+
+body.keyboard-open .booking-dialog,
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 300px) !important;
+  margin-bottom: 260px !important;
+  overflow-y: auto !important;
+}
+
+/* 2026-07-10: keep Zhuyin composition and candidate text readable. */
+html body .touch-keyboard-panel.keyboard-full-visible-final,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-english,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-zhuyin {
+  max-height: min(44vh, 390px) !important;
+  padding: 10px 14px 12px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top {
+  height: 34px !important;
+  min-height: 34px !important;
+  margin-bottom: 7px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top strong {
+  font-size: 24px !important;
+  line-height: 1.1 !important;
+}
+
+html body .keyboard-full-visible-final .zhuyin-compose {
+  height: 44px !important;
+  min-height: 44px !important;
+  margin-bottom: 8px !important;
+  padding: 0 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 30px !important;
+  line-height: 1.2 !important;
+  font-weight: 950 !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row {
+  height: 52px !important;
+  min-height: 52px !important;
+  margin-bottom: 8px !important;
+  gap: 12px !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row button {
+  height: 44px !important;
+  min-width: 70px !important;
+  padding: 0 18px !important;
+  border-radius: 16px !important;
+  font-size: 30px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+}
+
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+  font-size: 30px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-en {
+  font-size: 22px !important;
+  line-height: 1 !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button,
+html body .keyboard-full-visible-final.is-english .keyboard-keys button,
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys button {
+  height: 34px !important;
+}
+
+@media (max-height: 760px) {
+  html body .touch-keyboard-panel.keyboard-full-visible-final,
+  html body .touch-keyboard-panel.keyboard-full-visible-final.is-english,
+  html body .touch-keyboard-panel.keyboard-full-visible-final.is-zhuyin {
+    max-height: min(46vh, 370px) !important;
+  }
+
+  html body .keyboard-full-visible-final .zhuyin-compose {
+    height: 38px !important;
+    min-height: 38px !important;
+    font-size: 26px !important;
+  }
+
+  html body .keyboard-full-visible-final .candidate-row {
+    height: 46px !important;
+    min-height: 46px !important;
+  }
+
+  html body .keyboard-full-visible-final .candidate-row button {
+    height: 38px !important;
+    font-size: 26px !important;
+  }
+
+  html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+    font-size: 26px !important;
+  }
+}
+
+/* 2026-07-11: final top-bar sizing requested for touch keyboard. */
+html body .keyboard-full-visible-final .keyboard-top {
+  height: 58px !important;
+  min-height: 58px !important;
+  margin-bottom: 8px !important;
+  justify-content: flex-end !important;
+  gap: 16px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top strong,
+html body .keyboard-full-visible-final #keyboardTitle {
+  display: none !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs {
+  margin-left: 0 !important;
+  gap: 16px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs button,
+html body .keyboard-full-visible-final .keyboard-hide {
+  height: 50px !important;
+  min-width: 96px !important;
+  padding: 0 24px !important;
+  border-radius: 22px !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+}
+
+html body .keyboard-full-visible-final .zhuyin-compose {
+  height: 38px !important;
+  min-height: 38px !important;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+}
+
+@media (max-height: 760px) {
+  html body .keyboard-full-visible-final .keyboard-top {
+    height: 52px !important;
+    min-height: 52px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-mode-tabs button,
+  html body .keyboard-full-visible-final .keyboard-hide {
+    height: 44px !important;
+    min-width: 86px !important;
+    font-size: 24px !important;
+  }
+
+  html body .keyboard-full-visible-final .zhuyin-compose {
+    height: 34px !important;
+    min-height: 34px !important;
+    font-size: 20px !important;
+  }
+}
+
+/* 2026-07-11: compact enough to keep the bottom row fully visible. */
+html body .touch-keyboard-panel.keyboard-full-visible-final,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-english,
+html body .touch-keyboard-panel.keyboard-full-visible-final.is-zhuyin {
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
+  width: min(1320px, calc(100vw - 52px)) !important;
+  max-width: calc(100vw - 52px) !important;
+  max-height: none !important;
+  padding: 8px 12px 10px !important;
+  overflow: visible !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top {
+  height: 30px !important;
+  min-height: 30px !important;
+  margin-bottom: 5px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top strong {
+  font-size: 22px !important;
+}
+
+html body .keyboard-full-visible-final .zhuyin-compose {
+  height: 34px !important;
+  min-height: 34px !important;
+  margin-bottom: 6px !important;
+  padding: 0 16px !important;
+  font-size: 26px !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row {
+  height: 40px !important;
+  min-height: 40px !important;
+  margin-bottom: 6px !important;
+  gap: 8px !important;
+}
+
+html body .keyboard-full-visible-final .candidate-row button {
+  height: 32px !important;
+  min-width: 56px !important;
+  padding: 0 14px !important;
+  border-radius: 12px !important;
+  font-size: 24px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys,
+html body .keyboard-full-visible-final .key-row {
+  gap: 5px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-keys button,
+html body .keyboard-full-visible-final.is-english .keyboard-keys button,
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys button {
+  height: 30px !important;
+  border-radius: 9px !important;
+}
+
+html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys .kb-zh {
+  font-size: 26px !important;
+}
+
+html body .keyboard-full-visible-final.is-english .keyboard-keys .kb-en {
+  font-size: 20px !important;
+}
+
+body.keyboard-open .booking-dialog,
+.booking-modal.keyboard-open .booking-dialog {
+  max-height: calc(100vh - 250px) !important;
+  margin-bottom: 220px !important;
+}
+
+@media (max-height: 760px) {
+  html body .keyboard-full-visible-final .keyboard-top {
+    height: 27px !important;
+    min-height: 27px !important;
+  }
+
+  html body .keyboard-full-visible-final .zhuyin-compose {
+    height: 30px !important;
+    min-height: 30px !important;
+    font-size: 23px !important;
+  }
+
+  html body .keyboard-full-visible-final .candidate-row {
+    height: 36px !important;
+    min-height: 36px !important;
+  }
+
+  html body .keyboard-full-visible-final .candidate-row button {
+    height: 28px !important;
+    font-size: 22px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-keys button,
+  html body .keyboard-full-visible-final.is-english .keyboard-keys button,
+  html body .keyboard-full-visible-final.is-zhuyin .keyboard-keys button {
+    height: 27px !important;
+  }
+}
+
+/* 2026-07-11 final override: remove keyboard title, enlarge mode buttons, shrink hint text. */
+html body .keyboard-full-visible-final .keyboard-top {
+  height: 58px !important;
+  min-height: 58px !important;
+  margin-bottom: 8px !important;
+  justify-content: flex-end !important;
+  gap: 16px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-top strong,
+html body .keyboard-full-visible-final #keyboardTitle {
+  display: none !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs {
+  margin-left: 0 !important;
+  gap: 16px !important;
+}
+
+html body .keyboard-full-visible-final .keyboard-mode-tabs button,
+html body .keyboard-full-visible-final .keyboard-hide {
+  height: 50px !important;
+  min-width: 96px !important;
+  padding: 0 24px !important;
+  border-radius: 22px !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+}
+
+html body .keyboard-full-visible-final .zhuyin-compose {
+  height: 38px !important;
+  min-height: 38px !important;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+}
+
+@media (max-height: 760px) {
+  html body .keyboard-full-visible-final .keyboard-top {
+    height: 52px !important;
+    min-height: 52px !important;
+  }
+
+  html body .keyboard-full-visible-final .keyboard-mode-tabs button,
+  html body .keyboard-full-visible-final .keyboard-hide {
+    height: 44px !important;
+    min-width: 86px !important;
+    font-size: 24px !important;
+  }
+
+  html body .keyboard-full-visible-final .zhuyin-compose {
+    height: 34px !important;
+    min-height: 34px !important;
+    font-size: 20px !important;
+  }
+}

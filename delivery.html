@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WOHOURS 快遞提醒</title>
+  <link rel="stylesheet" href="css/delivery.css">
+  <link rel="stylesheet" href="css/doorbell.css?v=20260708-anim">
+  <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
+  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260710-caps-fit">
+</head>
+<body>
+  <main class="delivery-stage">
+    <section class="delivery-screen">
+      <div class="delivery-bg" aria-hidden="true"></div>
+      <aside class="side-nav">
+        <div class="side-logo"><img src="images/logo.png" alt="WOHOURS"></div>
+        <nav>
+          <a href="homepage-ui.html"><span class="home-mark">⌂</span>首頁</a>
+          <a href="visitor.html"><img class="nav-icon" src="images/使用者附件.png" alt="">訪客登記</a>
+          <a class="active" href="delivery.html"><img class="nav-icon nav-icon-wide" src="images/使用者附件 (3).png" alt="">快遞提醒</a>
+          <a href="lunch.html"><img class="nav-icon" src="images/使用者附件 (1).png" alt="">預約便當</a>
+          <a href="emergency.html"><img class="nav-icon" src="images/使用者附件 (4).png" alt="">緊急聯繫</a>
+          <a href="employee.html"><img class="nav-icon" src="images/使用者附件 (5).png" alt="">員工專區</a>
+          <a href="#" data-action="doorbell"><img class="nav-icon" src="images/使用者附件 (6).png" alt="">電鈴</a>
+        </nav>
+      </aside>
+
+      <section class="delivery-main">
+        <header class="delivery-top">
+          <div>
+            <h1>快遞提醒</h1>
+            <p>即時掌握公司包裹狀態，取件更有效率</p>
+          </div>
+
+          <div class="delivery-status">
+            <button class="delivery-bell" type="button" aria-label="通知">
+              <svg viewBox="0 0 24 24">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                <path d="M10 21h4"/>
+              </svg>
+              <i></i>
+            </button>
+
+            <div class="delivery-clock">
+              <strong id="deliveryTime">05:41</strong>
+              <span id="deliveryDate">07/06 (一)</span>
+            </div>
+          </div>
+
+          <button class="add-parcel" id="openParcelModal" type="button">＋ 登記新快遞</button>
+        </header>
+
+        <section class="summary-grid" aria-label="快遞統計">
+          <article class="summary-card" data-filter="待領取" tabindex="0">
+            <img src="images/待取件.png" alt="">
+            <span>待領取</span>
+            <strong>3<small>件</small></strong>
+          </article>
+
+          <article class="summary-card" data-filter="運送中" tabindex="0">
+            <img src="images/運送中.png" alt="">
+            <span>運送中</span>
+            <strong>2<small>件</small></strong>
+          </article>
+
+          <article class="summary-card" data-filter="已領取" tabindex="0">
+            <img src="images/已取件.png" alt="">
+            <span>已領取</span>
+            <strong>8<small>件</small></strong>
+          </article>
+
+          <article class="summary-card" data-filter="逾期未領" tabindex="0">
+            <img src="images/未取件.png" alt="">
+            <span>逾期未領</span>
+            <strong>1<small>件</small></strong>
+          </article>
+        </section>
+
+        <section class="delivery-tools">
+          <div class="delivery-tabs" aria-label="篩選狀態">
+            <button class="active" type="button" data-filter="all">全部</button>
+            <button type="button" data-filter="待領取">待領取</button>
+            <button type="button" data-filter="運送中">運送中</button>
+            <button type="button" data-filter="已領取">已領取</button>
+            <button type="button" data-filter="逾期未領">逾期未領</button>
+          </div>
+
+          <label class="search-box">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m20 20-3.5-3.5"/>
+            </svg>
+            <input id="parcelSearch" type="search" placeholder="搜尋工號 / 收件人 / 包裹編號">
+          </label>
+
+          <button class="filter-button" type="button" aria-label="篩選">≡</button>
+        </section>
+
+        <section class="parcel-table" aria-label="快遞清單">
+          <div class="table-head">
+            <span>包裹編號</span>
+            <span>收件人</span>
+            <span>來源</span>
+            <span>狀態</span>
+            <span>送達時間</span>
+            <span>操作</span>
+          </div>
+
+          <div class="table-body" id="parcelRows"></div>
+          <p id="parcelCount">共 5 筆資料</p>
+        </section>
+      </section>
+
+      <section class="parcel-modal" id="parcelModal" aria-hidden="true" hidden>
+        <form class="parcel-dialog" id="parcelForm" novalidate>
+          <button class="modal-close" id="closeParcelModal" type="button" aria-label="關閉">×</button>
+
+          <h2>登記新快遞</h2>
+
+          <div class="parcel-mode" role="tablist">
+            <button class="active" type="button" data-mode="receive">收件登記</button>
+            <button type="button" data-mode="send">送件登記</button>
+          </div>
+
+          <section class="parcel-form-page active" data-page="receive">
+            <label class="parcel-field wide">
+              <span>收件人 <b>*</b></span>
+              <input name="receiverName" placeholder="請輸入收件人姓名">
+            </label>
+
+            <label class="parcel-field">
+              <span>部門 <b>*</b></span>
+              <input name="receiverDept" type="hidden">
+              <button class="choice-trigger" type="button" data-picker="dept" data-target="receiverDept">
+                <em>請選擇部門</em>
+                <i>⌄</i>
+              </button>
+            </label>
+
+            <label class="parcel-field">
+              <span>包裹編號 / 物流單號 <b>*</b></span>
+              <div class="scan-input-wrap">
+                <input name="parcelNo" placeholder="請輸入包裹編號或物流單號">
+                  <button class="scan-trigger" id="openScanModal" type="button" aria-label="掃描包裹條碼">
+                    <img src="images/拍照.png" alt="">
+                  </button>
+              </div>
+            </label>
+
+            <label class="parcel-field wide">
+              <span>包裹來源 <b>*</b></span>
+              <input name="parcelSource" type="hidden">
+              <button class="choice-trigger" type="button" data-picker="source" data-target="parcelSource">
+                <em>請選擇包裹來源</em>
+                <i>⌄</i>
+              </button>
+            </label>
+
+            <label class="parcel-field">
+              <span>到件日期 <b>*</b></span>
+              <input class="auto-filled" name="arrivalDate" readonly placeholder="系統自動帶入">
+            </label>
+
+            <label class="parcel-field">
+              <span>到件時間 <b>*</b></span>
+              <input class="auto-filled" name="arrivalTime" readonly placeholder="系統自動帶入">
+            </label>
+
+            <label class="parcel-field wide">
+              <span>備註</span>
+              <textarea name="receiveNote" placeholder="可輸入備註（選填）"></textarea>
+            </label>
+          </section>
+
+          <section class="parcel-form-page" data-page="send">
+            <label class="parcel-field">
+              <span>寄件人 <b>*</b></span>
+              <input name="senderName" placeholder="請輸入寄件人姓名">
+            </label>
+
+            <label class="parcel-field">
+              <span>部門 <b>*</b></span>
+              <input name="senderDept" type="hidden">
+              <button class="choice-trigger" type="button" data-picker="dept" data-target="senderDept">
+                <em>請選擇部門</em>
+                <i>⌄</i>
+              </button>
+            </label>
+
+            <label class="parcel-field">
+              <span>收件人姓名 <b>*</b></span>
+              <input name="sendReceiverName" placeholder="請輸入收件人姓名">
+            </label>
+
+            <label class="parcel-field">
+              <span>收件人電話 <b>*</b></span>
+              <input name="sendReceiverPhone" inputmode="numeric" maxlength="10" placeholder="請輸入收件人電話">
+            </label>
+
+            <label class="parcel-field wide">
+              <span>收件地址 <b>*</b></span>
+              <input name="sendAddress" placeholder="請輸入完整收件地址">
+            </label>
+
+            <label class="parcel-field">
+              <span>物流方式 <b>*</b></span>
+              <input name="shipMethod" type="hidden">
+              <button class="choice-trigger" type="button" data-picker="source" data-target="shipMethod">
+                <em>請選擇物流方式</em>
+                <i>⌄</i>
+              </button>
+            </label>
+
+            <label class="parcel-field">
+              <span>包裹內容 / 備註</span>
+              <textarea name="sendNote" placeholder="可輸入包裹內容或備註"></textarea>
+            </label>
+
+            <label class="parcel-field">
+              <span>預計寄出日期 <b>*</b></span>
+              <input name="sendDate" type="hidden">
+              <button class="choice-trigger" type="button" data-picker="date" data-target="sendDate">
+                <em>請選擇日期</em>
+                <i>📅</i>
+              </button>
+            </label>
+
+            <label class="parcel-field">
+              <span>預計寄出時間 <b>*</b></span>
+              <input name="sendTime" type="hidden">
+              <button class="choice-trigger" type="button" data-picker="time" data-target="sendTime">
+                <em>請選擇時間</em>
+                <i>⏰</i>
+              </button>
+            </label>
+          </section>
+
+          <div class="parcel-actions">
+            <button class="cancel" id="cancelParcel" type="button">取消</button>
+            <button class="confirm" type="submit">確認登記</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="scanner-modal" id="scannerModal" aria-hidden="true" hidden>
+        <div class="scanner-dialog" role="dialog" aria-label="掃描包裹條碼">
+          <button class="scanner-close" id="closeScanModal" type="button" aria-label="關閉掃描">×</button>
+
+          <h2>掃描包裹條碼</h2>
+          <p>請將包裹條碼放入框線內，系統會自動辨識</p>
+
+          <div class="scanner-view">
+            <video id="scannerVideo" autoplay playsinline muted></video>
+            <div class="scan-corners">
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+            <span class="scan-line"></span>
+          </div>
+
+          <small id="scannerHint">掃描中，6 秒後自動返回登記表單</small>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/mock-employee-data.js?v=20260709-memory"></script>
+  <script src="js/doorbell.js"></script>
+  <script src="js/delivery.js?V=10001"></script>
+  <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+  <script src="js/touch-keyboard.js?v=20260710-caps-fit"></script>
+</body>
+</html>

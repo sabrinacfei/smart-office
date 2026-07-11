@@ -1,0 +1,207 @@
+:root {
+  --keyboard-ink: #100805;
+  --keyboard-noir: #1f1d1d;
+  --keyboard-taupe: #beb9b1;
+  --keyboard-stone: #838383;
+  --keyboard-brown: #9a7657;
+  --keyboard-deep: #846246;
+  --keyboard-line: #ddd8d3;
+}
+
+.touch-keyboard {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  z-index: 20000;
+  width: min(760px, calc(100vw - 36px), calc(21.4cm - 28px));
+  max-height: min(342px, calc(100vh - 28px), calc(13.5cm - 28px));
+  padding: 8px;
+  border: 1px solid rgba(221, 216, 211, .92);
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .97), rgba(243, 240, 237, .96));
+  box-shadow: 0 28px 74px rgba(16, 8, 5, .22);
+  color: var(--keyboard-noir);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  transform: translate(-50%, 22px) scale(.985);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.touch-keyboard.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.keyboard-head,
+.keyboard-actions,
+.keyboard-composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.keyboard-head {
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.keyboard-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #756b62;
+  font-size: 14px;
+  font-weight: 760;
+}
+
+.keyboard-title::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #c35a3f;
+}
+
+.keyboard-actions button,
+.keyboard-key {
+  border: 1px solid rgba(216, 209, 203, .94);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--keyboard-noir);
+  box-shadow: 0 8px 18px rgba(16, 8, 5, .07);
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+
+.keyboard-actions button {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 760;
+}
+
+.keyboard-actions button.active,
+.keyboard-actions button:hover {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--keyboard-brown), var(--keyboard-deep));
+  color: #fff;
+}
+
+.keyboard-composer {
+  min-height: 36px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border: 1px solid rgba(190, 185, 177, .28);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .7);
+}
+
+.keyboard-composer span {
+  flex: 0 0 auto;
+  color: #756b62;
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.keyboard-composer strong {
+  min-width: 104px;
+  color: #7b5c42;
+  font-size: 17px;
+  letter-spacing: .04em;
+}
+
+.keyboard-composer strong.is-empty {
+  color: #838383;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.keyboard-grid {
+  display: grid;
+  gap: 5px;
+}
+
+.keyboard-row {
+  display: grid;
+  grid-template-columns: repeat(var(--key-count), minmax(0, 1fr));
+  gap: 5px;
+}
+
+.keyboard-key {
+  min-height: 34px;
+  padding: 0 4px;
+  font-size: 18px;
+  font-weight: 680;
+}
+
+.keyboard-key:active,
+.keyboard-key.is-active {
+  transform: scale(.94);
+  box-shadow: 0 5px 12px rgba(16, 8, 5, .1);
+}
+
+.keyboard-key.is-active {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--keyboard-brown), var(--keyboard-deep));
+  color: #fff;
+}
+
+.keyboard-key.is-caps::after {
+  content: "小寫";
+  display: block;
+  margin-left: 4px;
+  color: #8b8178;
+  font-size: 10px;
+  font-weight: 760;
+}
+
+.touch-keyboard.is-uppercase .keyboard-key.is-caps::after {
+  content: "大寫";
+  color: rgba(255, 255, 255, .92);
+}
+
+.keyboard-key.is-tone {
+  color: #7b5c42;
+  background: rgba(190, 185, 177, .2);
+}
+
+.keyboard-key.is-space {
+  grid-column: span 4;
+}
+
+.keyboard-key.is-muted {
+  color: #756b62;
+  background: rgba(243, 240, 237, .94);
+}
+
+@media (max-height: 760px) {
+  .touch-keyboard {
+    bottom: 8px;
+    width: min(740px, calc(100vw - 28px), calc(21.4cm - 28px));
+    max-height: min(326px, calc(100vh - 18px), calc(13.5cm - 18px));
+    padding: 7px;
+    border-radius: 17px;
+  }
+
+  .keyboard-key {
+    min-height: 31px;
+    font-size: 17px;
+  }
+
+  .keyboard-actions button {
+    height: 30px;
+    padding: 0 11px;
+    font-size: 13px;
+  }
+
+  .keyboard-composer {
+    min-height: 34px;
+    margin-bottom: 4px;
+  }
+
+  .keyboard-composer strong {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wHOURS 排班公告</title>
+  <link rel="stylesheet" href="css/schedule.css?v=20260710-employee-requests">
+  <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
+  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260710-caps-fit">
+</head>
+<body>
+  <main class="schedule-stage">
+    <section class="schedule-screen">
+      <div class="schedule-bg" aria-hidden="true"></div>
+
+      <aside class="schedule-sidebar">
+        <nav class="sidebar-nav schedule-context-nav" aria-label="排班公告側邊選單">
+          <a class="schedule-side-logo" href="homepage-ui.html" aria-label="WOHOURS 首頁">
+            <img src="images/logo.png" alt="WOHOURS">
+          </a>
+
+          <section class="sidebar-group">
+            <h2>班表資訊</h2>
+            <button class="schedule-nav active" type="button" data-view="weekly">本週班表</button>
+            <button class="schedule-nav" type="button" data-view="next">下週預排</button>
+            <button class="schedule-nav" type="button" data-view="changes">臨時異動</button>
+            <button class="schedule-nav" type="button" data-view="leave">請假提醒</button>
+            <button class="schedule-nav" type="button" data-view="leaveApply">請假申請</button>
+            <button class="schedule-nav" type="button" data-view="absence">臨時缺勤</button>
+            <button class="schedule-nav" type="button" data-view="swap">換班申請</button>
+            <button class="schedule-nav" type="button" data-view="adjust">調整申請</button>
+          </section>
+
+          <section class="sidebar-reminder" aria-label="今日提醒">
+            <h2>今日提醒</h2>
+            <p><b>早班</b><span>09:00 - 18:00</span></p>
+            <p><b>午休</b><span>12:00 - 13:00</span></p>
+          </section>
+
+          <a class="sidebar-return" href="employee.html">
+            <span>‹</span>
+            返回員工專區
+          </a>
+        </nav>
+      </aside>
+
+      <section class="schedule-main">
+        <header class="schedule-topbar">
+          <button class="schedule-back-view" id="scheduleBackView" type="button" hidden>‹ 上一頁</button>
+          <div class="top-status">
+            <strong id="scheduleTime">18:00</strong>
+            <span id="scheduleDate">07/07（二）</span>
+            <button class="help-button" type="button">？ 使用說明</button>
+          </div>
+        </header>
+
+        <section class="schedule-scroll">
+          <section class="schedule-view is-active" data-view-panel="weekly">
+            <section class="schedule-hero">
+              <small>SCHEDULE ANNOUNCEMENT</small>
+              <h1>排班公告</h1>
+              <p>查看各部門今日班別、排班異動與重要提醒。</p>
+            </section>
+
+          <section class="summary-grid">
+            <article class="info-card today-card" id="weeklySchedule">
+              <h2>今日班別總覽</h2>
+              <p id="todayText">2026/07/07（二）</p>
+              <div class="shift-box">
+                <div><b>早班</b><span>09:00 – 18:00</span></div>
+                <div><b>中班</b><span>12:00 – 21:00</span></div>
+                <div><b>晚班</b><span>15:00 – 24:00</span></div>
+              </div>
+            </article>
+
+            <article class="info-card note-card">
+              <h2>今日注意事項</h2>
+              <ul>
+                <li>早班人員請於 08:50 前完成打卡。</li>
+                <li>晚班支援人員請至櫃檯集合。</li>
+                <li>若需換班，請洽主管確認。</li>
+                <li>如有臨時異動，將於此頁公告。</li>
+              </ul>
+            </article>
+
+            <article class="info-card query-card">
+              <h2>查詢個人班表</h2>
+              <p>請輸入員工工號，查看您的班表與排班異動。</p>
+              <input id="employeeShiftId" inputmode="numeric" maxlength="8" placeholder="請輸入員工工號">
+              <button id="queryShiftButton" type="button">查詢班表</button>
+              <p class="query-result" id="queryResult" aria-live="polite"></p>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <article class="panel schedule-table-card" id="nextSchedule">
+              <div class="panel-title inline-title">
+                <h2>部門排班表</h2>
+                <label class="select-wrap">
+                  <select id="departmentFilter" aria-label="部門篩選">
+                    <option value="all">全部部門</option>
+                    <option value="行政部">行政部</option>
+                    <option value="客服部">客服部</option>
+                    <option value="門市部">門市部</option>
+                    <option value="倉儲部">倉儲部</option>
+                    <option value="財務部">財務部</option>
+                  </select>
+                </label>
+              </div>
+
+              <table class="department-table">
+                <thead>
+                  <tr>
+                    <th>日期</th>
+                    <th>部門</th>
+                    <th>班別</th>
+                    <th>時間</th>
+                    <th>備註</th>
+                  </tr>
+                </thead>
+                <tbody id="shiftTableBody"></tbody>
+              </table>
+              <button class="more-button" id="showMoreRows" type="button">顯示更多⌄</button>
+            </article>
+
+            <article class="panel change-card" id="shiftChanges">
+              <div class="panel-title split-title">
+                <h2>排班異動公告</h2>
+                <button type="button">查看全部</button>
+              </div>
+              <div class="change-list">
+                <article><time>07/08（二）</time><p>客服部早班調整為中班</p><span class="tag important">重要</span></article>
+                <article><time>07/10（五）</time><p>因部門活動，晚班提早至 14:00 開始</p><span class="tag updated">已更新</span></article>
+                <article><time>07/12（日）</time><p>門市支援人力調整，請值班人員提前 10 分鐘到場</p><span class="tag confirm">請確認</span></article>
+              </div>
+              <button class="all-news-button" type="button">查看全部公告 ›</button>
+            </article>
+          </section>
+
+          <section class="panel reminder-card" id="leaveReminders">
+            <h2>請假／換班提醒</h2>
+            <div class="reminder-grid">
+                <article><h3>請假申請</h3><p>請於排班日前 3 天完成申請，臨時請假請依公司規定辦理。</p><button type="button" data-view-button="leaveApply">前往請假申請</button></article>
+              <article><h3>換班申請</h3><p>需雙方同意並經主管審核，請提前確認避免影響排班。</p><button type="button" data-view-button="swap">申請換班</button></article>
+              <article><h3>臨時缺勤</h3><p>請於上班前 2 小時通知主管，並說明原因。</p><button type="button" data-view-button="absence">臨時缺勤通報</button></article>
+            </div>
+          </section>
+          </section>
+          <section class="schedule-view" data-view-panel="next" hidden>
+            <section class="schedule-hero">
+              <small>WEEKLY PRE-SCHEDULE</small>
+              <h1>下週預排</h1>
+              <p>查看下週您的預排班表，您可於開放期間提出調整申請。</p>
+            </section>
+
+            <article class="panel pre-card">
+              <div class="pre-toolbar">
+                <button class="ghost-btn" type="button">‹ 上一週</button>
+                <h2>2026/07/14（一）- 2026/07/20（日）</h2>
+                <div>
+                  <button class="ghost-btn" type="button" data-view-button="rules">班表規則</button>
+                  <button class="brown-action" type="button" data-view-button="adjust">調整申請</button>
+                </div>
+              </div>
+
+              <table class="weekly-pre-table">
+                <thead>
+                  <tr>
+                    <th>日期</th>
+                    <th>07/14（一）</th>
+                    <th>07/15（二）</th>
+                    <th>07/16（三）</th>
+                    <th>07/17（四）</th>
+                    <th>07/18（五）</th>
+                    <th>07/19（六）</th>
+                    <th>07/20（日）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>班別</th>
+                    <td class="brown-text">早班</td>
+                    <td class="brown-text">中班</td>
+                    <td class="brown-text">早班</td>
+                    <td class="brown-text">晚班</td>
+                    <td>休息</td>
+                    <td class="brown-text">中班</td>
+                    <td>休息</td>
+                  </tr>
+                  <tr>
+                    <th>時間</th>
+                    <td>09:00 - 18:00</td>
+                    <td>12:00 - 21:00</td>
+                    <td>09:00 - 18:00</td>
+                    <td>15:00 - 24:00</td>
+                    <td>—</td>
+                    <td>12:00 - 21:00</td>
+                    <td>—</td>
+                  </tr>
+                  <tr>
+                    <th>地點</th>
+                    <td>行政部</td>
+                    <td>客服部</td>
+                    <td>行政部</td>
+                    <td>門市部</td>
+                    <td>休息</td>
+                    <td>客服部</td>
+                    <td>休息</td>
+                  </tr>
+                  <tr>
+                    <th>備註</th>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>支援早班</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>—</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="pre-info-grid">
+                <article class="panel mini-panel">
+                  <h2>預排說明</h2>
+                  <ul>
+                    <li>此為預排班表，實際班表以最終公布為準。</li>
+                    <li>開放調整申請期間：07/08 09:00 - 07/10 18:00。</li>
+                    <li>如有需求，請於期限內提出調整申請。</li>
+                  </ul>
+                </article>
+
+                <article class="panel mini-panel empty-state">
+                  <h2>我的申請紀錄</h2>
+                  <p>目前無申請紀錄</p>
+                </article>
+
+                <article class="panel mini-panel">
+                  <h2>常見調整類型</h2>
+                  <ul>
+                    <li>更換班別</li>
+                    <li>更換日期</li>
+                    <li>與同事對調班次</li>
+                    <li>調整上班時間</li>
+                  </ul>
+                </article>
+              </div>
+
+              <p class="soft-notice">貼心提醒：請確認您的預排班表，如有疑問請洽各部門主管。</p>
+            </article>
+          </section>
+
+          <section class="schedule-view" data-view-panel="rules" hidden>
+            <section class="schedule-hero">
+              <small>SCHEDULE RULES</small>
+              <h1>班表規則</h1>
+              <p>查看排班的基本規則與相關說明。</p>
+            </section>
+
+            <section class="rules-grid">
+              <article class="panel rule-card wide">
+                <h2>班別時間定義</h2>
+                <table class="rule-table">
+                  <tr><th>班別</th><th>時間</th></tr>
+                  <tr><td>早班</td><td>09:00 - 18:00（含 1 小時休息）</td></tr>
+                  <tr><td>中班</td><td>12:00 - 21:00（含 1 小時休息）</td></tr>
+                  <tr><td>晚班</td><td>15:00 - 24:00（含 1 小時休息）</td></tr>
+                  <tr><td>休息</td><td>當日無排班</td></tr>
+                </table>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>連續出班規則</h2>
+                <ul>
+                  <li>原則上最多連續出班 5 天。</li>
+                  <li>連續出班後至少安排 1 天休息。</li>
+                  <li>特殊情況需主管核准。</li>
+                </ul>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>排班原則</h2>
+                <ul>
+                  <li>每週工時上限為 40 小時。</li>
+                  <li>每月排班以公平合理為原則。</li>
+                  <li>班表於每週五 18:00 前公布。</li>
+                </ul>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>休息與工時規則</h2>
+                <ul>
+                  <li>每日工時含休息時間不得超過 8 小時。</li>
+                  <li>每週至少安排 1 天休息。</li>
+                  <li>固定假日依公司公告辦理。</li>
+                </ul>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>調整申請規則</h2>
+                <ul>
+                  <li>需於開放調整期間提出申請。</li>
+                  <li>調整申請需經主管核准。</li>
+                  <li>申請結果公布後才會更新正式班表。</li>
+                </ul>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>優先順序</h2>
+                <ol>
+                  <li>部門營運需求</li>
+                  <li>排班公平性</li>
+                  <li>同仁個人需求</li>
+                </ol>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>其他說明</h2>
+                <ul>
+                  <li>請依排班時間準時報到。</li>
+                  <li>若有調假或換班需求，請參考流程辦理。</li>
+                  <li>如有問題，請洽部門主管。</li>
+                </ul>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>備註</h2>
+                <p>若遇特殊狀況，公司將依實際情況調整排班並公告。</p>
+              </article>
+            </section>
+          </section>
+
+          <section class="schedule-view" data-view-panel="changes" hidden>
+            <section class="schedule-hero">
+              <small>SCHEDULE CHANGE</small>
+              <h1>臨時異動申請</h1>
+              <p>如因臨時狀況需調整班表，請填寫以下申請表單，主管將盡快審核。</p>
+            </section>
+
+            <article class="panel change-request-card">
+              <div class="identity-strip">
+                <label>
+                  <b>員工工號</b>
+                  <input class="employee-auth-input" inputmode="numeric" maxlength="8" placeholder="請輸入員工工號">
+                </label>
+                <button class="ghost-btn face-verify-button" type="button">人臉辨識</button>
+                <p class="auth-status">尚未完成身分驗證</p>
+              </div>
+
+              <div class="request-form two-column-form">
+                <label>
+                  <b>異動日期</b>
+                  <input type="date">
+                </label>
+                <label>
+                  <b>申請異動班別</b>
+                  <select>
+                    <option>請選擇申請班別</option>
+                    <option>早班 09:00 - 18:00</option>
+                    <option>中班 12:00 - 21:00</option>
+                    <option>晚班 15:00 - 24:00</option>
+                    <option>請休假</option>
+                  </select>
+                </label>
+                <label>
+                  <b>原班別</b>
+                  <select>
+                    <option>請選擇原班別</option>
+                    <option>早班 09:00 - 18:00</option>
+                    <option>中班 12:00 - 21:00</option>
+                    <option>晚班 15:00 - 24:00</option>
+                  </select>
+                </label>
+                <label class="time-range">
+                  <b>異動時間</b>
+                  <span>
+                    <select><option>開始時間</option><option>09:00</option><option>12:00</option><option>15:00</option></select>
+                    <i>～</i>
+                    <select><option>結束時間</option><option>18:00</option><option>21:00</option><option>24:00</option></select>
+                  </span>
+                </label>
+                <label>
+                  <b>異動原因</b>
+                  <textarea maxlength="100" placeholder="請簡述異動原因"></textarea>
+                </label>
+                <label>
+                  <b>備註（選填）</b>
+                  <textarea maxlength="100" placeholder="可填寫補充說明"></textarea>
+                </label>
+              </div>
+
+              <div class="adjust-actions">
+                <button class="ghost-btn form-reset-button" type="button">重新填寫</button>
+                <button class="brown-action demo-submit" type="button">送出申請</button>
+              </div>
+            </article>
+
+            <article class="panel record-card">
+              <h2>近期申請紀錄</h2>
+              <table class="record-table">
+                <tr><th>申請日期</th><th>異動日期</th><th>原班別</th><th>申請班別</th><th>狀態</th><th>審核時間</th></tr>
+                <tr><td>07/07（一）</td><td>07/08（二）</td><td>早班 09:00 - 18:00</td><td>中班 12:00 - 21:00</td><td><span class="pill blue">審核中</span></td><td>—</td></tr>
+                <tr><td>07/05（六）</td><td>07/06（日）</td><td>中班 12:00 - 21:00</td><td>晚班 15:00 - 24:00</td><td><span class="pill green">已核准</span></td><td>07/05 17:32</td></tr>
+                <tr><td>07/03（四）</td><td>07/04（五）</td><td>早班 09:00 - 18:00</td><td>請休假</td><td><span class="pill red">已拒絕</span></td><td>07/03 14:10</td></tr>
+              </table>
+              <button class="more-button" type="button">查看更多紀錄⌄</button>
+            </article>
+          </section>
+
+          <section class="schedule-view leave-view" data-view-panel="leave" hidden>
+            <section class="schedule-hero">
+              <small>SCHEDULE ANNOUNCEMENT</small>
+              <h1>排班公告</h1>
+              <p>查看最新的今日排班、部門排班與重要提醒。</p>
+            </section>
+
+            <section class="summary-grid">
+              <article class="info-card today-card">
+                <h2>今日班別總覽</h2>
+                <p>2026/07/08（三）</p>
+                <div class="shift-box">
+                  <div><b>早班</b><span>09:00 - 18:00</span></div>
+                  <div><b>中班</b><span>12:00 - 21:00</span></div>
+                  <div><b>晚班</b><span>15:00 - 24:00</span></div>
+                </div>
+              </article>
+              <article class="info-card query-card">
+                <h2>查詢個人班表</h2>
+                <p>請輸入員工工號，查看您的班表與即將休假。</p>
+                <input class="employee-auth-input" inputmode="numeric" maxlength="8" placeholder="請輸入員工工號">
+                <button class="face-verify-button" type="button">工號與人臉查詢</button>
+                <p class="auth-status">尚未查詢個人班表</p>
+              </article>
+              <article class="info-card note-card">
+                <h2>排班異動公告</h2>
+                <ul>
+                  <li>07/08 客服部早班調整為中班。</li>
+                  <li>07/10 晚班提早至 14:00 開始。</li>
+                  <li>07/12 門市支援人力調整。</li>
+                </ul>
+              </article>
+            </section>
+
+            <section class="content-grid">
+              <article class="panel schedule-table-card">
+                <h2>部門排班表</h2>
+                <table class="department-table">
+                  <tr><th>日期</th><th>部門</th><th>班別</th><th>時間</th><th>備註</th></tr>
+                  <tr><td>07/07（二）</td><td>行政部</td><td>早班</td><td>09:00 - 18:00</td><td>—</td></tr>
+                  <tr><td>07/07（二）</td><td>客服部</td><td>中班</td><td>12:00 - 21:00</td><td>異動</td></tr>
+                  <tr><td>07/07（二）</td><td>門市部</td><td>晚班</td><td>15:00 - 24:00</td><td>支援</td></tr>
+                </table>
+              </article>
+              <article class="panel change-card">
+                <div class="panel-title split-title">
+                  <h2>請假提醒清單</h2>
+                  <button type="button">查看全部</button>
+                </div>
+                <div class="change-list">
+                  <article><time>07/10（五）</time><p>王小明事假即將開始</p><span class="tag important">2天</span></article>
+                  <article><time>07/12（日）</time><p>李佳穎病假即將開始</p><span class="tag confirm">4天</span></article>
+                  <article><time>07/15（三）</time><p>陳志豪特休即將開始</p><span class="tag updated">7天</span></article>
+                </div>
+              </article>
+            </section>
+
+            <article class="panel reminder-card">
+              <h2>請假／換班提醒</h2>
+              <div class="reminder-grid">
+                <article><h3>請假申請</h3><p>提出請假單並附上必要說明。</p><button type="button" data-view-button="leaveApply">前往請假</button></article>
+                <article><h3>換班申請</h3><p>與同事交換班別並送主管審核。</p><button type="button" data-view-button="swap">申請換班</button></article>
+                <article><h3>臨時缺勤</h3><p>臨時無法出勤時立即通報。</p><button type="button" data-view-button="absence">缺勤通報</button></article>
+              </div>
+            </article>
+
+            <div class="leave-modal" role="dialog" aria-label="請假提醒">
+              <button class="modal-close" type="button" aria-label="關閉請假提醒">×</button>
+              <h2>請假提醒</h2>
+              <p>您有即將到期的請假，請留意返班時間</p>
+              <table class="rule-table">
+                <tr><th>員工姓名</th><th>請假類型</th><th>請假期間</th><th>剩餘天數</th></tr>
+                <tr><td>王小明</td><td>事假</td><td>07/10（五）- 07/11（六）</td><td class="danger-text">2 天</td></tr>
+                <tr><td>李佳穎</td><td>病假</td><td>07/12（日）- 07/13（一）</td><td class="warning-text">4 天</td></tr>
+                <tr><td>陳志豪</td><td>特休</td><td>07/15（三）- 07/17（五）</td><td>7 天</td></tr>
+              </table>
+              <p>請假到期前請留意返班時間，如需延長請假，請提前申請。</p>
+              <button class="brown-action" type="button" data-view-button="leaveApply">前往請假申請</button>
+            </div>
+          </section>
+
+          <section class="schedule-view" data-view-panel="leaveApply" hidden>
+            <section class="schedule-hero">
+              <small>LEAVE APPLICATION</small>
+              <h1>請假申請</h1>
+              <p>填寫請假日期、類型與說明，送出後主管會於系統中審核。</p>
+            </section>
+
+            <article class="panel adjust-card">
+              <h2>提出請假申請</h2>
+              <div class="identity-strip">
+                <label>
+                  <b>員工工號</b>
+                  <input class="employee-auth-input" inputmode="numeric" maxlength="8" placeholder="請輸入員工工號">
+                </label>
+                <button class="ghost-btn face-verify-button" type="button">人臉辨識</button>
+                <p class="auth-status">尚未完成身分驗證</p>
+              </div>
+
+              <div class="request-form absence-form">
+                <label>
+                  <b>請假起日</b>
+                  <input type="date">
+                </label>
+                <label>
+                  <b>請假迄日</b>
+                  <input type="date">
+                </label>
+                <label>
+                  <b>請假類型</b>
+                  <select>
+                    <option>請選擇請假類型</option>
+                    <option>特休</option>
+                    <option>事假</option>
+                    <option>病假</option>
+                    <option>家庭照護假</option>
+                    <option>補休</option>
+                  </select>
+                </label>
+                <label class="wide-field">
+                  <b>請假原因（必填）</b>
+                  <textarea maxlength="100" placeholder="請簡要說明請假原因"></textarea>
+                  <small>0/100</small>
+                </label>
+              </div>
+
+              <div class="adjust-actions right-actions">
+                <button class="ghost-btn form-reset-button" type="button">重新填寫</button>
+                <button class="brown-action demo-submit" type="button">送出申請</button>
+              </div>
+            </article>
+          </section>
+
+          <section class="schedule-view" data-view-panel="absence" hidden>
+            <section class="schedule-hero">
+              <small>TEMPORARY ABSENCE</small>
+              <h1>臨時缺勤申請</h1>
+              <p>因突發狀況無法出勤時，可提出臨時缺勤申請。</p>
+            </section>
+
+            <article class="panel adjust-card">
+              <h2>提出臨時缺勤申請</h2>
+              <div class="identity-strip">
+                <label>
+                  <b>員工工號</b>
+                  <input class="employee-auth-input" inputmode="numeric" maxlength="8" placeholder="請輸入員工工號">
+                </label>
+                <button class="ghost-btn face-verify-button" type="button">人臉辨識</button>
+                <p class="auth-status">尚未完成身分驗證</p>
+              </div>
+
+              <div class="request-form absence-form">
+                <label>
+                  <b>缺勤日期</b>
+                  <input type="date">
+                </label>
+                <label>
+                  <b>原班別／時段</b>
+                  <select>
+                    <option>請選擇原班別或時段</option>
+                    <option>早班 09:00-18:00</option>
+                    <option>中班 12:00-21:00</option>
+                    <option>晚班 15:00-24:00</option>
+                  </select>
+                </label>
+                <label>
+                  <b>缺勤類型</b>
+                  <select>
+                    <option>請選擇缺勤類型</option>
+                    <option>個人因素</option>
+                    <option>身體不適</option>
+                    <option>突發事件</option>
+                    <option>家庭照護</option>
+                  </select>
+                </label>
+                <label class="wide-field">
+                  <b>缺勤原因（必填）</b>
+                  <textarea maxlength="100" placeholder="請簡要說明缺勤原因"></textarea>
+                  <small>0/100</small>
+                </label>
+              </div>
+
+              <div class="adjust-actions right-actions">
+                <button class="ghost-btn form-reset-button" type="button">重新填寫</button>
+                <button class="brown-action demo-submit" type="button">送出申請</button>
+              </div>
+            </article>
+
+            <section class="adjust-bottom-grid">
+              <article class="panel record-card">
+                <h2>我的申請紀錄</h2>
+                <table class="record-table">
+                  <tr><th>申請日期</th><th>缺勤日期</th><th>原班別／時段</th><th>類型</th><th>原因摘要</th><th>狀態</th><th>審核結果</th></tr>
+                  <tr><td>07/06（日）</td><td>07/07（一）</td><td>早班 09:00-18:00</td><td>個人因素</td><td>家人臨時生病</td><td><span class="pill blue">審核中</span></td><td>—</td></tr>
+                  <tr><td>07/03（四）</td><td>07/04（五）</td><td>中班 12:00-21:00</td><td>身體不適</td><td>頭暈不適需休息</td><td><span class="pill green">已核准</span></td><td>同意</td></tr>
+                  <tr><td>06/28（六）</td><td>06/29（日）</td><td>晚班 15:00-24:00</td><td>突發事件</td><td>臨時有事</td><td><span class="pill red">已拒絕</span></td><td>不同意</td></tr>
+                </table>
+                <button class="more-button" type="button">顯示更多⌄</button>
+              </article>
+              <article class="panel rule-card">
+                <h2>申請注意事項</h2>
+                <ul>
+                  <li>請於無法出勤當日儘早提出申請。</li>
+                  <li>申請需經主管審核，核准後方生效。</li>
+                  <li>若無正當理由未出勤，將依公司規定處理。</li>
+                  <li>如有緊急狀況，請先通知主管並儘速補申請。</li>
+                </ul>
+              </article>
+            </section>
+          </section>
+
+          <section class="schedule-view" data-view-panel="swap" hidden>
+            <section class="schedule-hero">
+              <small>SHIFT SWAP APPLICATION</small>
+              <h1>換班申請</h1>
+              <p>需雙方同意並經主管審核，請提前確認避免影響排班。</p>
+            </section>
+
+            <section class="swap-layout">
+              <div>
+                <article class="panel swap-card">
+                  <h2>申請換班資訊</h2>
+                  <div class="identity-strip compact-auth">
+                    <label>
+                      <b>我的員工工號</b>
+                      <input class="employee-auth-input" inputmode="numeric" maxlength="8" placeholder="請輸入員工工號">
+                    </label>
+                    <button class="ghost-btn face-verify-button" type="button">人臉辨識</button>
+                    <p class="auth-status">尚未完成身分驗證</p>
+                  </div>
+                  <div class="swap-pair">
+                    <div>
+                      <b>我原本的班次</b>
+                      <input type="date" value="2026-07-10">
+                      <select><option>中班　12:00 - 21:00</option><option>早班　09:00 - 18:00</option></select>
+                    </div>
+                    <strong>⇄</strong>
+                    <div>
+                      <b>欲交換的班次</b>
+                      <input type="date" value="2026-07-11">
+                      <select><option>早班　09:00 - 18:00</option><option>晚班　15:00 - 24:00</option></select>
+                    </div>
+                  </div>
+                  <label class="swap-note">
+                    <b>換班原因（選填）</b>
+                    <textarea maxlength="100" placeholder="請簡述換班原因"></textarea>
+                  </label>
+                </article>
+
+                <article class="panel swap-card">
+                  <h2>對方人員資訊</h2>
+                  <label class="partner-search">
+                    <b>選擇欲換班的對象</b>
+                    <span>
+                      <input placeholder="請輸入員工工號或姓名">
+                      <button class="brown-action" type="button">查詢</button>
+                    </span>
+                  </label>
+                  <div class="swap-pair">
+                    <div>
+                      <b>對方原本的班次</b>
+                      <input type="date" value="2026-07-11">
+                      <select><option>早班　09:00 - 18:00</option></select>
+                    </div>
+                    <strong>⇄</strong>
+                    <div>
+                      <b>對方欲交換的班次</b>
+                      <input type="date" value="2026-07-10">
+                      <select><option>中班　12:00 - 21:00</option></select>
+                    </div>
+                  </div>
+                  <label class="swap-note">
+                    <b>備註（選填）</b>
+                    <textarea maxlength="100" placeholder="可填寫補充說明"></textarea>
+                  </label>
+                  <div class="swap-submit-row">
+                    <button class="ghost-btn form-reset-button" type="button">重新填寫</button>
+                    <button class="brown-action wide-action demo-submit" type="button">送出申請</button>
+                  </div>
+                </article>
+              </div>
+
+              <aside class="swap-side">
+                <article class="panel process-card">
+                  <h2>申請流程</h2>
+                  <ol>
+                    <li><b>提出換班申請</b><span>填寫換班資訊並送出申請</span></li>
+                    <li><b>雙方同意</b><span>對方需同意本次換班申請</span></li>
+                    <li><b>主管審核</b><span>主管確認後完成換班</span></li>
+                    <li><b>結果通知</b><span>系統通知審核結果</span></li>
+                  </ol>
+                </article>
+                <article class="panel rule-card">
+                  <h2>注意事項</h2>
+                  <ul>
+                    <li>換班需雙方同意並經主管審核。</li>
+                    <li>請至少提前 24 小時提出申請。</li>
+                    <li>換班成功後，原排班將自動更新。</li>
+                    <li>若影響部門排班，主管有權拒絕申請。</li>
+                  </ul>
+                </article>
+                <article class="panel swap-record">
+                  <h2>換班紀錄</h2>
+                  <p><span>07/05（六） 與 王小明</span><b class="pill blue">申請中</b></p>
+                  <p><span>07/01（二） 與 李大同</span><b class="pill red">已拒絕</b></p>
+                  <p><span>06/25（三） 與 張小華</span><b class="pill green">已完成</b></p>
+                  <button class="more-button" type="button">查看更多紀錄 ›</button>
+                </article>
+              </aside>
+            </section>
+          </section>
+
+          <section class="schedule-view" data-view-panel="adjust" hidden>
+            <section class="schedule-hero">
+              <small>ADJUSTMENT REQUEST</small>
+              <h1>調整申請</h1>
+              <p>因個人因素需要調整班別或時間時，可提出申請，待主管審核。</p>
+            </section>
+
+            <article class="panel adjust-card">
+              <h2>提出調整申請</h2>
+
+              <div class="identity-strip">
+                <label>
+                  <b>員工工號</b>
+                  <input class="employee-auth-input" inputmode="numeric" maxlength="8" placeholder="請輸入員工工號">
+                </label>
+                <button class="ghost-btn face-verify-button" type="button">人臉辨識</button>
+                <p class="auth-status">尚未完成身分驗證</p>
+              </div>
+
+              <div class="adjust-form">
+                <label>
+                  <b>調整類型</b>
+                  <select>
+                    <option>請選擇調整類型</option>
+                    <option>班別交換</option>
+                    <option>班別調整</option>
+                    <option>時間調整</option>
+                    <option>臨時異動</option>
+                  </select>
+                </label>
+
+                <label>
+                  <b>希望調整日期</b>
+                  <input type="date">
+                </label>
+
+                <label>
+                  <b>希望班別／時段</b>
+                  <select>
+                    <option>請選擇班別或時段</option>
+                    <option>早班 09:00 - 18:00</option>
+                    <option>中班 12:00 - 21:00</option>
+                    <option>晚班 15:00 - 24:00</option>
+                    <option>休息</option>
+                  </select>
+                </label>
+
+                <label>
+                  <b>原因說明</b>
+                  <textarea maxlength="100" placeholder="請簡要說明申請原因（必填）"></textarea>
+                  <small>0/100</small>
+                </label>
+              </div>
+
+              <div class="adjust-actions">
+                <button class="ghost-btn form-reset-button" type="button">重新填寫</button>
+                <button class="brown-action demo-submit" type="button">送出申請</button>
+              </div>
+            </article>
+
+            <section class="adjust-bottom-grid">
+              <article class="panel record-card">
+                <h2>我的申請紀錄</h2>
+                <table class="record-table">
+                  <tr>
+                    <th>申請日期</th>
+                    <th>調整日期</th>
+                    <th>原班別</th>
+                    <th>希望班別</th>
+                    <th>狀態</th>
+                    <th>審核結果</th>
+                  </tr>
+                  <tr>
+                    <td>07/05</td>
+                    <td>07/10</td>
+                    <td>晚班</td>
+                    <td>中班</td>
+                    <td><span class="pill blue">審核中</span></td>
+                    <td>—</td>
+                  </tr>
+                  <tr>
+                    <td>07/01</td>
+                    <td>07/03</td>
+                    <td>早班</td>
+                    <td>休息</td>
+                    <td><span class="pill green">已核准</span></td>
+                    <td>同意</td>
+                  </tr>
+                  <tr>
+                    <td>06/25</td>
+                    <td>06/27</td>
+                    <td>中班</td>
+                    <td>晚班</td>
+                    <td><span class="pill red">已拒絕</span></td>
+                    <td>不同意</td>
+                  </tr>
+                </table>
+              </article>
+
+              <article class="panel rule-card">
+                <h2>申請注意事項</h2>
+                <ul>
+                  <li>請於希望調整日前 3 天提出申請。</li>
+                  <li>調整申請需經主管審核，核准後方生效。</li>
+                  <li>特殊節日或人力需求緊張期間，可能無法核准。</li>
+                </ul>
+              </article>
+            </section>
+
+            <article class="panel apply-type-card">
+              <h2>常見申請類型</h2>
+              <div>
+                <button type="button" data-view-button="swap">班別交換<br><small>與同事交換班別</small></button>
+                <button type="button">班別調整<br><small>調整為其他班別</small></button>
+                <button type="button">時間調整<br><small>調整上班／下班時間</small></button>
+                <button type="button" data-view-button="changes">臨時異動<br><small>臨時調整班別或時間</small></button>
+              </div>
+            </article>
+          </section>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/mock-employee-data.js?v=20260710-ten-employees"></script>
+  <script src="js/schedule.js?v=20260710-employee-requests"></script>
+  <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+  <script src="js/touch-keyboard.js?v=20260710-caps-fit"></script>
+</body>
+</html>

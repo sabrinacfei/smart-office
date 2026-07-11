@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WOHOURS｜上下班打卡</title>
+  <link rel="stylesheet" href="css/attendance.css?v=20260710-birthday">
+</head>
+<body>
+  <main class="kiosk-stage">
+    <section class="kiosk-screen">
+      <div class="attendance-canvas">
+        <header class="attendance-header">
+          <button class="back-button" id="backButton" type="button"><span>‹</span> 返回首頁</button>
+          <div class="page-title">
+            <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 14v11h8"/></svg>
+            <div><strong>上下班打卡</strong><small>ATTENDANCE CLOCK</small></div>
+          </div>
+          <div class="header-time"><span id="headerDate">07 / 07　星期二</span><strong id="headerTime">14:25</strong></div>
+        </header>
+
+        <main class="attendance-main" id="entryView">
+          <section class="attendance-hero">
+            <img class="attendance-logo" src="images/logo.png" alt="WOHOURS">
+            <div class="clock-orb"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="31"/><path d="M40 18v25h18"/></svg></div>
+            <p class="attendance-date" id="attendanceDate">2026 / 07 / 07　星期二</p>
+            <h1 id="attendanceTime">14:25</h1>
+            <p>請選擇上班或下班，輸入員工號後進行人臉辨識。</p>
+            <img class="attendance-mascot" src="images/員工工號.png" alt="員工打卡">
+          </section>
+
+          <section class="attendance-panel">
+            <div class="mode-switch" id="modeSwitch">
+              <button class="selected in" type="button" data-mode="上班打卡">
+                <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 14v11h8"/></svg>
+                <strong>上班打卡</strong><span>Clock In</span>
+              </button>
+              <button class="out" type="button" data-mode="下班打卡">
+                <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 14v11h8"/></svg>
+                <strong>下班打卡</strong><span>Clock Out</span>
+              </button>
+            </div>
+            <label class="attendance-input">
+              <span>員工號</span>
+              <input id="employeeId" type="text" inputmode="numeric" maxlength="8" placeholder="請輸入員工號" readonly>
+              <small id="employeeError"></small>
+            </label>
+            <div class="keypad" id="keypad">
+              <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+              <button type="button">4</button><button type="button">5</button><button type="button">6</button>
+              <button type="button">7</button><button type="button">8</button><button type="button">9</button>
+              <button type="button" data-action="clear">清除</button><button type="button">0</button><button type="button" data-action="delete">⌫</button>
+            </div>
+            <button class="attendance-submit" id="attendanceSubmit" type="button">確認打卡 <span>›</span></button>
+          </section>
+        </main>
+
+        <section class="face-layer" id="faceLayer" aria-hidden="true">
+          <div class="face-card" role="dialog" aria-label="人臉辨識">
+            <span class="review-kicker">FACE CHECK</span>
+            <h2>人臉辨識</h2>
+            <p id="faceHint">請允許相機權限，並將臉部置於框線中央。</p>
+            <div class="face-camera">
+              <video id="faceVideo" autoplay playsinline muted></video>
+              <span></span>
+              <i></i>
+              <b></b>
+            </div>
+            <div class="review-actions">
+              <button id="faceBack" type="button">返回輸入</button>
+              <button id="faceConfirm" type="button">辨識完成，確認資料</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="review-layer" id="reviewLayer" aria-hidden="true">
+          <div class="review-card attendance-review">
+            <span class="review-kicker">PLEASE CONFIRM</span>
+            <h2>確認打卡資料</h2>
+            <p>請確認本次打卡狀態、員工資料與人臉辨識結果。</p>
+            <dl>
+              <div><dt>打卡類型</dt><dd id="reviewMode"></dd></div>
+              <div><dt>員工</dt><dd id="reviewEmployeeName"></dd></div>
+              <div><dt>員工號</dt><dd id="reviewEmployee"></dd></div>
+              <div><dt>人臉辨識</dt><dd id="reviewFace">已完成</dd></div>
+              <div><dt>打卡時間</dt><dd id="reviewTime"></dd></div>
+            </dl>
+            <div class="review-actions">
+              <button id="reviewEdit" type="button">不正確，返回編輯</button>
+              <button id="reviewSubmit" type="button">資料正確，完成打卡</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="success-layer" id="successLayer" aria-hidden="true">
+          <header class="success-header">
+            <button class="back-button" id="successBackTop" type="button"><span>‹</span> 返回首頁</button>
+            <div class="success-titlebar"><strong>上下班打卡</strong><small>ATTENDANCE CLOCK</small></div>
+            <div class="header-time"><span id="successTopDate">2026 / 07 / 08　星期三</span><strong id="successTopTime">00:14</strong></div>
+          </header>
+
+          <main class="success-main">
+            <section class="success-card attendance-success">
+              <h2 id="successTitle">打卡成功！</h2>
+              <p id="successMessage">上班打卡已完成</p>
+              <div class="success-time-card">
+                <span>打卡時間</span>
+                <strong id="successTime">09:45</strong>
+                <small id="successDate">2026 / 07 / 08　星期三</small>
+              </div>
+              <div class="success-summary">
+                <div><span>員工號</span><strong id="successEmployeeName">—</strong></div>
+                <div><span>打卡類型</span><strong id="successMode">上班打卡</strong></div>
+              </div>
+              <section class="clockout-note" id="clockoutNote" hidden>
+                <h3>感謝您的辛勞！</h3>
+                <p>期待明天再見，記得準時打卡喔！</p>
+              </section>
+              <button id="successBack" type="button">返回首頁<br><small><span id="autoReturnSeconds">3</span> 秒後自動返回首頁</small></button>
+            </section>
+          </main>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/mock-employee-data.js?v=20260710-ten-employees"></script>
+  <script src="js/attendance.js?v=20260710-birthday"></script>
+</body>
+</html>

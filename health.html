@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WOHOURS 健康檢查</title>
+  <link rel="stylesheet" href="css/health.css?v=20260711-keyboard-topbar-final">
+  <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
+</head>
+<body>
+  <main class="kiosk-stage">
+    <section class="health-screen">
+      <aside class="side-nav health-context-nav" aria-label="健康檢查側邊選單">
+        <a class="health-side-logo" href="homepage-ui.html" aria-label="WOHOURS 首頁">
+          <img src="images/logo.png" alt="WOHOURS">
+        </a>
+
+        <section class="health-nav-group">
+          <h2>檢查流程</h2>
+          <a href="#employeeStatusCard"><b>01</b>查詢個人狀態</a>
+          <a href="#healthStatus"><b>02</b>查看健檢資訊</a>
+          <a href="#healthSlots"><b>03</b>預約時段</a>
+          <a href="#healthNotice"><b>04</b>檢查提醒</a>
+        </section>
+
+        <a class="health-return" href="employee.html">‹ 返回員工專區</a>
+      </aside>
+
+      <section class="main-area">
+        <section class="dashboard-view" id="dashboardView" aria-label="健康檢查預約">
+          <div class="health-heading">
+            <p class="section-en">HEALTH CHECK</p>
+            <h2>健康檢查</h2>
+            <p>請先查詢個人健檢狀態，系統會依員工資料顯示資格、預約狀態與可預約時段。</p>
+          </div>
+
+          <!-- 圖二先出現：先查詢個人健檢狀態 -->
+          <article class="health-employee-card is-first" id="employeeStatusCard" aria-label="個人健檢查詢">
+            <div>
+              <small>EMPLOYEE STATUS</small>
+              <h3>查詢個人健檢狀態</h3>
+              <p>輸入員工工號後，才會顯示今年健檢狀態、報名資格與預約資訊。</p>
+            </div>
+            <label>
+              <span>員工工號</span>
+              <input id="healthEmployeeId" data-keyboard="english" inputmode="numeric" maxlength="8" placeholder="例如 1111">
+            </label>
+            <button id="healthEmployeeQuery" type="button">查詢</button>
+            <p id="healthEmployeeResult" aria-live="polite"></p>
+          </article>
+
+          <!-- 圖一改成查詢後才出現 -->
+          <article class="status-card health-hidden" id="healthStatus">
+            <div class="status-copy">
+              <small>今年健檢狀態</small>
+              <strong>你已符合 <b id="healthYearText">2026</b> 年度健康檢查資格</strong>
+              <div class="status-meta">
+                <span><img src="images/日期.png" alt="">年度<br><b id="healthYearMeta">2026</b></span>
+                <span><img src="images/合作商家.png" alt="">合作院所<br><b id="healthHospitalMeta">XX 健康管理中心</b></span>
+                <span><img src="images/生日禮卡.png" alt="">補助方式<br><b id="healthSubsidyMeta">公司全額補助</b></span>
+                <span><img src="images/日期.png" alt="">截止日期<br><b id="healthDeadlineMeta">2026 / 12 / 31</b></span>
+              </div>
+            </div>
+            <div class="status-actions">
+              <em id="healthReserveBadge">尚未預約</em>
+              <button id="healthReserveBtn" type="button">立即預約</button>
+            </div>
+          </article>
+
+          <div class="slot-title health-hidden" id="healthSlots">
+            <span><img src="images/日期.png" alt=""></span>
+            <b id="slotTitleText">可預約時段</b>
+            <a href="#">查看全部時段 ›</a>
+          </div>
+          <section class="slots health-hidden" id="slotList"></section>
+
+          <section class="info-grid">
+            <article class="info-card items-card">
+              <header><img src="images/健康檢查.png" alt=""><h3>檢查項目</h3></header>
+              <ul>
+                <li>身高體重</li><li>血液檢查</li><li>血壓</li><li>尿液檢查</li><li>視力檢查</li><li>胸部 X 光</li><li>醫師問診</li>
+              </ul>
+              <img class="watermark" src="images/健康檢查小圖1.png" alt="">
+            </article>
+            <article class="info-card notice-card" id="healthNotice">
+              <header><img src="images/健康檢查icon_1.png" alt=""><h3>檢查提醒</h3></header>
+              <ul>
+                <li>檢查前 8 小時請空腹</li>
+                <li>請攜帶健保卡與員工證</li>
+                <li>當日避免劇烈運動</li>
+                <li>若需更改時段，請於 24 小時前取消</li>
+                <li>如有身體不適，請先告知現場醫護人員</li>
+              </ul>
+              <img class="watermark shield" src="images/健康檢查小圖2.png" alt="">
+            </article>
+          </section>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <!-- 預約彈窗：五步驟 -->
+  <section class="booking-modal" id="bookingModal" hidden aria-label="健康檢查預約表單">
+    <div class="booking-backdrop" data-close-modal></div>
+    <article class="booking-dialog">
+      <button class="booking-close" type="button" data-close-modal>×</button>
+      <header class="booking-head">
+        <small>HEALTH BOOKING</small>
+        <h2>健康檢查預約</h2>
+        <p>依序填寫基本資料、選擇方案與時段，最後確認送出。</p>
+      </header>
+
+      <nav class="booking-steps" aria-label="預約流程">
+        <button class="active" type="button" data-step-tab="0">1 基本資料</button>
+        <button type="button" data-step-tab="1">2 健檢方案</button>
+        <button type="button" data-step-tab="2">3 日期時段</button>
+        <button type="button" data-step-tab="3">4 健康問卷</button>
+        <button type="button" data-step-tab="4">5 確認送出</button>
+      </nav>
+
+      <form class="booking-form" id="bookingForm">
+        <section class="booking-step active" data-step="0">
+          <div class="form-grid three">
+            <label>姓名<input name="name" data-keyboard="zhuyin" required placeholder="請輸入姓名"></label>
+            <label>性別<select name="gender" required><option value="" selected disabled>請選擇</option><option>女性</option><option>男性</option><option>其他</option></select></label>
+            <label>生日<input name="birthday" data-keyboard="english" required placeholder="YYYY/MM/DD"></label>
+            <label>身分證字號<input name="idno" data-keyboard="english" required placeholder="請輸入身分證字號"></label>
+            <label>手機<input name="phone" data-keyboard="english" required placeholder="0912345678"></label>
+            <label>Email<input name="email" data-keyboard="english" required placeholder="name@example.com"></label>
+            <label>員工工號<input name="employeeId" data-keyboard="english" inputmode="numeric" maxlength="8" required placeholder="請輸入工號"></label>
+            <label>部門<input name="dept" data-keyboard="zhuyin" required placeholder="請輸入部門"></label>
+            <label>職稱或單位<input name="title" data-keyboard="zhuyin" required placeholder="請輸入職稱或單位"></label>
+          </div>
+          <p class="employee-locked-note">預約資料會寫入系統記憶；已預約者可回到此表單更改日期、醫院、時段與基本資料。</p>
+        </section>
+
+        <section class="booking-step" data-step="1">
+          <div class="plan-grid">
+            <label class="plan-card"><input type="radio" name="plan" value="年度健檢" required><strong>年度健檢</strong><span>公司全額補助，含一般例行檢查。</span></label>
+            <label class="plan-card"><input type="radio" name="plan" value="一般健檢" required><strong>一般健檢</strong><span>基礎檢查項目，快速完成。</span></label>
+            <label class="plan-card"><input type="radio" name="plan" value="進階健檢" required><strong>進階健檢</strong><span>加強血液、影像與醫師諮詢。</span></label>
+            <label class="plan-card"><input type="radio" name="plan" value="自費加選" required><strong>自費加選</strong><span>可加選超音波、癌症篩檢等項目。</span></label>
+          </div>
+        </section>
+
+        <section class="booking-step" data-step="2">
+          <div class="form-grid two">
+            <label>健檢地點 / 合作醫院<select name="hospital" required><option value="" selected disabled>請選擇合作院所</option><option>XX 健康管理中心</option><option>WOHOURS 合作醫院 A</option><option>WOHOURS 合作醫院 B</option></select></label>
+            <label>想預約日期與時段<select name="slot" id="bookingSlotSelect" required></select></label>
+          </div>
+          <div class="modal-slot-list" id="modalSlotList"></div>
+        </section>
+
+        <section class="booking-step" data-step="3">
+          <div class="question-grid">
+            <label><span>是否懷孕</span><select name="pregnant" required><option value="" selected disabled>請選擇</option><option>否</option><option>是</option><option>不確定</option></select></label>
+            <label><span>是否有慢性病</span><select name="chronic" required><option value="" selected disabled>請選擇</option><option>否</option><option>是</option></select></label>
+            <label><span>是否正在服藥</span><select name="medicine" required><option value="" selected disabled>請選擇</option><option>否</option><option>是</option></select></label>
+            <label><span>是否有過敏史</span><select name="allergy" required><option value="" selected disabled>請選擇</option><option>否</option><option>是</option></select></label>
+            <label><span>近期是否開刀或住院</span><select name="surgery" required><option value="" selected disabled>請選擇</option><option>否</option><option>是</option></select></label>
+          </div>
+          <div class="check-list">
+            <label><input type="checkbox" name="emptyStomach" required> 我知道檢查前 8 小時需空腹</label>
+            <label><input type="checkbox" name="noAlcohol" required> 我知道前一天避免熬夜、喝酒與劇烈運動</label>
+            <label><input type="checkbox" name="bringCard" required> 我知道檢查當天需攜帶證件與員工證</label>
+          </div>
+        </section>
+
+        <section class="booking-step" data-step="4">
+          <div class="form-grid three emergency-row">
+            <label>緊急聯絡人姓名<input name="emergencyName" data-keyboard="zhuyin" required placeholder="請輸入姓名"></label>
+            <label>關係<input name="emergencyRelation" data-keyboard="zhuyin" required placeholder="例如：母親"></label>
+            <label>電話<input name="emergencyPhone" data-keyboard="english" required placeholder="0912345678"></label>
+          </div>
+          <article class="confirm-card" id="bookingConfirmText">請確認資料後送出。</article>
+        </section>
+      </form>
+
+      <p class="booking-validation" id="bookingValidation" aria-live="polite"></p>
+      <footer class="booking-footer">
+        <button class="ghost" type="button" id="bookingPrev">上一步</button>
+        <button type="button" id="bookingNext">下一步</button>
+      </footer>
+    </article>
+  </section>
+
+  <!-- 觸控鍵盤：注音 / 英文 / 數字 -->
+  <section class="touch-keyboard-panel keyboard-full-visible-final" id="touchKeyboard" hidden>
+    <div class="keyboard-top">
+      <strong id="keyboardTitle"></strong>
+      <div class="keyboard-mode-tabs">
+        <button type="button" data-kb-mode="zhuyin">注音</button>
+        <button type="button" data-kb-mode="english">英</button>
+              </div>
+      <button type="button" class="keyboard-hide" data-kb-hide>收起</button>
+    </div>
+    <div class="zhuyin-compose" id="zhuyinCompose"></div>
+    <div class="candidate-row" id="candidateRow"></div>
+    <div class="keyboard-keys" id="keyboardKeys"></div>
+  </section>
+
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/mock-employee-data.js?v=20260709-memory"></script>
+  <script src="js/bpmf-dictionary.js?v=20260710-booking-memory-keyboard"></script>
+  <script src="js/mcbopomofo-dictionary.js?v=20260710-mcbopomofo"></script>
+  <script src="js/health.js?v=20260711-keyboard-topbar-final"></script>
+  <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+</body>
+</html>

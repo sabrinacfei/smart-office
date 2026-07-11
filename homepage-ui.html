@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WOHOURS 智慧辦公室首頁</title>
+  <link rel="stylesheet" href="css/homepage.css?v=20260710-notifications-partners">
+  <link rel="stylesheet" href="css/doorbell.css?v=20260708-anim">
+  <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
+</head>
+<body>
+  <main class="kiosk-stage" aria-label="WOHOURS 智慧辦公室首頁">
+    <section class="kiosk-screen">
+      <div class="screen-bg" aria-hidden="true"></div>
+      <header class="topbar">
+        <div class="brand" id="homeLogo" role="button" tabindex="0" aria-label="長按進入上下班打卡" data-longpress-href="attendance.html">
+          <img src="images/logo.png" alt="WOHOURS">
+        </div>
+        <div class="status-area">
+          <button class="notify-button" type="button" aria-label="通知">
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+            <i></i>
+          </button>
+          <div class="clock">
+            <strong id="homeTime">09:30</strong>
+            <span id="homeDate">06/05 (四)</span>
+          </div>
+          <section class="notification-panel" id="homeNotificationPanel" aria-hidden="true" hidden>
+            <header>
+              <div>
+                <strong>通知</strong>
+                <span>辦公室訊息與系統提醒</span>
+              </div>
+              <button id="homeClearNotifications" type="button">全部清除</button>
+            </header>
+            <div class="notification-list" id="homeNotificationList"></div>
+            <p class="notification-empty" id="homeNotificationEmpty">目前沒有通知</p>
+          </section>
+        </div>
+      </header>
+
+      <section class="dashboard">
+        <article class="today-card panel">
+          <h1>今日資訊</h1>
+          <div class="today-grid">
+            <section class="weather-block">
+              <time id="fullDate">2025/06/05 (四)</time>
+              <p class="location">
+                <svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <span id="weatherLocation">台北市 信義區</span>
+              </p>
+              <div class="weather">
+                <img id="weatherIcon" src="images/weather cloudy to sunny拷貝.png" alt="多雲時晴">
+                <div>
+                  <strong id="weatherTemp">28°C</strong>
+                  <span id="weatherText">多雲時晴</span>
+                  <small id="weatherRange">25°C - 30°C</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="people-block" aria-label="今日人員">
+              <div class="metric-row">
+                <div class="metric-title">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span>今日在班人員</span>
+                </div>
+                <strong>12人</strong>
+              </div>
+              <div class="staff-name-row">
+                <span>林佳穎</span>
+                <span>張志明</span>
+                <span>王小美</span>
+                <span>李承翰</span>
+              </div>
+              <div class="overtime-row">
+                <div class="metric-title">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                  <span>今日加班人員</span>
+                </div>
+                <strong>3人</strong>
+              </div>
+              <p class="overtime-list">張志明　李承翰　陳雅婷</p>
+            </section>
+          </div>
+        </article>
+
+        <section class="spotlight-carousel" id="spotlightCarousel" aria-label="電影與便當輪播">
+          <article class="spotlight-card" id="spotlightCard">
+            <img id="spotlightImage" src="images/PASSENGER拷貝2.jpg" alt="鬼上車">
+            <div class="spotlight-copy">
+              <span id="spotlightTag">口碑推薦</span>
+              <h2 id="spotlightTitle">鬼上車</h2>
+              <p class="spotlight-en" id="spotlightEnglish">PASSENGER</p>
+              <p class="spotlight-meta" id="spotlightMeta">★ 8.3 ｜ 劇情・懸疑 ｜ 116 分鐘</p>
+              <p class="spotlight-desc" id="spotlightDescription">旅程的終點，藏著意想不到的答案。</p>
+              <a class="spotlight-action" id="spotlightAction" href="#" aria-label="立即購票">立即購票</a>
+            </div>
+            <button class="spotlight-arrow prev" id="spotlightPrev" type="button" aria-label="上一則">‹</button>
+            <button class="spotlight-arrow next" id="spotlightNext" type="button" aria-label="下一則">›</button>
+            <div class="pager" id="noticePager" aria-label="輪播切換"></div>
+          </article>
+        </section>
+      </section>
+
+      <section class="feature-grid" aria-label="主要功能">
+        <button class="feature-card" type="button" data-href="visitor.html">
+          <img class="feature-icon-img" src="images/使用者附件.png" alt="">
+          <span>
+            <strong>訪客登記</strong>
+            <small>快速登記來訪資訊</small>
+          </span>
+        </button>
+        <button class="feature-card" type="button" data-href="delivery.html">
+          <img class="feature-icon-img feature-icon-wide" src="images/使用者附件 (3).png" alt="">
+          <span>
+            <strong>快遞提醒</strong>
+            <small>查看快遞到件狀態</small>
+          </span>
+        </button>
+        <button class="feature-card" type="button" data-href="lunch.html">
+          <img class="feature-icon-img" src="images/使用者附件 (1).png" alt="">
+          <span>
+            <strong>預約便當</strong>
+            <small>預訂今日美味便當</small>
+          </span>
+        </button>
+        <button class="feature-card" type="button" data-href="emergency.html">
+          <img class="feature-icon-img" src="images/使用者附件 (4).png" alt="">
+          <span>
+            <strong>緊急聯繫</strong>
+            <small>緊急狀況快速聯絡</small>
+          </span>
+        </button>
+        <button class="feature-card" type="button" data-href="employee.html">
+          <img class="feature-icon-img" src="images/使用者附件 (5).png" alt="">
+          <span>
+            <strong>員工專區</strong>
+            <small>內部系統與資源</small>
+          </span>
+        </button>
+        <button class="feature-card" type="button" data-action="doorbell">
+          <img class="feature-icon-img" src="images/使用者附件 (6).png" alt="">
+          <span>
+            <strong>電鈴</strong>
+            <small>通知櫃台或同事</small>
+          </span>
+        </button>
+      </section>
+
+      <section class="doorbell-feedback" id="doorbellFeedback" aria-hidden="true" hidden>
+        <article class="doorbell-card">
+          <div class="doorbell-ring" aria-hidden="true">
+            <img src="images/使用者附件 (6).png" alt="">
+          </div>
+          <span>FRONT DESK NOTIFIED</span>
+          <h2>已通知櫃檯</h2>
+          <p>櫃檯人員將盡快協助，請稍候。</p>
+          <button id="doorbellClose" type="button">完成</button>
+        </article>
+      </section>
+      <section class="intercom-overlay" id="intercomOverlay" aria-hidden="true" hidden>
+        <div class="intercom-backdrop" id="intercomBackdrop"></div>
+
+        <article class="intercom-panel" role="dialog" aria-label="對講機">
+          <header class="intercom-header">
+            <button class="intercom-close" id="intercomClose" type="button">← 返回首頁</button>
+
+            <div class="intercom-title">
+              <span>☎</span>
+              <strong>對講機</strong>
+            </div>
+
+            <div class="intercom-clock">
+              <strong id="intercomTime">09:30</strong>
+              <small id="intercomDate">06/05（四）</small>
+            </div>
+          </header>
+
+          <div class="intercom-content">
+            <section class="intercom-left">
+              <div class="intercom-block-title">
+                <strong>常用分機</strong>
+                <small>點選人員即可帶入分機號碼</small>
+              </div>
+
+              <label class="intercom-search">
+                <span>⌕</span>
+                <input id="intercomSearch" type="text" placeholder="搜尋姓名、部門或分機">
+              </label>
+
+              <div class="intercom-contact-list">
+                <button class="intercom-contact" type="button" data-ext="1001">
+                  <i>王</i>
+                  <span>
+                    <strong>王小明</strong>
+                    <small>行政主任</small>
+                  </span>
+                  <em>#1001</em>
+                </button>
+
+                <button class="intercom-contact" type="button" data-ext="1002">
+                  <i>陳</i>
+                  <span>
+                    <strong>陳美玲</strong>
+                    <small>行政助理</small>
+                  </span>
+                  <em>#1002</em>
+                </button>
+
+                <button class="intercom-contact" type="button" data-ext="2011">
+                  <i>李</i>
+                  <span>
+                    <strong>李建國</strong>
+                    <small>總務經理</small>
+                  </span>
+                  <em>#2011</em>
+                </button>
+
+                <button class="intercom-contact" type="button" data-ext="3021">
+                  <i>林</i>
+                  <span>
+                    <strong>林雅婷</strong>
+                    <small>財務專員</small>
+                  </span>
+                  <em>#3021</em>
+                </button>
+
+                <button class="intercom-contact" type="button" data-ext="4001">
+                  <i>張</i>
+                  <span>
+                    <strong>張志偉</strong>
+                    <small>IT 工程師</small>
+                  </span>
+                  <em>#4001</em>
+                </button>
+
+                <button class="intercom-contact" type="button" data-ext="5001">
+                  <i>黃</i>
+                  <span>
+                    <strong>黃家安</strong>
+                    <small>保全主任</small>
+                  </span>
+                  <em>#5001</em>
+                </button>
+              </div>
+            </section>
+
+            <section class="intercom-right">
+              <div class="intercom-number" id="intercomDisplay">_</div>
+              <div class="intercom-call-status" id="intercomCallStatus" aria-live="polite" hidden>
+                <div class="call-wave" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div class="call-status-text">
+                  <strong id="intercomCallState">撥打中</strong>
+                  <small id="intercomCallTimer">00:00</small>
+                </div>
+              </div>
+
+              <div class="intercom-keypad">
+                <button type="button" data-key="1">1</button>
+                <button type="button" data-key="2">2<small>ABC</small></button>
+                <button type="button" data-key="3">3<small>DEF</small></button>
+                <button type="button" data-key="4">4<small>GHI</small></button>
+                <button type="button" data-key="5">5<small>JKL</small></button>
+                <button type="button" data-key="6">6<small>MNO</small></button>
+                <button type="button" data-key="7">7<small>PQRS</small></button>
+                <button type="button" data-key="8">8<small>TUV</small></button>
+                <button type="button" data-key="9">9<small>WXYZ</small></button>
+                <button type="button" data-key="*">*</button>
+                <button type="button" data-key="0">0</button>
+                <button type="button" data-key="#">#</button>
+              </div>
+
+              <div class="intercom-actions">
+                <button class="intercom-delete" id="intercomDelete" type="button">⌫ 刪除</button>
+                <button class="intercom-hangup" id="intercomHangup" type="button" hidden>掛斷</button>
+                <button class="intercom-call" id="intercomCall" type="button">撥打</button>
+              </div>
+            </section>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/doorbell.js"></script>
+  <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+  <script src="js/homepage.js"></script>
+</body>
+</html>

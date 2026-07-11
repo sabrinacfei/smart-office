@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WOHOURS 緊急聯繫</title>
+  <link rel="stylesheet" href="css/emergency.css">
+  <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
+</head>
+<body>
+  <main class="emergency-stage">
+    <section class="emergency-screen">
+      <div class="emergency-bg" aria-hidden="true"></div>
+
+      <header class="emergency-header">
+        <a class="back-home" href="homepage-ui.html">‹ 返回首頁</a>
+        <div class="emergency-logo"><img src="images/logo.png" alt="WOHOURS"></div>
+        <div class="emergency-status">
+          <button class="emergency-bell" type="button" aria-label="通知">
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+            <i></i>
+          </button>
+          <div class="emergency-clock">
+            <strong id="emergencyTime">09:30</strong>
+            <span id="emergencyDate">07/06（一）</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="emergency-main">
+        <section class="emergency-view active" id="choiceView">
+          <div class="page-copy">
+            <small>EMERGENCY CONTACT</small>
+            <h1>緊急聯繫</h1>
+            <p>請依照目前狀況選擇服務，系統會記錄操作時間。</p>
+          </div>
+
+          <div class="emergency-cards">
+            <button class="emergency-card call" type="button" data-action="call">
+              <i>☎</i>
+              <strong>聯絡保全</strong>
+              <span>立即通知保全或櫃檯人員協助</span>
+              <b>立即通話</b>
+            </button>
+            <button class="emergency-card lock" type="button" data-action="lock">
+              <i><svg viewBox="0 0 64 64"><path d="M18 29v-8c0-8 6-14 14-14s14 6 14 14v8"/><rect x="13" y="29" width="38" height="27" rx="6"/><path d="M32 40v7"/></svg></i>
+              <strong>保全上鎖</strong>
+              <span>輸入授權碼後執行門禁上鎖</span>
+              <b>執行上鎖</b>
+            </button>
+            <button class="emergency-card unlock" type="button" data-action="unlock">
+              <i><svg viewBox="0 0 64 64"><path d="M18 29v-7c0-8 6-14 14-14 6 0 11 4 13 9"/><rect x="13" y="29" width="38" height="27" rx="6"/><path d="M32 40v7"/></svg></i>
+              <strong>保全解鎖</strong>
+              <span>輸入授權碼後解除門禁鎖定</span>
+              <b>執行解鎖</b>
+            </button>
+          </div>
+        </section>
+
+        <section class="emergency-view" id="pinView" aria-hidden="true">
+          <button class="section-back" type="button" data-back="choice">‹ 返回選擇</button>
+          <div class="pin-layout">
+            <article class="pin-card">
+              <small id="pinKicker">SECURITY CODE</small>
+              <h2 id="pinTitle">輸入授權碼</h2>
+              <p>請輸入 6 碼授權碼以完成操作。</p>
+              <div class="pin-dots" id="pinDots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <span class="pin-error" id="pinError"></span>
+              <button class="emergency-confirm" id="pinConfirm" type="button">確認執行</button>
+            </article>
+            <div class="pin-pad" id="pinPad">
+              <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+              <button type="button">4</button><button type="button">5</button><button type="button">6</button>
+              <button type="button">7</button><button type="button">8</button><button type="button">9</button>
+              <button type="button" data-action="clear">清除</button><button type="button">0</button><button type="button" data-action="delete">⌫</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="emergency-view call-state" id="callView" aria-hidden="true">
+          <button class="section-back call-back" type="button" data-back="choice">‹ 返回選擇</button>
+          <div class="call-pulse">☎</div>
+          <span>CALLING SECURITY</span>
+          <h2>正在通知保全室</h2>
+          <p>請留在設備附近，等待保全或櫃檯人員回應。</p>
+          <button class="end-emergency" id="endCall" type="button">結束通話</button>
+        </section>
+
+        <section class="emergency-view done-state" id="doneView" aria-hidden="true">
+          <div class="done-lock" id="doneIcon"></div>
+          <span>SECURITY UPDATED</span>
+          <h2 id="doneTitle">大門已上鎖</h2>
+          <dl>
+            <div><dt>操作時間</dt><dd id="doneTime">09:30</dd></div>
+            <div><dt>操作者</dt><dd>員工授權</dd></div>
+            <div><dt>狀態</dt><dd id="doneStatus">已完成</dd></div>
+          </dl>
+          <a class="end-emergency link-home" href="homepage-ui.html">返回首頁</a>
+        </section>
+      </main>
+    </section>
+  </main>
+  <script src="js/kiosk-scale.js?v=20260707-screen"></script>
+  <script src="js/emergency.js"></script>
+  <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+</body>
+</html>
