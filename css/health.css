@@ -462,6 +462,24 @@ svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width:
   mix-blend-mode: multiply !important;
 }
 
+/* Use the current full WHours logo artwork without legacy cropping. */
+.health-side-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+
+.health-side-logo img {
+  position: static !important;
+  width: 318px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
 /* 2026-07-10：健康檢查頁 icon 放大，並銜接移除頁首後的版面 */
 .dashboard-view {
   margin-top: 0 !important;
@@ -4202,4 +4220,13 @@ html body .keyboard-full-visible-final .zhuyin-compose {
     min-height: 34px !important;
     font-size: 20px !important;
   }
+}
+html body .touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-en,
+html body .touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-num,
+html body .touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+html body .touch-keyboard-panel.is-zhuyin .keyboard-keys .kb-zh {
+  font-size: 28px !important;
 }

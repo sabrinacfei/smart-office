@@ -11,11 +11,11 @@
 .touch-keyboard {
   position: fixed;
   left: 50%;
-  bottom: 12px;
+  bottom: 10px;
   z-index: 20000;
-  width: min(760px, calc(100vw - 36px), calc(21.4cm - 28px));
-  max-height: min(342px, calc(100vh - 28px), calc(13.5cm - 28px));
-  padding: 8px;
+  width: min(620px, calc(100vw - 48px), calc(21.4cm - 48px));
+  max-height: min(292px, calc(100vh - 40px), calc(13.5cm - 40px));
+  padding: 7px;
   border: 1px solid rgba(221, 216, 211, .92);
   border-radius: 18px;
   overflow: hidden;
@@ -43,9 +43,17 @@
   gap: 8px;
 }
 
+.keyboard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
 .keyboard-head {
   justify-content: space-between;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .keyboard-title {
@@ -65,8 +73,18 @@
   background: #c35a3f;
 }
 
+.keyboard-mode-tabs {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
 .keyboard-actions button,
-.keyboard-key {
+.keyboard-mode-tabs button,
+.keyboard-hide,
+.keyboard-key,
+.keyboard-keys button,
+.candidate-row button {
   border: 1px solid rgba(216, 209, 203, .94);
   border-radius: 15px;
   background: rgba(255, 255, 255, .94);
@@ -75,26 +93,30 @@
   transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
 }
 
-.keyboard-actions button {
-  height: 32px;
-  padding: 0 12px;
-  font-size: 14px;
+.keyboard-actions button,
+.keyboard-mode-tabs button,
+.keyboard-hide {
+  height: 30px;
+  padding: 0 11px;
+  font-size: 13px;
   font-weight: 760;
 }
 
 .keyboard-actions button.active,
-.keyboard-actions button:hover {
+.keyboard-actions button:hover,
+.keyboard-mode-tabs button.active,
+.keyboard-hide:hover {
   border-color: transparent;
   background: linear-gradient(135deg, var(--keyboard-brown), var(--keyboard-deep));
   color: #fff;
 }
 
 .keyboard-composer {
-  min-height: 36px;
-  padding: 5px 10px;
-  margin-bottom: 5px;
+  min-height: 32px;
+  padding: 4px 10px;
+  margin-bottom: 4px;
   border: 1px solid rgba(190, 185, 177, .28);
-  border-radius: 18px;
+  border-radius: 15px;
   background: rgba(255, 255, 255, .7);
 }
 
@@ -120,29 +142,69 @@
 
 .keyboard-grid {
   display: grid;
-  gap: 5px;
+  gap: 4px;
+}
+
+.keyboard-row,
+.keyboard-keys .key-row {
+  display: grid;
+  gap: 4px;
 }
 
 .keyboard-row {
-  display: grid;
   grid-template-columns: repeat(var(--key-count), minmax(0, 1fr));
-  gap: 5px;
 }
 
-.keyboard-key {
-  min-height: 34px;
+.keyboard-keys {
+  display: grid;
+  gap: 4px;
+}
+
+.keyboard-keys .row-1 {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.touch-keyboard.is-english .keyboard-keys .row-1 {
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+
+.keyboard-keys .row-2,
+.keyboard-keys .row-3,
+.keyboard-keys .row-4 {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.touch-keyboard.is-english .keyboard-keys .row-3 {
+  grid-template-columns: 1.08fr repeat(9, minmax(0, 1fr));
+}
+
+.touch-keyboard.is-english .keyboard-keys .row-4 {
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  padding: 0 28px;
+}
+
+.keyboard-keys .row-5 {
+  grid-template-columns: 120px 1fr 120px;
+}
+
+.keyboard-key,
+.keyboard-keys button {
+  min-height: 30px;
   padding: 0 4px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 680;
 }
 
 .keyboard-key:active,
-.keyboard-key.is-active {
+.keyboard-key.is-active,
+.keyboard-keys button:active,
+.keyboard-keys button.active {
   transform: scale(.94);
   box-shadow: 0 5px 12px rgba(16, 8, 5, .1);
 }
 
-.keyboard-key.is-active {
+.keyboard-key.is-active,
+.keyboard-keys button.active {
   border-color: transparent;
   background: linear-gradient(135deg, var(--keyboard-brown), var(--keyboard-deep));
   color: #fff;
@@ -176,29 +238,114 @@
   background: rgba(243, 240, 237, .94);
 }
 
+.keyboard-keys .kb-special {
+  color: #756b62;
+  background: rgba(243, 240, 237, .94);
+}
+
+.keyboard-keys .kb-space {
+  min-width: 0;
+}
+
+.zhuyin-compose {
+  min-height: 28px;
+  padding: 4px 12px;
+  border: 1px solid rgba(190, 185, 177, .28);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, .72);
+  color: #756b62;
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.candidate-row {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0;
+}
+
+.candidate-row button {
+  min-width: 52px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 10px;
+  color: #6b4a2f;
+  font-size: 15px;
+  font-weight: 820;
+}
+
+.touch-keyboard.is-english .zhuyin-compose,
+.touch-keyboard.is-english .candidate-row {
+  display: none;
+}
+
+.kb-zh,
+.kb-en,
+.kb-num,
+.kb-tone {
+  display: block;
+  line-height: 1;
+}
+
+.kb-zh {
+  font-size: 18px;
+}
+
+.kb-en,
+.kb-num,
+.kb-tone {
+  margin-top: 3px;
+  color: #8b8178;
+  font-size: 9px;
+  font-weight: 760;
+}
+
+.touch-keyboard.is-zhuyin .keyboard-keys .kb-en,
+.touch-keyboard.is-zhuyin .keyboard-keys .kb-num,
+.touch-keyboard.is-zhuyin .keyboard-keys .kb-tone {
+  display: none !important;
+}
+
+.touch-keyboard.is-zhuyin .keyboard-keys .kb-zh {
+  font-size: 21px;
+}
+
+.touch-keyboard.is-english .keyboard-keys .kb-en {
+  margin-top: 0;
+  color: inherit;
+  font-size: 18px;
+}
+
 @media (max-height: 760px) {
   .touch-keyboard {
     bottom: 8px;
-    width: min(740px, calc(100vw - 28px), calc(21.4cm - 28px));
-    max-height: min(326px, calc(100vh - 18px), calc(13.5cm - 18px));
-    padding: 7px;
+    width: min(600px, calc(100vw - 40px), calc(21.4cm - 40px));
+    max-height: min(276px, calc(100vh - 24px), calc(13.5cm - 24px));
+    padding: 6px;
     border-radius: 17px;
   }
 
   .keyboard-key {
-    min-height: 31px;
-    font-size: 17px;
+    min-height: 28px;
+    font-size: 15px;
   }
 
-  .keyboard-actions button {
-    height: 30px;
-    padding: 0 11px;
-    font-size: 13px;
+  .keyboard-actions button,
+  .keyboard-mode-tabs button,
+  .keyboard-hide {
+    height: 28px;
+    padding: 0 10px;
+    font-size: 12px;
   }
 
   .keyboard-composer {
-    min-height: 34px;
-    margin-bottom: 4px;
+    min-height: 30px;
+    margin-bottom: 3px;
   }
 
   .keyboard-composer strong {

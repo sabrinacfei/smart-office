@@ -56,6 +56,8 @@
   const intercomCallTimer = document.getElementById("intercomCallTimer");
   const intercomRight = document.querySelector(".intercom-right");
   const intercomActions = document.querySelector(".intercom-actions");
+  const todaySlides = Array.from(document.querySelectorAll("[data-today-slide]"));
+  const todaySlideDots = document.getElementById("todaySlideDots");
 
   const movies = [
     {
@@ -114,96 +116,56 @@
     }
   ];
 
-  const partners = [
+  const mealStores = [
     {
-      id: "starbucks",
-      image: "images/partner-starbucks-hero.png",
-      title: "Starbucks",
-      english: "PARTNER BENEFIT",
-      meta: "全飲品 85 折・全台指定門市",
-      description: "出示員工優惠 QR Code，即可享合作商家飲品優惠。"
+      id: "hanabi",
+      image: "images/Japanese Donburi拷貝.jpg",
+      title: "花火丼飯",
+      english: "MEAL BOOKING",
+      meta: "日式丼飯・現做取餐",
+      description: "醬汁濃郁的日式丼飯，適合午餐快速取餐。"
     },
     {
-      id: "uniqlo",
-      image: "images/partner-uniqlo-product.png",
-      title: "UNIQLO",
-      english: "PARTNER BENEFIT",
-      meta: "全館商品 95 折・指定門市適用",
-      description: "員工可於合作期間享服飾商品優惠。"
+      id: "lao-zhang",
+      image: "images/bento拷貝.jpg",
+      title: "老張便當",
+      english: "MEAL BOOKING",
+      meta: "經典台式便當・11:00 截止",
+      description: "家常便當與滷香主菜，今天午餐穩穩吃。"
     },
     {
-      id: "mcdonalds",
-      image: "images/麥當勞拷貝.png",
-      title: "麥當勞",
-      english: "PARTNER BENEFIT",
-      meta: "指定套餐優惠・辦公室周邊門市",
-      description: "員工可使用指定套餐優惠，午休快速取餐。"
+      id: "qinghe",
+      image: "images/vegetarian.jpg.webp",
+      title: "青禾蔬食",
+      english: "MEAL BOOKING",
+      meta: "蔬食料理・清爽午餐",
+      description: "蔬菜、豆包與輕盈餐盒，午後更舒服。"
     },
     {
-      id: "nike",
-      image: "images/partner-nike-hero.png",
-      title: "Nike",
-      english: "PARTNER BENEFIT",
-      meta: "指定商品 9 折・運動裝備優惠",
-      description: "員工專屬合作商家優惠，結帳前完成身分驗證即可使用。"
+      id: "spicy-lab",
+      image: "images/Spicy拷貝.jpg",
+      title: "辣味研究所",
+      english: "MEAL BOOKING",
+      meta: "香麻辣味・午餐提神",
+      description: "紅油、椒麻與辣炒料理，想吃點辣就選它。"
     },
     {
-      id: "cosmed",
-      image: "images/partner-cosmed-hero.png",
-      title: "康是美",
-      english: "PARTNER BENEFIT",
-      meta: "保健美妝優惠・指定商品折扣",
-      description: "日用品、保健品與美妝指定品項享員工價。"
-    },
-    {
-      id: "formosa",
-      image: "images/鬍鬚張拷貝.png",
-      title: "鬍鬚張",
-      english: "PARTNER BENEFIT",
-      meta: "指定套餐 9 折・台北指定門市",
-      description: "經典便當與套餐享員工合作優惠。"
-    },
-    {
-      id: "gu",
-      image: "images/partner-gu.png",
-      title: "GU",
-      english: "PARTNER BENEFIT",
-      meta: "全館商品 95 折・指定門市適用",
-      description: "員工購買服飾商品可享合作期間折扣。"
-    },
-    {
-      id: "net",
-      image: "images/partner-net-hero.png",
-      title: "NET",
-      english: "PARTNER BENEFIT",
-      meta: "指定商品 9 折・服飾優惠",
-      description: "指定服飾商品結帳前完成員工驗證即可使用。"
-    },
-    {
-      id: "movie",
-      image: "images/partner-movie-ticket.png",
-      title: "員工電影票",
-      english: "PARTNER BENEFIT",
-      meta: "每月票券優惠・合作影城",
-      description: "每月可購買指定場次員工優惠票。"
+      id: "island-light",
+      image: "images/Western_style.jpg",
+      title: "小島輕食",
+      english: "MEAL BOOKING",
+      meta: "西式輕食・沙拉飯麵",
+      description: "三明治、沙拉與飯麵組合，今天吃清爽一點。"
     }
   ];
 
-  const slides = movies.flatMap((movie, index) => {
-    const result = [{ ...movie, type: "movie", action: "立即購票" }];
-    if (index % 2 === 1) {
-      const partner = partners[((index - 1) / 2) % partners.length];
-      result.push({
-        ...partner,
-        type: "partner",
-        tag: "合作商家",
-        action: "查看優惠"
-      });
-    }
-    return result;
-  });
+  const slides = movies.flatMap((movie, index) => [
+    { ...movie, type: "movie", action: "立即購票" },
+    { ...mealStores[index % mealStores.length], type: "meal", tag: "便當店家", action: "立即點餐" }
+  ]);
 
   let activeSlide = 0;
+  let activeTodaySlide = 0;
 
   function fitKiosk() {
     window.fitKioskCanvas?.();
@@ -293,7 +255,7 @@
     const slide = slides[activeSlide];
 
     spotlightCard.classList.add("is-changing");
-    spotlightCard.classList.toggle("is-meal", slide.type === "partner");
+    spotlightCard.classList.toggle("is-meal", slide.type === "meal");
     window.setTimeout(() => spotlightCard.classList.remove("is-changing"), 180);
 
     spotlightImage.src = slide.image;
@@ -305,10 +267,10 @@
     spotlightDescription.textContent = slide.description;
     spotlightAction.textContent = slide.action;
     spotlightAction.setAttribute("aria-label", slide.action);
-    spotlightAction.href = slide.type === "movie" ? "employee.html#moviesView" : "employee.html#partnerCouponView";
+    spotlightAction.href = slide.type === "movie" ? "employee.html#moviesView" : `lunch.html?store=${encodeURIComponent(slide.id)}`;
     spotlightAction.dataset.href = spotlightAction.href;
     spotlightAction.dataset.movieId = slide.type === "movie" ? slide.id : "";
-    spotlightAction.dataset.partnerId = slide.type === "partner" ? slide.id : "";
+    spotlightAction.dataset.storeId = slide.type === "meal" ? slide.id : "";
 
     Array.from(pager.children).forEach((button, buttonIndex) => {
       button.classList.toggle("active", buttonIndex === activeSlide);
@@ -325,6 +287,37 @@
       pager.append(button);
     });
     setSlide(0);
+  }
+
+  function setTodaySlide(index) {
+    if (!todaySlides.length) return;
+    activeTodaySlide = (index + todaySlides.length) % todaySlides.length;
+
+    todaySlides.forEach((slide, slideIndex) => {
+      const isActive = slideIndex === activeTodaySlide;
+      slide.classList.toggle("active", isActive);
+      slide.setAttribute("aria-hidden", String(!isActive));
+    });
+
+    Array.from(todaySlideDots?.children || []).forEach((button, buttonIndex) => {
+      button.classList.toggle("active", buttonIndex === activeTodaySlide);
+      button.setAttribute("aria-pressed", String(buttonIndex === activeTodaySlide));
+    });
+  }
+
+  function initTodayCarousel() {
+    if (!todaySlides.length || !todaySlideDots) return;
+    todaySlideDots.innerHTML = "";
+
+    todaySlides.forEach((_, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("aria-label", `第 ${index + 1} 則今日資訊`);
+      button.addEventListener("click", () => setTodaySlide(index));
+      todaySlideDots.append(button);
+    });
+
+    setTodaySlide(0);
   }
 
   const notificationStorageKey = "wohours.homeNotifications.v1";
@@ -764,8 +757,8 @@
     if (slide?.type === "movie" && slide.id) {
       localStorage.setItem("wohours.pendingStaffMovie", slide.id);
     }
-    if (slide?.type === "partner" && slide.id) {
-      localStorage.setItem("wohours.pendingPartner", slide.id);
+    if (slide?.type === "meal" && slide.id) {
+      localStorage.setItem("wohours.pendingLunchStore", slide.id);
     }
   });
 
@@ -828,10 +821,12 @@
   updateClock();
   renderWeather();
   refreshWeatherFromCwa();
+  initTodayCarousel();
   buildPager();
   initNotifications();
   window.addEventListener("resize", fitKiosk);
   window.setInterval(updateClock, 1000 * 20);
   window.setInterval(refreshWeatherFromCwa, 1000 * 60 * 10);
-  window.setInterval(() => setSlide(activeSlide + 1), 1000 * 7);
+  window.setInterval(() => setTodaySlide(activeTodaySlide + 1), 1000 * 5);
+  window.setInterval(() => setSlide(activeSlide + 1), 1000 * 5);
 })();

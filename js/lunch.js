@@ -100,6 +100,7 @@
   let cart = {};
   let paymentMethod = "";
   let lunchFaceStream = null;
+  let lunchFaceTimer = null;
   let selectedEmployee = null;
 
   function pad(value) { return String(value).padStart(2, "0"); }
@@ -127,6 +128,8 @@
   }
 
   function stopLunchFaceCamera() {
+    window.clearTimeout(lunchFaceTimer);
+    lunchFaceTimer = null;
     if (lunchFaceStream) {
       lunchFaceStream.getTracks().forEach(track => track.stop());
       lunchFaceStream = null;
@@ -306,9 +309,21 @@
     selectedEmployee = employee;
     $("#faceEmployeeLabel").textContent = `${employee.id} ${employee.name}，請面向鏡頭`;
     showView("faceVerifyView", "done");
-    startLunchFaceCamera();
+    const confirm = $("#confirmFaceVerify");
+    confirm.disabled = true;
+    confirm.textContent = "辨識中";
+    startLunchFaceCamera().finally(() => {
+      lunchFaceTimer = window.setTimeout(() => {
+        stopLunchFaceCamera();
+        confirm.disabled = false;
+        confirm.textContent = "確認身分";
+        showView("methodView", "done");
+      }, 3000);
+    });
   });
   $("#confirmFaceVerify").addEventListener("click", () => {
+    $("#confirmFaceVerify").disabled = false;
+    $("#confirmFaceVerify").textContent = "確認身分";
     stopLunchFaceCamera();
     showView("methodView", "done");
   });

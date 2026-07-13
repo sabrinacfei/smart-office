@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WOHOURS 智慧辦公室首頁</title>
-  <link rel="stylesheet" href="css/homepage.css?v=20260710-notifications-partners">
+  <link rel="stylesheet" href="css/homepage.css?v=20260713-info-layout">
   <link rel="stylesheet" href="css/doorbell.css?v=20260708-anim">
   <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
 </head>
@@ -40,9 +40,19 @@
       </header>
 
       <section class="dashboard">
-        <article class="today-card panel">
-          <h1>今日資訊</h1>
-          <div class="today-grid">
+        <article class="today-card panel" id="todayCarousel" aria-label="今日公告與資訊輪播">
+          <section class="today-slide announcement-slide active" data-today-slide aria-hidden="false">
+            <h1>今日公告</h1>
+            <ul class="home-notice-list">
+              <li><strong>加班時間認定</strong><span>加班認定以實際打卡時間為準，請確實依規定時間進行打卡。</span></li>
+              <li><strong>加班時數計算</strong><span>加班時數將依公司規定計算並繼續納入薪資或補休統計。</span></li>
+              <li><strong>加班申請紀錄</strong><span>系統將自動記錄加班原因與時數，供主管審核及薪資結算使用。</span></li>
+              <li><strong>注意事項</strong><span>如有異動請洽人資部門，請勿虛報或不實登錄加班。</span></li>
+            </ul>
+          </section>
+
+          <section class="today-slide weather-slide" data-today-slide aria-hidden="true">
+            <h1>今日資訊</h1>
             <section class="weather-block">
               <time id="fullDate">2025/06/05 (四)</time>
               <p class="location">
@@ -58,7 +68,10 @@
                 </div>
               </div>
             </section>
+          </section>
 
+          <section class="today-slide people-slide" data-today-slide aria-hidden="true">
+            <h1>今日在班人員</h1>
             <section class="people-block" aria-label="今日人員">
               <div class="metric-row">
                 <div class="metric-title">
@@ -82,7 +95,9 @@
               </div>
               <p class="overtime-list">張志明　李承翰　陳雅婷</p>
             </section>
-          </div>
+          </section>
+
+          <div class="today-slide-dots" id="todaySlideDots" aria-label="今日資訊輪播切換"></div>
         </article>
 
         <section class="spotlight-carousel" id="spotlightCarousel" aria-label="電影與便當輪播">
@@ -290,6 +305,6 @@
   <script src="js/kiosk-scale.js?v=20260707-screen"></script>
   <script src="js/doorbell.js"></script>
   <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
-  <script src="js/homepage.js"></script>
+  <script src="js/homepage.js?v=20260713-info-carousel"></script>
 </body>
 </html>

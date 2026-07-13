@@ -291,8 +291,11 @@
   }
 
   let scheduleFaceStream = null;
+  let scheduleFaceTimer = null;
 
   function stopScheduleFaceCamera() {
+    window.clearTimeout(scheduleFaceTimer);
+    scheduleFaceTimer = null;
     if (scheduleFaceStream) {
       scheduleFaceStream.getTracks().forEach(track => track.stop());
       scheduleFaceStream = null;
@@ -382,13 +385,20 @@
     modal.classList.add("active");
     modal.setAttribute("aria-hidden", "false");
     const confirm = modal.querySelector("#scheduleFaceConfirm");
-    confirm.onclick = () => {
+    const finish = () => {
       stopScheduleFaceCamera();
+      confirm.disabled = false;
+      confirm.textContent = "辨識完成";
       modal.classList.remove("active");
       modal.setAttribute("aria-hidden", "true");
       completeFaceVerification(button, employee);
     };
-    startScheduleFaceCamera();
+    confirm.disabled = true;
+    confirm.textContent = "辨識中";
+    confirm.onclick = finish;
+    startScheduleFaceCamera().finally(() => {
+      scheduleFaceTimer = window.setTimeout(finish, 3000);
+    });
   }
 
   function verifyFace(button) {

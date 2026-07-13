@@ -77,6 +77,24 @@
           </div>
         </section>
 
+        <section class="emergency-view emergency-face-view" id="faceView" aria-hidden="true">
+          <button class="section-back" type="button" data-back="pin">‹ 返回授權碼</button>
+          <article class="emergency-face-card">
+            <div class="emergency-face-camera">
+              <video id="emergencyFaceVideo" autoplay playsinline muted></video>
+              <span></span>
+              <i></i>
+              <p id="emergencyFaceHint">請將臉部置於取景框中央</p>
+            </div>
+            <div class="emergency-face-copy">
+              <small>FACE CHECK</small>
+              <h2>人臉辨識</h2>
+              <p>授權碼已通過，系統將開啟 IP Cam 進行門禁人臉確認。</p>
+              <button class="emergency-confirm" id="faceStart" type="button">開始辨識</button>
+            </div>
+          </article>
+        </section>
+
         <section class="emergency-view call-state" id="callView" aria-hidden="true">
           <button class="section-back call-back" type="button" data-back="choice">‹ 返回選擇</button>
           <div class="call-pulse">☎</div>
@@ -103,5 +121,6 @@
   <script src="js/kiosk-scale.js?v=20260707-screen"></script>
   <script src="js/emergency.js"></script>
   <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
+  <script src="js/idle-home.js?v=20260713-idle"></script>
 </body>
 </html>

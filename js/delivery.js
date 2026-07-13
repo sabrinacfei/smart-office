@@ -41,7 +41,7 @@
       person: "張志明",
       dept: "業務部",
       source: "7-11 交貨便",
-      status: "運送中",
+      status: "已寄出",
       time: "2026/07/06 14:20",
       action: "查看詳情"
     },
@@ -327,7 +327,7 @@
       person: parcelForm.elements.sendReceiverName.value.trim(),
       dept: parcelForm.elements.senderDept.value,
       source: parcelForm.elements.shipMethod.value,
-      status: "運送中",
+      status: "已寄出",
       time: formatDateTime(parcelForm.elements.sendDate.value, parcelForm.elements.sendTime.value),
       action: "查看詳情"
     });

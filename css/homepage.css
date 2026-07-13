@@ -349,16 +349,65 @@ svg {
 }
 
 .today-card {
+  position: relative;
+  overflow: hidden;
   height: 494px;
-  padding: 46px 48px 40px;
+  padding: 0;
 }
 
-.today-card h1 {
+.today-slide {
+  position: absolute;
+  inset: 0;
+  padding: 46px 48px 44px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(28px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+.today-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.today-card h1,
+.today-slide h1 {
   margin: 0 0 22px;
   color: var(--charcoal);
   font-size: 36px;
   font-weight: 700;
   letter-spacing: .04em;
+}
+
+.home-notice-list {
+  display: grid;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(31, 29, 29, .14);
+}
+
+.home-notice-list li {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 26px;
+  align-items: center;
+  min-height: 78px;
+  border-bottom: 1px solid rgba(31, 29, 29, .14);
+}
+
+.home-notice-list strong {
+  color: var(--charcoal);
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.home-notice-list span {
+  color: var(--muted);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.45;
 }
 
 .today-grid {
@@ -371,6 +420,17 @@ svg {
 .weather-block {
   padding-top: 20px;
   border-right: 1px solid rgba(31, 29, 29, .18);
+}
+
+.weather-slide .weather-block {
+  width: 100%;
+  border-right: 0;
+  padding: 24px 8px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .88fr);
+  grid-template-rows: auto auto;
+  column-gap: 54px;
+  align-items: center;
 }
 
 .weather-block time {
@@ -390,6 +450,18 @@ svg {
   color: var(--charcoal);
 }
 
+.weather-slide .weather-block time {
+  grid-column: 1;
+  margin: 0 0 52px;
+  font-size: 50px;
+}
+
+.weather-slide .location {
+  grid-column: 1;
+  margin: 0;
+  font-size: 29px;
+}
+
 .location svg {
   width: 30px;
   height: 30px;
@@ -403,10 +475,25 @@ svg {
   padding-bottom: 32px;
 }
 
+.weather-slide .weather {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  justify-content: center;
+  gap: 36px;
+  min-height: 230px;
+  padding: 14px 0 10px 52px;
+  border-left: 1px solid rgba(31, 29, 29, .14);
+}
+
 .weather img {
   width: 164px;
   height: 130px;
   object-fit: contain;
+}
+
+.weather-slide .weather img {
+  width: 190px;
+  height: 150px;
 }
 
 .weather strong,
@@ -421,10 +508,18 @@ svg {
   font-weight: 500;
 }
 
+.weather-slide .weather strong {
+  font-size: 74px;
+}
+
 .weather span {
   margin-top: 20px;
   font-size: 26px;
   color: var(--charcoal);
+}
+
+.weather-slide .weather span {
+  font-size: 31px;
 }
 
 .weather small {
@@ -433,9 +528,17 @@ svg {
   color: var(--muted);
 }
 
+.weather-slide .weather small {
+  font-size: 25px;
+}
+
 .people-block {
   min-width: 0;
   padding-top: 10px;
+}
+
+.people-slide .people-block {
+  padding-top: 20px;
 }
 
 .metric-row,
@@ -493,6 +596,30 @@ svg {
   margin: 24px 0 0;
   font-size: 24px;
   color: var(--charcoal);
+}
+
+.today-slide-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  z-index: 2;
+  display: flex;
+  gap: 12px;
+  transform: translateX(-50%);
+}
+
+.today-slide-dots button {
+  width: 34px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(131, 131, 131, .28);
+}
+
+.today-slide-dots button.active {
+  width: 56px;
+  background: var(--brown);
 }
 
 .spotlight-carousel {
@@ -1269,4 +1396,22 @@ svg {
     transform: scale(1.035);
     box-shadow: 0 20px 44px rgba(185, 77, 67, .38);
   }
+}
+
+/* Use the current full WHours logo artwork without legacy cropping. */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.brand img {
+  position: static;
+  width: 430px;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: none;
+  mix-blend-mode: normal;
 }

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/delivery.css">
   <link rel="stylesheet" href="css/doorbell.css?v=20260708-anim">
   <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
-  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260710-caps-fit">
+  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260714-zhuyin-clean">
 </head>
 <body>
   <main class="delivery-stage">
@@ -58,9 +58,9 @@
             <strong>3<small>件</small></strong>
           </article>
 
-          <article class="summary-card" data-filter="運送中" tabindex="0">
+          <article class="summary-card" data-filter="已寄出" tabindex="0">
             <img src="images/運送中.png" alt="">
-            <span>運送中</span>
+            <span>已寄出</span>
             <strong>2<small>件</small></strong>
           </article>
 
@@ -81,7 +81,7 @@
           <div class="delivery-tabs" aria-label="篩選狀態">
             <button class="active" type="button" data-filter="all">全部</button>
             <button type="button" data-filter="待領取">待領取</button>
-            <button type="button" data-filter="運送中">運送中</button>
+            <button type="button" data-filter="已寄出">已寄出</button>
             <button type="button" data-filter="已領取">已領取</button>
             <button type="button" data-filter="逾期未領">逾期未領</button>
           </div>
@@ -272,6 +272,9 @@
   <script src="js/doorbell.js"></script>
   <script src="js/delivery.js?V=10001"></script>
   <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
-  <script src="js/touch-keyboard.js?v=20260710-caps-fit"></script>
+  <script src="js/bpmf-dictionary.js?v=20260710-booking-memory-keyboard"></script>
+  <script src="js/mcbopomofo-dictionary.js?v=20260710-mcbopomofo"></script>
+  <script src="js/touch-keyboard.js?v=20260714-zhuyin-clean"></script>
+  <script src="js/idle-home.js?v=20260713-idle"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WOHOURS｜上下班打卡</title>
-  <link rel="stylesheet" href="css/attendance.css?v=20260710-birthday">
+  <link rel="stylesheet" href="css/attendance.css?v=20260713-keyboard-avoid-fields">
 </head>
 <body>
   <main class="kiosk-stage">
@@ -26,7 +26,10 @@
             <p class="attendance-date" id="attendanceDate">2026 / 07 / 07　星期二</p>
             <h1 id="attendanceTime">14:25</h1>
             <p>請選擇上班或下班，輸入員工號後進行人臉辨識。</p>
-            <img class="attendance-mascot" src="images/員工工號.png" alt="員工打卡">
+            <button class="overtime-entry" id="overtimeEntry" type="button" aria-label="加班申請">
+              <img src="images/全程配戴訪客證.png" alt="">
+            </button>
+            <div class="overtime-callout">點我進去申請加班！</div>
           </section>
 
           <section class="attendance-panel">
@@ -126,6 +129,24 @@
 
   <script src="js/kiosk-scale.js?v=20260707-screen"></script>
   <script src="js/mock-employee-data.js?v=20260710-ten-employees"></script>
-  <script src="js/attendance.js?v=20260710-birthday"></script>
+  <section class="attendance-touch-keyboard" id="attendanceTouchKeyboard" hidden>
+    <div class="keyboard-top">
+      <strong id="attendanceKeyboardTitle"></strong>
+      <div class="keyboard-mode-tabs">
+        <button type="button" data-attendance-kb-mode="zhuyin">注音</button>
+        <button type="button" data-attendance-kb-mode="english">英</button>
+      </div>
+      <button type="button" class="keyboard-hide" data-attendance-kb-hide>收起</button>
+    </div>
+    <div class="zhuyin-compose" id="attendanceZhuyinCompose"></div>
+    <div class="candidate-row" id="attendanceCandidateRow"></div>
+    <div class="keyboard-keys" id="attendanceKeyboardKeys"></div>
+  </section>
+
+  <script src="js/bpmf-dictionary.js?v=20260710-booking-memory-keyboard"></script>
+  <script src="js/mcbopomofo-dictionary.js?v=20260710-mcbopomofo"></script>
+  <script src="js/attendance-keyboard.js?v=20260713-keyboard-compact"></script>
+  <script src="js/attendance.js?v=20260713-overtime-final"></script>
+  <script src="js/idle-home.js?v=20260713-idle"></script>
 </body>
 </html>

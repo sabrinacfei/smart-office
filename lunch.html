@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WOHOURS 預約便當</title>
-  <link rel="stylesheet" href="css/lunch.css">
+  <link rel="stylesheet" href="css/lunch.css?v=20260713-salary-glow-only">
   <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
-  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260710-caps-fit">
+  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260714-zhuyin-clean">
 </head>
 <body>
   <main class="lunch-stage">
@@ -193,7 +193,7 @@
           <button class="mini-back payment-back" data-goto="onlineView" type="button">‹ 返回付款方式</button>
           <h1 id="qrTitle">街口支付</h1>
           <p>請掃描下方 QR Code 完成付款</p>
-          <img class="qr-image" src="images/QRCode拷貝.png" alt="QR Code" onerror="this.style.display='none';document.querySelector('.fake-qr').style.display='block';">
+          <img class="qr-image" src="images/partner-qrcode.png" alt="QR Code" onerror="this.style.display='none';document.querySelector('.fake-qr').style.display='block';">
           <div class="fake-qr" aria-label="QR Code"><span></span><span></span><span></span><span></span><b></b></div>
           <strong class="qr-amount" id="qrAmount">訂單金額：$0</strong>
           <small class="muted-text">請於 05:00 內完成付款，逾時將自動取消訂單</small>
@@ -230,6 +230,9 @@
   <script src="js/mock-employee-data.js?v=20260709-memory"></script>
   <script src="js/lunch.js"></script>
   <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
-  <script src="js/touch-keyboard.js?v=20260710-caps-fit"></script>
+  <script src="js/bpmf-dictionary.js?v=20260710-booking-memory-keyboard"></script>
+  <script src="js/mcbopomofo-dictionary.js?v=20260710-mcbopomofo"></script>
+  <script src="js/touch-keyboard.js?v=20260714-zhuyin-clean"></script>
+  <script src="js/idle-home.js?v=20260713-idle"></script>
 </body>
 </html>

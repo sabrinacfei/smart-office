@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WOHOURS 員工專區</title>
-  <link rel="stylesheet" href="css/employee.css?v=20260711-face-balance">
+  <link rel="stylesheet" href="css/employee.css?v=20260713-pay-glow-only">
   <link rel="stylesheet" href="css/notifications.css?v=20260711-notify-fit">
-  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260710-caps-fit">
+  <link rel="stylesheet" href="css/touch-keyboard.css?v=20260714-zhuyin-clean">
 </head>
 <body>
   <main class="employee-stage">
@@ -151,13 +151,27 @@
             <article class="portal-card notice-panel">
               <div class="card-title">
                 <small>NOTICE</small>
-                <h2>今日內部公告</h2>
+                <h2>今日公告</h2>
               </div>
-              <ul>
-                <li><time>09:30</time><span>會議室 A 設備保養，暫停預約。</span></li>
-                <li><time>14:00</time><span>消防演練通知，請依樓層引導集合。</span></li>
-                <li><time>18:00</time><span>下班前請確認門禁與公共區域照明。</span></li>
-              </ul>
+              <div class="notice-carousel" id="noticeCarousel">
+                <section class="notice-slide active" aria-hidden="false">
+                  <h3>加班須知</h3>
+                  <ul class="notice-list">
+                    <li><strong>加班時間認定</strong><span>加班認定以實際打卡時間為準，請確實依規定時間進行打卡。</span></li>
+                    <li><strong>加班時數計算</strong><span>加班時數將依公司規定計算並繼續納入薪資或補休統計。</span></li>
+                    <li><strong>加班申請紀錄</strong><span>系統將自動記錄加班原因與時數，供主管審核及薪資結算使用。</span></li>
+                    <li><strong>注意事項</strong><span>如有異動請洽人資部門，請勿虛報或不實登錄加班。</span></li>
+                  </ul>
+                </section>
+                <section class="notice-slide" aria-hidden="true">
+                  <h3>今日內部公告</h3>
+                  <ul>
+                    <li><time>09:30</time><span>會議室 A 設備保養，暫停預約。</span></li>
+                    <li><time>14:00</time><span>消防演練通知，請依樓層引導集合。</span></li>
+                    <li><time>18:00</time><span>下班前請確認門禁與公共區域照明。</span></li>
+                  </ul>
+                </section>
+              </div>
             </article>
           </section>
         </section>
@@ -1123,7 +1137,7 @@
                 <div class="staff-payment-options" id="staffPaymentOptions">
                   <button type="button" data-staff-pay="福委會點數扣除"><i></i><span><strong>福委會點數扣除</strong><small>使用員工福利點數折抵</small></span><img src="images/福委會點數扣除.png" alt=""></button>
                   <button type="button" data-staff-pay="從薪水扣"><i></i><span><strong>從薪水扣</strong><small>本次費用併入薪資扣款</small></span><img src="images/從薪水扣.png" alt=""></button>
-                  <button class="selected" type="button" data-staff-pay="信用卡付款"><i></i><span><strong>信用卡付款</strong><small>VISA、MasterCard、JCB 等</small><em>推薦使用</em></span><img src="images/信用卡影院.png" alt=""></button>
+                  <button class="selected" type="button" data-staff-pay="信用卡付款"><i></i><span><strong>信用卡付款</strong><small>VISA、MasterCard、JCB 等</small></span><img src="images/信用卡影院.png" alt=""></button>
                   <button type="button" data-staff-pay="LINE Pay"><i></i><span><strong>LINE Pay</strong><small>安全快速結帳</small></span><img src="images/linepay-logo-tw.png" alt=""></button>
                   <button type="button" data-staff-pay="街口支付"><i></i><span><strong>街口支付</strong><small>支援街口帳戶／銀行卡</small></span><img src="images/街口.png" alt=""></button>
                   <button type="button" data-staff-pay="Apple Pay"><i></i><span><strong>Apple Pay</strong><small>使用 Apple Pay 付款</small></span><img src="images/applepay.png" alt=""></button>
@@ -1470,6 +1484,9 @@
   <script src="js/mock-employee-data.js?v=20260710-ten-employees"></script>
   <script src="js/employee.js?v=20260711-movie-logo"></script>
   <script src="js/system-notifications.js?v=20260711-notify-schedule-icon"></script>
-  <script src="js/touch-keyboard.js?v=20260710-caps-fit"></script>
+  <script src="js/bpmf-dictionary.js?v=20260710-booking-memory-keyboard"></script>
+  <script src="js/mcbopomofo-dictionary.js?v=20260710-mcbopomofo"></script>
+  <script src="js/touch-keyboard.js?v=20260714-zhuyin-clean"></script>
+  <script src="js/idle-home.js?v=20260713-idle"></script>
 </body>
 </html>

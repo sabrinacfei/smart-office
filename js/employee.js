@@ -8,6 +8,7 @@
   const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
   let toastTimer = null;
   let authStream = null;
+  let authFaceTimer = null;
   let faceStream = null;
   let healthStream = null;
   let pendingAuth = null;
@@ -347,6 +348,11 @@
     document.getElementById("authEmployeeId").value = "";
     document.getElementById("authMessage").textContent = "";
     document.getElementById("authFaceSnapshot").hidden = true;
+    const captureButton = document.getElementById("authCaptureFace");
+    if (captureButton) {
+      captureButton.disabled = false;
+      captureButton.textContent = "拍照驗證";
+    }
     document.getElementById("authIdStep").classList.add("active");
     document.getElementById("authFaceStep").classList.remove("active");
     document.getElementById("employeeAuthModal").classList.add("active");
@@ -355,6 +361,8 @@
   }
 
   function closeAuth() {
+    clearTimeout(authFaceTimer);
+    authFaceTimer = null;
     document.getElementById("employeeAuthModal").classList.remove("active");
     document.getElementById("employeeAuthModal").setAttribute("aria-hidden", "true");
     stopAuthCamera();
@@ -374,6 +382,8 @@
   }
 
   function stopAuthCamera() {
+    clearTimeout(authFaceTimer);
+    authFaceTimer = null;
     if (authStream) {
       authStream.getTracks().forEach((track) => track.stop());
       authStream = null;
@@ -409,6 +419,26 @@
     canvas.height = video.videoHeight;
     canvas.getContext("2d").drawImage(video, 0, 0);
     return canvas.toDataURL("image/jpeg", 0.86);
+  }
+
+  function completeAuthFace() {
+    const employeeId = document.getElementById("authEmployeeId").value.trim();
+    const photo = captureVideo(document.getElementById("authFaceVideo"));
+    if (photo) {
+      const snapshot = document.getElementById("authFaceSnapshot");
+      snapshot.src = photo;
+      snapshot.hidden = false;
+    }
+    const modal = document.getElementById("employeeAuthModal");
+    if (modal?.dataset.partnerQrMode === "true") {
+      modal.dataset.partnerQrMode = "false";
+      closeAuth();
+      window.WohoursOpenPartnerQrModal?.(employeeId);
+      return;
+    }
+    const callback = pendingAuth;
+    closeAuth();
+    if (callback) callback(employeeId, photo);
   }
 
   function handleAuthAction(action) {
@@ -796,7 +826,7 @@
       if (healthFaceStatus) healthFaceStatus.textContent = "正在開啟鏡頭，請允許瀏覽器使用相機。";
       try {
         await startHealthCamera();
-        healthFaceButton.textContent = "辨識中...";
+        healthFaceButton.textContent = "辨識中";
         if (healthFaceStatus) healthFaceStatus.textContent = "鏡頭已開啟，正在比對人臉資料...";
         setTimeout(() => {
           healthFaceVerified = true;
@@ -805,7 +835,7 @@
           healthFaceCard?.classList.add("is-verified");
           if (healthFaceStatus) healthFaceStatus.textContent = "人臉辨識已完成";
           syncHealthSubmit();
-        }, 850);
+        }, 3000);
       } catch (error) {
         healthFaceVerified = false;
         healthFaceButton.disabled = false;
@@ -1033,7 +1063,7 @@
 
       card.classList.add("is-scanning");
       cameraButton.disabled = true;
-      cameraButton.textContent = "辨識中...";
+      cameraButton.textContent = "辨識中";
       cameraTitle.textContent = "拍攝中，請保持不動";
       cameraHint.textContent = "正在擷取人臉資料...";
       setMessage(cameraStatus, "掃描中，請維持臉部置中");
@@ -1296,27 +1326,16 @@
       document.getElementById("authIdStep").classList.remove("active");
       document.getElementById("authFaceStep").classList.add("active");
       await startAuthCamera();
+      const captureButton = document.getElementById("authCaptureFace");
+      if (captureButton) {
+        captureButton.disabled = true;
+        captureButton.textContent = "辨識中";
+      }
+      clearTimeout(authFaceTimer);
+      authFaceTimer = setTimeout(completeAuthFace, 3000);
     });
 
-    document.getElementById("authCaptureFace").addEventListener("click", () => {
-      const employeeId = document.getElementById("authEmployeeId").value.trim();
-      const photo = captureVideo(document.getElementById("authFaceVideo"));
-      if (photo) {
-        const snapshot = document.getElementById("authFaceSnapshot");
-        snapshot.src = photo;
-        snapshot.hidden = false;
-      }
-      const modal = document.getElementById("employeeAuthModal");
-      if (modal?.dataset.partnerQrMode === "true") {
-        modal.dataset.partnerQrMode = "false";
-        closeAuth();
-        window.WohoursOpenPartnerQrModal?.(employeeId);
-        return;
-      }
-      const callback = pendingAuth;
-      closeAuth();
-      if (callback) callback(employeeId, photo);
-    });
+    document.getElementById("authCaptureFace").addEventListener("click", completeAuthFace);
 
     document.querySelectorAll("[data-auth-close]").forEach((button) => {
       button.addEventListener("click", closeAuth);
@@ -2982,7 +3001,7 @@ if (false) {
           員工已完成驗證，請出示 QR Code 給店員掃描。
         </p>
 
-        <img class="partner-qr-code" id="partnerQrCode" src="images/QRCode拷貝.png" alt="QR Code">
+        <img class="partner-qr-code" id="partnerQrCode" src="images/partner-qrcode.png" alt="QR Code">
 
         <p class="partner-qr-bottom">請將此畫面出示給合作商家掃描</p>
       </section>
@@ -3297,7 +3316,7 @@ if (false) {
           員工已完成驗證，請出示 QR Code 給店員掃描。
         </p>
 
-        <img class="partner-qr-code" src="images/QRCode拷貝.png" alt="QR Code">
+        <img class="partner-qr-code" src="images/partner-qrcode.png" alt="QR Code">
 
         <p class="partner-qr-bottom">請將此畫面出示給合作商家掃描</p>
       </section>
@@ -3711,7 +3730,7 @@ if (false) {
           員工已完成驗證，請出示 QR Code 給店員掃描。
         </p>
 
-        <img class="partner-qr-code" src="images/QRCode拷貝.png" alt="QR Code">
+        <img class="partner-qr-code" src="images/partner-qrcode.png" alt="QR Code">
 
         <p class="partner-qr-bottom">請將此畫面出示給合作商家掃描</p>
       </section>
@@ -4007,6 +4026,9 @@ if (false) {
     $("#completeFace").disabled = false;
     $$("#faceCaptureChecks li").forEach((item) => item.classList.remove("is-active"));
     requestCamera();
+    $("#completeFace").textContent = "辨識中";
+    $("#completeFace").disabled = true;
+    captureTimers.push(setTimeout(startCapture, 3000));
   }
 
   function setCaptureProgress(fromAngle, toAngle, duration) {
@@ -4048,8 +4070,8 @@ if (false) {
     card.classList.add("is-capturing");
     $("#faceCameraTitle").textContent = "拍攝中，請保持不動";
     $("#faceCameraHint").textContent = "正在擷取人臉資料...";
-    $("#faceCameraStatus").textContent = "辨識中...";
-    $("#completeFace").textContent = "辨識中...";
+    $("#faceCameraStatus").textContent = "辨識中";
+    $("#completeFace").textContent = "辨識中";
     $("#completeFace").disabled = true;
     $$("#faceCaptureChecks li").forEach((item) => item.classList.remove("is-active"));
 
@@ -4700,6 +4722,30 @@ if (false) {
     localStorage.removeItem("wohours.pendingPartner");
     window.setTimeout(() => openPartner(pendingPartner), 120);
   }
+})();
+
+/* ===============================
+   員工首頁公告輪播
+   =============================== */
+(() => {
+  const carousel = document.getElementById("noticeCarousel");
+  if (!carousel) return;
+  const slides = Array.from(carousel.querySelectorAll(".notice-slide"));
+  if (slides.length < 2) return;
+  let index = 0;
+
+  function render() {
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === index;
+      slide.classList.toggle("active", active);
+      slide.setAttribute("aria-hidden", active ? "false" : "true");
+    });
+  }
+
+  window.setInterval(() => {
+    index = (index + 1) % slides.length;
+    render();
+  }, 5000);
 })();
 
 /* ===============================

@@ -2826,6 +2826,56 @@ select:focus {
   font-weight: 900;
 }
 
+.notice-carousel {
+  position: relative;
+  min-height: 270px;
+  overflow: hidden;
+}
+
+.notice-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity .28s ease, transform .28s ease, visibility .28s ease;
+}
+
+.notice-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notice-slide h3 {
+  margin: 0 0 18px;
+  color: var(--chocolate);
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.notice-panel .notice-list {
+  gap: 12px;
+}
+
+.notice-panel .notice-list li {
+  grid-template-columns: 170px 1fr;
+  gap: 18px;
+  padding-bottom: 12px;
+}
+
+.notice-panel .notice-list strong {
+  color: var(--chocolate);
+  font-size: 19px;
+  line-height: 1.35;
+}
+
+.notice-panel .notice-list span {
+  color: #5f5852;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
 .detail-header {
   display: block;
 }
@@ -15057,4 +15107,71 @@ body:has(#faceView.active) .employee-stage {
     linear-gradient(135deg, transparent 30%, #a26a42 31% 40%, transparent 41%) 32% 67% / 18px 14px no-repeat,
     linear-gradient(225deg, transparent 30%, #a26a42 31% 40%, transparent 41%) 68% 67% / 18px 14px no-repeat !important;
   opacity: .95 !important;
+}
+
+/* Use the current full WHours logo artwork without legacy cropping. */
+.employee-logo img {
+  width: 196px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+.employee-side-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+
+.employee-side-logo img {
+  position: static !important;
+  width: 286px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+#moviesView .staff-movie-logo-pair .staff-movie-logo.wohours-logo {
+  width: 220px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+#moviesView .staff-payment-options [data-staff-pay="從薪水扣"] {
+  position: relative !important;
+  border-color: rgba(190, 132, 55, .68) !important;
+  background: linear-gradient(135deg, rgba(255, 250, 240, .96), rgba(255, 255, 255, .9)) !important;
+  box-shadow:
+    0 0 0 4px rgba(190, 132, 55, .12),
+    0 20px 52px rgba(190, 132, 55, .2),
+    0 0 30px rgba(255, 207, 111, .34) !important;
+  animation: staffSalaryGlow 1.8s ease-in-out infinite !important;
+}
+
+#moviesView .staff-payment-options [data-staff-pay="從薪水扣"]::after {
+  content: none !important;
+  display: none !important;
+}
+
+@keyframes staffSalaryGlow {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow:
+      0 0 0 4px rgba(190, 132, 55, .1),
+      0 20px 52px rgba(190, 132, 55, .2),
+      0 0 24px rgba(255, 207, 111, .24);
+  }
+  50% {
+    filter: brightness(1.04);
+    box-shadow:
+      0 0 0 7px rgba(190, 132, 55, .16),
+      0 28px 66px rgba(190, 132, 55, .28),
+      0 0 42px rgba(255, 207, 111, .46);
+  }
 }

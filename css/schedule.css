@@ -348,6 +348,24 @@ svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width:
   height: auto !important;
   mix-blend-mode: multiply !important;
 }
+
+/* Use the current full WHours logo artwork without legacy cropping. */
+.schedule-side-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+
+.schedule-side-logo img {
+  position: static !important;
+  width: 318px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
 .schedule-view {
   display: none;
 }

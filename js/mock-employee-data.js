@@ -20,7 +20,7 @@
       health: { eligible: true, status: "尚未預約", slot: "可預約 07/15（三）09:00" },
       parcels: [
         { no: "TW11110001", source: "黑貓宅急便", status: "待領取", time: "2026/07/08 09:30" },
-        { no: "TW11110002", source: "7-11 交貨便", status: "運送中", time: "2026/07/09 14:20" }
+        { no: "TW11110002", source: "7-11 交貨便", status: "已寄出", time: "2026/07/09 14:20" }
       ],
       lunchOrders: [
         { date: "2026/07/08", store: "花火丼飯", meal: "炸豬排丼", amount: 135, status: "已付款" }
@@ -105,7 +105,7 @@
         { type: "家庭照護假", period: "2026/07/29 - 2026/07/29", status: "審核中" }
       ],
       health: { eligible: true, status: "尚未預約", slot: "可預約 07/18（六）13:30" },
-      parcels: [{ no: "TW11160001", source: "7-11 交貨便", status: "運送中", time: "2026/07/09 10:40" }],
+      parcels: [{ no: "TW11160001", source: "7-11 交貨便", status: "已寄出", time: "2026/07/09 10:40" }],
       lunchOrders: [],
       attendance: [{ date: "2026/07/08", mode: "上班打卡", time: "12:01" }]
     },
@@ -169,7 +169,7 @@
         { type: "補休", period: "2026/07/27 - 2026/07/27", status: "已核准" }
       ],
       health: { eligible: true, status: "檢查完成", slot: "2026/06/30 已完成" },
-      parcels: [{ no: "TW11200001", source: "新竹物流", status: "運送中", time: "2026/07/09 13:10" }],
+      parcels: [{ no: "TW11200001", source: "新竹物流", status: "已寄出", time: "2026/07/09 13:10" }],
       lunchOrders: [{ date: "2026/07/08", store: "青禾蔬食", meal: "彩虹蔬食盒", amount: 105, status: "已取餐" }],
       attendance: [{ date: "2026/07/09", mode: "下班打卡", time: "18:04" }]
     }

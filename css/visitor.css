@@ -239,6 +239,14 @@ svg {
   mix-blend-mode: multiply;
 }
 
+/* Use the current full WHours logo artwork without legacy blending. */
+.visitor-logo img {
+  width: 430px;
+  max-width: 100%;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
 .visitor-status {
   justify-self: end;
   display: flex;
