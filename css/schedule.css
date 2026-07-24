@@ -1325,3 +1325,258 @@ svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width:
   background: linear-gradient(135deg, #9b7350, #765136);
   color: #fff;
 }
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] {
+  display: block !important;
+  background:
+    radial-gradient(circle at 78% 8%, rgba(168, 124, 88, .12), transparent 26%),
+    linear-gradient(180deg, #f7f2ed 0%, #fff 42%, #f5f3f2 100%) !important;
+  overflow: hidden !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-sidebar {
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: auto !important;
+  width: auto !important;
+  height: 344px !important;
+  padding: 38px 58px 28px !important;
+  border-right: 0 !important;
+  border-bottom: 1px solid rgba(221, 216, 211, .75) !important;
+  background: rgba(248, 247, 245, .9) !important;
+  box-shadow: 0 12px 34px rgba(16, 8, 5, .06) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-context-nav {
+  height: 100% !important;
+  display: grid !important;
+  grid-template-columns: 300px 1fr 260px !important;
+  grid-template-rows: auto 1fr !important;
+  gap: 16px 34px !important;
+  overflow: hidden !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-side-logo {
+  width: 296px !important;
+  height: 96px !important;
+  min-height: 96px !important;
+  margin: 0 !important;
+  justify-self: start !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-side-logo img {
+  width: 296px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .sidebar-group {
+  grid-column: 2 !important;
+  grid-row: 1 / 3 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  align-content: start !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .sidebar-group h2 {
+  grid-column: 1 / -1 !important;
+  padding: 0 !important;
+  font-size: 20px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-nav {
+  min-height: 58px !important;
+  height: 58px !important;
+  padding: 0 14px !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  border-radius: 15px !important;
+  background: rgba(255, 255, 255, .5) !important;
+  font-size: 18px !important;
+  line-height: 1.12 !important;
+  text-align: center !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-nav::before {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-nav.active {
+  background: rgba(231, 228, 224, .78) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .sidebar-reminder {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  padding: 18px 20px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .sidebar-reminder h2 {
+  font-size: 21px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .sidebar-reminder p {
+  grid-template-columns: 70px 1fr !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .sidebar-return {
+  grid-column: 3 !important;
+  grid-row: 2 !important;
+  min-height: 66px !important;
+  margin-top: auto !important;
+  align-self: end !important;
+  justify-content: center !important;
+  font-size: 22px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-main {
+  position: absolute !important;
+  left: 74px !important;
+  right: 74px !important;
+  top: 380px !important;
+  bottom: 100px !important;
+  width: auto !important;
+  height: auto !important;
+  margin-left: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-topbar {
+  height: 80px !important;
+  margin-bottom: 8px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .top-status strong {
+  font-size: 52px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-scroll {
+  height: calc(100% - 88px) !important;
+  padding: 12px 0 120px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-hero {
+  margin-top: 0 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-hero h1 {
+  font-size: 56px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-hero p {
+  font-size: 23px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .summary-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 24px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .summary-grid .query-card {
+  grid-column: 1 / -1 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .info-card {
+  min-height: 300px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .query-card {
+  display: grid !important;
+  grid-template-columns: 1fr 320px 220px !important;
+  gap: 18px 24px !important;
+  align-items: end !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .query-card h2,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .query-card p,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .query-card .query-result {
+  grid-column: 1 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .query-card input {
+  grid-column: 2 !important;
+  margin-top: 0 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .query-card button {
+  grid-column: 3 !important;
+  margin-top: 0 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .content-grid,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .adjust-bottom-grid,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .swap-layout {
+  grid-template-columns: 1fr !important;
+  gap: 24px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-table-card,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .pre-card,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .record-card {
+  overflow-x: auto !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .department-table,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .weekly-pre-table,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .record-table,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .rule-table {
+  min-width: 980px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .reminder-grid,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .pre-info-grid,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .rules-grid {
+  grid-template-columns: 1fr !important;
+  gap: 20px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .reminder-grid article {
+  min-height: 120px !important;
+  border-right: 0 !important;
+  border-bottom: 1px solid rgba(221, 216, 211, .8) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .pre-toolbar,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .identity-strip {
+  grid-template-columns: 1fr !important;
+  align-items: stretch !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .pre-toolbar h2 {
+  text-align: left !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .pre-toolbar > div {
+  justify-content: flex-start !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .request-form,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .two-column-form,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .absence-form,
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .adjust-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .swap-pair {
+  grid-template-columns: 1fr !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .swap-pair > strong {
+  transform: rotate(90deg) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .leave-modal {
+  width: 940px !important;
+  max-width: calc(100% - 120px) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .schedule-screen[data-kiosk-portrait-layout="true"] .schedule-face-card {
+  width: 900px !important;
+  max-width: calc(100% - 120px) !important;
+}

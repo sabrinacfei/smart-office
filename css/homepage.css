@@ -909,6 +909,239 @@ svg {
   line-height: 1.2;
 }
 
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] {
+  padding: 74px 74px 82px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .screen-bg {
+  background:
+    linear-gradient(180deg, rgba(243, 241, 236, .42), rgba(243, 241, 236, .95) 64%, rgba(243, 241, 236, .7)),
+    url("../images/首頁背景.png") right center / cover no-repeat;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"]::after {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(190, 185, 177, .14)),
+    radial-gradient(circle at 26% 7%, rgba(255, 255, 255, .7), transparent 25%);
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .topbar {
+  height: 152px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 36px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .brand {
+  width: 430px;
+  height: 118px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .status-area {
+  gap: 30px;
+  padding-top: 18px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .notify-button {
+  width: 62px;
+  height: 62px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .notify-button svg {
+  width: 50px;
+  height: 50px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .clock {
+  min-width: 174px;
+  text-align: right;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .clock strong {
+  font-size: 58px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .clock span {
+  font-size: 29px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .notification-panel {
+  right: 0;
+  top: 88px;
+  width: 500px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .dashboard {
+  grid-template-columns: 1fr;
+  gap: 34px;
+  margin-top: 40px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .today-card {
+  height: 430px;
+  border-radius: 30px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .today-slide {
+  padding: 40px 46px 42px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .today-card h1,
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .today-slide h1 {
+  margin-bottom: 18px;
+  font-size: 34px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .home-notice-list li {
+  grid-template-columns: 190px 1fr;
+  min-height: 66px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .home-notice-list strong {
+  font-size: 22px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .home-notice-list span {
+  font-size: 21px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .weather-slide .weather-block {
+  grid-template-columns: minmax(0, .92fr) minmax(360px, 1fr);
+  column-gap: 40px;
+  padding-top: 16px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .weather-slide .weather-block time {
+  margin-bottom: 42px;
+  font-size: 46px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .weather-slide .weather {
+  min-height: 220px;
+  padding-left: 40px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .weather-slide .weather strong {
+  font-size: 68px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .people-slide .people-block {
+  padding-top: 14px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .metric-row {
+  padding-bottom: 22px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .staff-name-row {
+  min-height: 72px;
+  padding-top: 26px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .overtime-row {
+  margin-top: 24px;
+  padding-top: 24px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-carousel {
+  height: 530px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card {
+  border-radius: 30px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card::after {
+  background:
+    linear-gradient(90deg, rgba(16, 8, 5, .88), rgba(16, 8, 5, .58) 44%, rgba(16, 8, 5, .18) 100%),
+    linear-gradient(0deg, rgba(16, 8, 5, .68), rgba(16, 8, 5, .04) 58%);
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card.is-meal::after {
+  background:
+    linear-gradient(90deg, rgba(16, 8, 5, .9), rgba(16, 8, 5, .58) 54%, rgba(16, 8, 5, .1) 100%);
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-copy {
+  left: 92px;
+  top: 50px;
+  width: 54%;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-copy span {
+  margin-bottom: 24px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-copy h2 {
+  font-size: 58px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-en {
+  font-size: 28px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-meta,
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-desc {
+  font-size: 23px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card.is-meal img {
+  inset: auto 44px 46px auto;
+  width: 400px;
+  height: 290px;
+  transform: none;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card.is-meal.is-changing img {
+  transform: scale(1.018);
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card.is-meal .spotlight-copy {
+  width: 56%;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card.is-meal .spotlight-desc {
+  max-width: 560px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card.is-meal .pager,
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .spotlight-card .pager {
+  left: 50%;
+  bottom: 28px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .feature-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 48px 0 0;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .feature-card {
+  height: 228px;
+  padding: 30px 32px;
+  gap: 28px;
+  border-radius: 28px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .feature-icon-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 18px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .feature-icon-wide {
+  width: 112px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .feature-card strong {
+  font-size: 35px;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .feature-card small {
+  margin-top: 14px;
+  font-size: 22px;
+}
+
 @media (max-aspect-ratio: 214 / 135) {
   .kiosk-screen {
     transform-origin: center;

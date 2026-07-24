@@ -1469,3 +1469,174 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] {
+  background: #f7f5f1 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-bg {
+  background:
+    linear-gradient(180deg, rgba(247, 245, 241, .96), rgba(255, 255, 255, .98) 42%, rgba(247, 245, 241, .86)),
+    url("../images/訪客登記背景.png") left bottom / auto 900px no-repeat !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .photo-strip {
+  display: none !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-topbar {
+  height: 178px !important;
+  grid-template-columns: 260px 1fr 260px !important;
+  padding: 0 58px !important;
+  background: rgba(248, 247, 245, .88) !important;
+  box-shadow: 0 12px 34px rgba(16, 8, 5, .06) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .back-home {
+  min-width: 210px !important;
+  height: 70px !important;
+  padding: 0 26px !important;
+  gap: 16px !important;
+  font-size: 23px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-logo,
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-logo img {
+  width: 420px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-status {
+  gap: 28px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-clock {
+  min-width: 170px !important;
+  text-align: right !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-clock strong {
+  font-size: 52px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-clock span {
+  font-size: 27px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-content {
+  left: 74px !important;
+  right: 74px !important;
+  top: 238px !important;
+  bottom: 96px !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 42px !important;
+  overflow-y: auto !important;
+  padding-right: 0 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-form {
+  max-width: none !important;
+  padding: 48px 52px 52px !important;
+  border-radius: 30px !important;
+  background: rgba(255, 255, 255, .78) !important;
+  box-shadow: 0 22px 54px rgba(16, 8, 5, .08) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .kicker {
+  margin-bottom: 24px !important;
+  font-size: 17px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .title-row h1 {
+  font-size: 50px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .form-subtitle {
+  margin: 18px 0 42px !important;
+  font-size: 23px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .form-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 34px 36px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .field span,
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .visitor-count legend {
+  margin-bottom: 13px !important;
+  font-size: 22px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .input-shell input,
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .input-shell select,
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .custom-select,
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .select-trigger,
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .input-shell:has(.custom-select) {
+  height: 80px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .input-shell input,
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .select-trigger {
+  font-size: 21px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .count-options {
+  gap: 12px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .count-options button {
+  height: 76px !important;
+  font-size: 20px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .count-hint {
+  height: 54px !important;
+  font-size: 17px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .form-actions {
+  margin-top: 38px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .notice-card {
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 42px 46px 38px !important;
+  border-radius: 30px !important;
+  background: rgba(255, 255, 255, .84) !important;
+  box-shadow: 0 22px 54px rgba(16, 8, 5, .08) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .notice-card ul {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 20px 26px !important;
+  margin-top: 28px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .notice-card li {
+  min-height: 156px !important;
+  padding: 22px 24px !important;
+  border: 1px solid #ddd8d3 !important;
+  border-radius: 20px !important;
+  background: rgba(247, 245, 241, .56) !important;
+  grid-template-columns: 86px 1fr !important;
+  gap: 22px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .notice-card li img {
+  width: 82px !important;
+  height: 82px !important;
+  min-width: 82px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .notice-card strong {
+  margin-bottom: 8px !important;
+  font-size: 21px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .visitor-screen[data-kiosk-portrait-layout="true"] .notice-card small {
+  font-size: 17px !important;
+  line-height: 1.45 !important;
+}

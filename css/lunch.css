@@ -443,3 +443,204 @@
       0 0 38px rgba(255, 207, 111, .44);
   }
 }
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] {
+  background: var(--paper) !important;
+  overflow: hidden !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-bg {
+  background:
+    linear-gradient(180deg, rgba(247, 245, 241, .96), rgba(255, 255, 255, .98) 45%, rgba(247, 245, 241, .9)),
+    url("../images/快遞取件背景.png") center / cover no-repeat !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-header {
+  height: 178px !important;
+  padding: 36px 58px 0 !important;
+  grid-template-columns: 330px 1fr 270px !important;
+  align-items: start !important;
+  background: rgba(248, 247, 245, .88) !important;
+  box-shadow: 0 12px 34px rgba(16, 8, 5, .06) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-logo {
+  width: 318px !important;
+  height: 96px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-logo img {
+  width: 318px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .header-title strong {
+  font-size: 36px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .header-title span {
+  margin-top: 10px !important;
+  font-size: 15px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-status {
+  gap: 24px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-clock {
+  min-width: 156px !important;
+  text-align: right !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-clock strong {
+  font-size: 52px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-clock span {
+  font-size: 26px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .lunch-content {
+  left: 74px !important;
+  right: 74px !important;
+  top: 224px !important;
+  bottom: 108px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 0 !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .stepbar {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+  margin-bottom: 44px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .stepbar span {
+  height: 60px !important;
+  font-size: 20px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] #storeView .section-title {
+  margin-top: 86px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .store-back-home {
+  top: -74px !important;
+  height: 58px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] #storeView .section-title h1 {
+  font-size: 52px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] #storeView .section-title p {
+  font-size: 25px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .vendor-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 24px !important;
+  margin-top: 36px !important;
+  padding-bottom: 12px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .vendor-card {
+  height: 360px !important;
+  border-radius: 24px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .vendor-card span {
+  left: 28px !important;
+  bottom: 138px !important;
+  font-size: 15px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .vendor-card strong {
+  left: 28px !important;
+  right: 28px !important;
+  bottom: 78px !important;
+  font-size: 32px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .vendor-card p {
+  left: 28px !important;
+  right: 28px !important;
+  bottom: 30px !important;
+  font-size: 18px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .meal-layout {
+  grid-template-columns: 1fr !important;
+  gap: 34px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .menu-panel,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .cart-panel {
+  height: auto !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .menu-panel h1 {
+  font-size: 56px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .menu-list {
+  height: auto !important;
+  max-height: none !important;
+  margin-top: 42px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .menu-row {
+  height: 96px !important;
+  grid-template-columns: 1fr 128px 170px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .cart-panel {
+  padding: 42px 46px 46px !important;
+  border-radius: 26px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .cart-list {
+  height: auto !important;
+  min-height: 120px !important;
+  max-height: 320px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .payment-view {
+  min-height: 1450px !important;
+  height: auto !important;
+  padding: 132px 64px 72px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .method-grid {
+  width: 1040px !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 28px !important;
+  margin-top: 70px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .method-card {
+  height: 260px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .pay-list,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .pay-list.compact,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .employee-input,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .number-pad,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .summary-card-pay,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .confirm-box,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .reminder-box,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .primary-btn.wide,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .link-btn,
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .face-demo-frame {
+  width: 920px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .number-pad button {
+  height: 92px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .lunch-screen[data-kiosk-portrait-layout="true"] .face-demo-frame .face-camera {
+  width: 720px !important;
+  height: 430px !important;
+}

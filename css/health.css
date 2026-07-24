@@ -1852,6 +1852,194 @@ body.keyboard-open .booking-dialog,
   }
 }
 
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] {
+  display: block !important;
+  background:
+    radial-gradient(circle at 78% 6%, rgba(155, 115, 80, .1), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(243, 241, 236, .96)),
+    var(--paper) !important;
+  overflow: hidden !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-context-nav,
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .side-nav {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: auto !important;
+  width: auto !important;
+  height: 260px !important;
+  max-height: 260px !important;
+  padding: 42px 58px 30px !important;
+  display: grid !important;
+  grid-template-columns: 320px 1fr 240px !important;
+  gap: 34px !important;
+  align-items: start !important;
+  overflow: hidden !important;
+  border-right: 0 !important;
+  border-bottom: 1px solid rgba(221, 216, 211, .75) !important;
+  background: rgba(248, 247, 245, .88) !important;
+  box-shadow: 0 12px 34px rgba(35, 27, 20, .06) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-side-logo {
+  width: 300px !important;
+  height: 104px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: start !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-side-logo img {
+  width: 300px !important;
+  height: auto !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-nav-group {
+  min-width: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-nav-group h2 {
+  grid-column: 1 / -1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 20px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-nav-group a {
+  height: 64px !important;
+  min-height: 64px !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  border-radius: 16px !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: rgba(255, 255, 255, .48) !important;
+  font-size: 18px !important;
+  line-height: 1.15 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-nav-group a b {
+  font-size: 16px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-return {
+  width: 220px !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  margin: 32px 0 0 !important;
+  padding: 0 20px !important;
+  justify-content: center !important;
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, .78) !important;
+  box-shadow: 0 14px 30px rgba(35, 27, 20, .08) !important;
+  font-size: 22px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .main-area {
+  position: absolute !important;
+  left: 74px !important;
+  right: 74px !important;
+  top: 304px !important;
+  bottom: 106px !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  padding: 0 0 120px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .dashboard-view {
+  margin-top: 0 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-heading {
+  margin-top: 0 !important;
+  max-width: 1060px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-heading h2 {
+  font-size: 56px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-heading p:last-child {
+  font-size: 24px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-employee-card {
+  grid-template-columns: 1fr 330px 180px !important;
+  gap: 24px !important;
+  margin: 34px 0 34px !important;
+  padding: 34px 38px !important;
+  border-radius: 26px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .health-employee-card h3 {
+  font-size: 34px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .status-card {
+  grid-template-columns: 1fr !important;
+  gap: 28px !important;
+  padding: 36px 42px !important;
+  border-radius: 28px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .status-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 18px 0 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .status-actions {
+  grid-template-columns: 220px 1fr !important;
+  align-items: center !important;
+  gap: 24px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .status-actions em {
+  justify-self: stretch !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .slots {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 24px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .info-grid {
+  grid-template-columns: 1fr !important;
+  gap: 28px !important;
+  margin-bottom: 0 !important;
+}
+
+html[data-kiosk-orientation="portrait"] .health-screen[data-kiosk-portrait-layout="true"] .items-card ul {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .booking-modal .booking-dialog {
+  width: min(1040px, calc(100vw - 44px)) !important;
+  max-height: calc(100vh - 80px) !important;
+  padding: 34px !important;
+  border-radius: 26px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .booking-modal .booking-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .booking-modal .form-grid.three,
+html[data-kiosk-orientation="portrait"] .booking-modal .form-grid.two,
+html[data-kiosk-orientation="portrait"] .booking-modal .question-grid,
+html[data-kiosk-orientation="portrait"] .booking-modal .plan-grid,
+html[data-kiosk-orientation="portrait"] .booking-modal .modal-slot-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
 /* 2026-07-10 final: booking memory + keyboard containment */
 .health-context-nav {
   justify-content: flex-start !important;

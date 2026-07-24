@@ -2377,3 +2377,171 @@ body.attendance-keyboard-open .overtime-dialog {
   color: inherit;
   font-size: 18px;
 }
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-canvas {
+  width: 1350px !important;
+  height: 2140px !important;
+  background-position: center !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-header {
+  height: 176px !important;
+  grid-template-columns: 252px 1fr 286px !important;
+  padding: 0 58px !important;
+  background: rgba(255, 255, 255, .76) !important;
+  box-shadow: 0 12px 34px rgba(86, 62, 42, .08) !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .back-button {
+  height: 70px !important;
+  padding: 0 24px !important;
+  gap: 12px !important;
+  font-size: 22px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .page-title {
+  gap: 20px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .page-title svg {
+  width: 58px !important;
+  height: 58px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .page-title strong {
+  font-size: 36px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .page-title small {
+  font-size: 15px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .header-time span {
+  font-size: 17px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .header-time strong {
+  font-size: 48px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-main {
+  height: auto !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: auto auto !important;
+  gap: 38px !important;
+  align-items: start !important;
+  justify-content: stretch !important;
+  padding: 44px 74px 116px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-hero {
+  width: 100% !important;
+  height: 540px !important;
+  border-radius: 30px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-logo {
+  left: 52px !important;
+  top: 50px !important;
+  width: 280px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .clock-orb {
+  left: auto !important;
+  right: 120px !important;
+  top: 92px !important;
+  width: 240px !important;
+  height: 240px !important;
+  transform: none !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .clock-orb svg {
+  width: 118px !important;
+  height: 118px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-date {
+  left: 58px !important;
+  right: auto !important;
+  top: 214px !important;
+  font-size: 28px !important;
+  text-align: left !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-hero h1 {
+  left: 56px !important;
+  right: auto !important;
+  top: 270px !important;
+  font-size: 96px !important;
+  text-align: left !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-hero > p:last-of-type {
+  left: 58px !important;
+  right: 470px !important;
+  top: 420px !important;
+  font-size: 22px !important;
+  text-align: left !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .overtime-entry {
+  right: 72px !important;
+  bottom: 54px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .overtime-callout {
+  right: 212px !important;
+  bottom: 92px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-panel {
+  width: 100% !important;
+  min-height: 1130px !important;
+  padding: 56px 72px 60px !important;
+  border-radius: 30px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .mode-switch {
+  gap: 28px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .mode-switch button {
+  height: 178px !important;
+  min-height: 178px !important;
+  max-height: 178px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-input input {
+  height: 112px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .keypad {
+  gap: 22px !important;
+  margin-top: 26px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .keypad button {
+  height: 104px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .attendance-submit {
+  height: 104px !important;
+  margin-top: 34px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .face-card,
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .review-card {
+  width: 1020px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .success-header {
+  left: 24px !important;
+  right: 24px !important;
+  grid-template-columns: 250px 1fr 280px !important;
+}
+
+html[data-kiosk-orientation="portrait"] .kiosk-screen[data-kiosk-portrait-layout="true"] .success-main {
+  min-height: 1780px !important;
+  padding-top: 110px !important;
+}
